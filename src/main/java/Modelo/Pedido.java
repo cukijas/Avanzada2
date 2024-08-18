@@ -9,5 +9,10 @@ package Modelo;
  * @author Max 
  */
 public class Pedido {
+    int Codigo_Pedido;
+    char Estado_Pedido;
+    long int fecha_Pedido;
+    float total_pedido;
     
+            
 }
