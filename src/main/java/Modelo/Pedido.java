@@ -8,11 +8,19 @@ package Modelo;
  *
  * @author Max 
  */
-public class Pedido {
+public class Pedido 
+{
     int Codigo_Pedido;
     char Estado_Pedido;
-    long int fecha_Pedido;
-    float total_pedido;
+    int Fecha_Pedido;
+    float Total_pedido;
     
-            
+    public void getPedido(){
+    }
+    public void getPedidoXusuario(int ID_Usuario){
+    }
+    public void getEstado_Pedido(){
+    }
+    public void modEstado_Pedido(){
+    }
 }
