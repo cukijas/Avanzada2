@@ -9,5 +9,5 @@ package Modelo;
  * @author Max 
  */
 public class Producto {
-    
+    int aK;
 }
