@@ -9,10 +9,10 @@ package Modelo;
  * @author Max 
  */
 public class Persona {
-    char Nombre;
-    char Direccion;
-    char Correo;
-    char Contra;
+    private char Nombre;
+    private char Direccion;
+    private char Correo;
+    private char Contra;
     
     public void getUsuario(){
     }

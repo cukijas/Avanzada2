@@ -10,12 +10,12 @@ package Modelo;
  */
 public class Producto {
     
-    int Codigo_Producto;
-    int Nombre_Producto;
-    String descripcion;
-    char categoria;
-    float Precio;
-    int Stock;
+    private int Codigo_Producto;
+    private int Nombre_Producto;
+    private String descripcion;
+    private char categoria;
+    private float Precio;
+    private int Stock;
     
     public void get_productos(){  
     }

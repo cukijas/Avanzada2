@@ -9,6 +9,6 @@ package Modelo;
  * @author Max Saturn
  */
 public class Administrador extends Persona {
-    int ID_Administrador;
+    private int ID_Administrador;
     
 }

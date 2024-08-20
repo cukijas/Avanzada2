@@ -9,9 +9,9 @@ package Modelo;
  * @author Max 
  */
 public class Articulo {
-    int ID_Articulo;
-    int Cantidad_Articulo;
-    char Nombre_Articulo;
+    private int ID_Articulo;
+    private int Cantidad_Articulo;
+    private char Nombre_Articulo;
     
     public void getArticulo(){
     }

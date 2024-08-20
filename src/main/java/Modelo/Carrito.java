@@ -9,10 +9,10 @@ package Modelo;
  * @author Max 
  */
 public class Carrito {
-    int Cantidad_Producto;
-    float Detalle_envio;
-    float PrecioXarticulo;
-    float resumenCarrito;
+    private int Cantidad_Producto;
+    private float Detalle_envio;
+    private float PrecioXarticulo;
+    private float resumenCarrito;
     
     public void agregarCarrito(int Codigo_Producto){   
     }

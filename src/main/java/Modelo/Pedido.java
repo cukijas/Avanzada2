@@ -10,10 +10,10 @@ package Modelo;
  */
 public class Pedido 
 {
-    int Codigo_Pedido;
-    char Estado_Pedido;
-    int Fecha_Pedido;
-    float Total_pedido;
+    private int Codigo_Pedido;
+    private char Estado_Pedido;
+    private int Fecha_Pedido;
+    private float Total_pedido;
     
     public void getPedido(){
     }
