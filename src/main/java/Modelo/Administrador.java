@@ -10,5 +10,20 @@ package Modelo;
  */
 public class Administrador extends Persona {
     private int ID_Administrador;
+
+    /**
+     * @return the ID_Administrador
+     */
+    public int getID_Administrador() {
+        return ID_Administrador;
+    }
+
+    /**
+     * @param ID_Administrador the ID_Administrador to set
+     */
+    public void setID_Administrador(int ID_Administrador) {
+        this.ID_Administrador = ID_Administrador;
+    }
+    
     
 }

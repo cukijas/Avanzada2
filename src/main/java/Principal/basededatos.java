@@ -2,7 +2,7 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class Conexion {
+public class basededatos {
     // Atributos para la conexión
     private static final String URL = "jdbc:mysql://localhost:3306/TPIPA"; // Cambia el nombre de la base de datos si es necesario
     private static final String USER = "root"; // Usuario por defecto

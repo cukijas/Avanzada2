@@ -16,17 +16,90 @@ public class Producto {
     private char categoria;
     private float Precio;
     private int Stock;
+
+    /**
+     * @return the Codigo_Producto
+     */
+    public int getCodigo_Producto() {
+        return Codigo_Producto;
+    }
+
+    /**
+     * @param Codigo_Producto the Codigo_Producto to set
+     */
+    public void setCodigo_Producto(int Codigo_Producto) {
+        this.Codigo_Producto = Codigo_Producto;
+    }
+
+    /**
+     * @return the Nombre_Producto
+     */
+    public int getNombre_Producto() {
+        return Nombre_Producto;
+    }
+
+    /**
+     * @param Nombre_Producto the Nombre_Producto to set
+     */
+    public void setNombre_Producto(int Nombre_Producto) {
+        this.Nombre_Producto = Nombre_Producto;
+    }
+
+    /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
+     * @return the categoria
+     */
+    public char getCategoria() {
+        return categoria;
+    }
+
+    /**
+     * @param categoria the categoria to set
+     */
+    public void setCategoria(char categoria) {
+        this.categoria = categoria;
+    }
+
+    /**
+     * @return the Precio
+     */
+    public float getPrecio() {
+        return Precio;
+    }
+
+    /**
+     * @param Precio the Precio to set
+     */
+    public void setPrecio(float Precio) {
+        this.Precio = Precio;
+    }
+
+    /**
+     * @return the Stock
+     */
+    public int getStock() {
+        return Stock;
+    }
+
+    /**
+     * @param Stock the Stock to set
+     */
+    public void setStock(int Stock) {
+        this.Stock = Stock;
+    }
     
-    public void get_productos(){  
-    }
-    public void eliminar_producto(){  
-    }
-    public void get_precio(){  
-    }
-    public void get_stock(){  
-    }
-    public void añadir_producto(){  
-    }
-    public void modif_producto(){  
-    }
+    
 }

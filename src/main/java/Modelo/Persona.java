@@ -6,22 +6,76 @@ package Modelo;
 
 /**
  *
- * @author Max 
+ * @author Max
  */
 public class Persona {
-    private char Nombre;
-    private char Direccion;
-    private char Correo;
-    private char Contra;
-    
-    public void getUsuario(){
+
+    private String Nombre;
+    private String Direccion;
+    private String Correo;
+    private String Contra;
+
+    /**
+     * @return the Nombre
+     */
+    public String getNombre() {
+        return Nombre;
     }
-    public void getNombre(){
+
+    /**
+     * @param Nombre the Nombre to set
+     */
+    public void setNombre(String Nombre) {
+        this.Nombre = Nombre;
     }
-    public void getDireccion(){
+
+    /**
+     * @return the Direccion
+     */
+    public String getDireccion() {
+        return Direccion;
     }
-    public void getCorreo(){
+
+    /**
+     * @param Direccion the Direccion to set
+     */
+    public void setDireccion(String Direccion) {
+        this.Direccion = Direccion;
     }
-    public void getContra(){
+
+    /**
+     * @return the Correo
+     */
+    public String getCorreo() {
+        return Correo;
+    }
+
+    /**
+     * @param Correo the Correo to set
+     */
+    public void setCorreo(String Correo) {
+        this.Correo = Correo;
+    }
+
+    /**
+     * @return the Contra
+     */
+    public String getContra() {
+        return Contra;
+    }
+
+    /**
+     * @param Contra the Contra to set
+     */
+    public void setContra(String Contra) {
+        this.Contra = Contra;
+    }
+
+    public void RegistrarUsuario(String Nombre, String Direccion, String Correo, String Contra)
+    {
+        
     }
 }
+
+    
+   
