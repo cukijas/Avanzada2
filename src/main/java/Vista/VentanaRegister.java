@@ -4,21 +4,23 @@
  */
 package Vista;
 
+import Principal.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import Principal.Conexion;
+import javax.swing.JOptionPane;
 /**
  *
  * @author emito
  */
 public class VentanaRegister extends javax.swing.JFrame {
-    
+    Conexion con = new Conexion();
+    Connection cn = Conexion.conectar();
     
     public VentanaRegister() {
         initComponents();
         
-        Connection con = Conexion.conectar();
+        
     }
     
     /**
@@ -135,7 +137,21 @@ public class VentanaRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombreActionPerformed
 
     private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregisterActionPerformed
-        // TODO add your handling code here:
+        String nombre = txtnombre.getText();
+        String dir = txtdir.getText();
+        String mail = txtmail.getText();
+        String pass = txtpass.getText();
+        System.out.println("hola");
+        try{ //alta de usuario2
+            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
+                    + "VALUES ('"+ nombre + "','"+ dir +"','"+mail+"','"+ pass +"')";
+            
+            PreparedStatement ps = cn.prepareStatement(consulta);
+            ps.executeUpdate();
+            JOptionPane.showMessageDialog(null, "Registrado!");
+        }catch(Exception e){
+            System.out.println("mal"+e);
+        }
     }//GEN-LAST:event_btnregisterActionPerformed
 
     private void txtmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmailActionPerformed
@@ -147,19 +163,8 @@ public class VentanaRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_txtdirActionPerformed
 
     private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
-        String nombre = txtnombre.getText();
-        String dir = txtdir.getText();
-        String mail = txtmail.getText();
-        String pass = txtpass.getText();
-        
-        try{ //alta de usuario2
-            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
-                    + "VALUES ('"+ nombre + "','"+ dir +"','"+mail+"','"+ pass +"')";
-            
-            PreparedStatement ps = conexion.prepareStatement(consulta);
-        }catch(Exception e){
-            System.out.println("jaj");
-        }
+       
+       
     }//GEN-LAST:event_txtpassActionPerformed
 
     /**
