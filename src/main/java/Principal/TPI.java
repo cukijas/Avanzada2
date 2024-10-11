@@ -4,6 +4,7 @@ import java.sql.SQLException;
 
 public class TPI {
     public static void main(String[] args) {
+        
         Connection conexion = basededatos.conectar(); // Llama al método de conexión
 
         if (conexion != null) {
