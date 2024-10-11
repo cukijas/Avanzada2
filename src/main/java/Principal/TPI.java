@@ -5,9 +5,9 @@ import java.sql.SQLException;
 public class TPI {
     public static void main(String[] args) {
         
-        Connection conexion = basededatos.conectar(); // Llama al método de conexión
+        //Connection con = Conexion.conectar(); // Llama al método de conexión
 
-        if (conexion != null) {
+        /*if (conexion != null) {
             try {
                 // Aquí puedes realizar operaciones con la base de datos
                 // Cerrar la conexión al terminar
@@ -16,9 +16,9 @@ public class TPI {
             } catch (SQLException e) {
                 System.out.println("Error al cerrar la conexión: " + e.getMessage());
             }
-        }
+        }*/
         
-        // Lógica adicional para tu programa
+        
         VentanaRegister ventana1 = new VentanaRegister(); // Descomenta esto si necesitas abrir la ventana
         ventana1.setVisible(true); // Descomenta esto si necesitas mostrar la ventana
         

@@ -4,19 +4,23 @@
  */
 package Vista;
 
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import Principal.Conexion;
 /**
  *
  * @author emito
  */
 public class VentanaRegister extends javax.swing.JFrame {
-
-    /**
-     * Creates new form VentanaLogin
-     */
+    
+    
     public VentanaRegister() {
         initComponents();
+        
+        Connection con = Conexion.conectar();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,11 +30,11 @@ public class VentanaRegister extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        login = new javax.swing.JButton();
-        pass = new javax.swing.JPasswordField();
-        mail = new javax.swing.JTextField();
-        mail1 = new javax.swing.JTextField();
-        mail2 = new javax.swing.JTextField();
+        btnregister = new javax.swing.JButton();
+        txtpass = new javax.swing.JPasswordField();
+        txtnombre = new javax.swing.JTextField();
+        txtmail = new javax.swing.JTextField();
+        txtdir = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -38,41 +42,40 @@ public class VentanaRegister extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        login.setText("Iniciar Sesion");
-        login.addActionListener(new java.awt.event.ActionListener() {
+        btnregister.setText("Registrar");
+        btnregister.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                loginActionPerformed(evt);
+                btnregisterActionPerformed(evt);
             }
         });
 
-        pass.setText("jPasswordField1");
-        pass.addActionListener(new java.awt.event.ActionListener() {
+        txtpass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                passActionPerformed(evt);
+                txtpassActionPerformed(evt);
             }
         });
 
-        mail.addActionListener(new java.awt.event.ActionListener() {
+        txtnombre.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mailActionPerformed(evt);
+                txtnombreActionPerformed(evt);
             }
         });
 
-        mail1.addActionListener(new java.awt.event.ActionListener() {
+        txtmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mail1ActionPerformed(evt);
+                txtmailActionPerformed(evt);
             }
         });
 
-        mail2.addActionListener(new java.awt.event.ActionListener() {
+        txtdir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                mail2ActionPerformed(evt);
+                txtdirActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Correo");
 
-        jLabel2.setText("Usuario");
+        jLabel2.setText("Nombre");
 
         jLabel3.setText("Contraseña");
 
@@ -87,17 +90,17 @@ public class VentanaRegister extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(53, 53, 53)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(mail)
-                            .addComponent(mail1)
-                            .addComponent(mail2)
+                            .addComponent(txtnombre)
+                            .addComponent(txtmail)
+                            .addComponent(txtdir)
                             .addComponent(jLabel2)
                             .addComponent(jLabel4)
                             .addComponent(jLabel3)
                             .addComponent(jLabel1)
-                            .addComponent(pass, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
+                            .addComponent(txtpass, javax.swing.GroupLayout.DEFAULT_SIZE, 285, Short.MAX_VALUE)))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(155, 155, 155)
-                        .addComponent(login)))
+                        .addComponent(btnregister)))
                 .addContainerGap(60, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -106,46 +109,58 @@ public class VentanaRegister extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtnombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mail1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(mail2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtdir, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(pass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtpass, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(41, 41, 41)
-                .addComponent(login)
+                .addComponent(btnregister)
                 .addGap(105, 105, 105))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void mailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mailActionPerformed
+    private void txtnombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtnombreActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mailActionPerformed
+    }//GEN-LAST:event_txtnombreActionPerformed
 
-    private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
+    private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregisterActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_loginActionPerformed
+    }//GEN-LAST:event_btnregisterActionPerformed
 
-    private void mail1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mail1ActionPerformed
+    private void txtmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mail1ActionPerformed
+    }//GEN-LAST:event_txtmailActionPerformed
 
-    private void mail2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mail2ActionPerformed
+    private void txtdirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtdirActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_mail2ActionPerformed
+    }//GEN-LAST:event_txtdirActionPerformed
 
-    private void passActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_passActionPerformed
+    private void txtpassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtpassActionPerformed
+        String nombre = txtnombre.getText();
+        String dir = txtdir.getText();
+        String mail = txtmail.getText();
+        String pass = txtpass.getText();
+        
+        try{ //alta de usuario2
+            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
+                    + "VALUES ('"+ nombre + "','"+ dir +"','"+mail+"','"+ pass +"')";
+            
+            PreparedStatement ps = conexion.prepareStatement(consulta);
+        }catch(Exception e){
+            System.out.println("jaj");
+        }
+    }//GEN-LAST:event_txtpassActionPerformed
 
     /**
      * @param args the command line arguments
@@ -153,14 +168,14 @@ public class VentanaRegister extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    public javax.swing.JButton btnregister;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    public javax.swing.JButton login;
-    public javax.swing.JTextField mail;
-    public javax.swing.JTextField mail1;
-    public javax.swing.JTextField mail2;
-    public javax.swing.JPasswordField pass;
+    public javax.swing.JTextField txtdir;
+    public javax.swing.JTextField txtmail;
+    public javax.swing.JTextField txtnombre;
+    public javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables
 }

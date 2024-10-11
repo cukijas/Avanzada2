@@ -4,6 +4,8 @@
  */
 package Controlador;
 
+import Vista.VentanaRegister;
+
 /**
  *
  * @author Max 
