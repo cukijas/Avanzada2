@@ -3,20 +3,18 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class basededatos {
-    // Atributos para la conexión
-    private static final String URL = "jdbc:mysql://localhost:3306/TPIPA"; // Cambia el nombre de la base de datos si es necesario
-    private static final String USER = "root"; // Usuario por defecto
-    private static final String PASSWORD = ""; // Contraseña por defecto
+    private static final String URL = "jdbc:mysql://localhost:3306/TPIPA"; // Cambia 'TPIPA' por tu nombre de base de datos
+    private static final String USER = "root"; // Cambia 'root' si es necesario
+    private static final String PASS = ""; // Cambia la contraseña si es necesario
 
-    // Método para conectarse a la base de datos
     public static Connection conectar() {
-        Connection bd = null;
+        Connection conexion = null;
         try {
             // Cargar el driver de MySQL
             Class.forName("com.mysql.cj.jdbc.Driver");
             
             // Establecer la conexión
-            bd = DriverManager.getConnection(URL, USER, PASSWORD);
+            conexion = DriverManager.getConnection(URL, USER, PASS);
             System.out.println("Conexión exitosa a la base de datos");
 
         } catch (SQLException e) {
@@ -24,6 +22,6 @@ public class basededatos {
         } catch (ClassNotFoundException e) {
             System.out.println("Driver no encontrado: " + e.getMessage());
         }
-        return bd;
+        return conexion;
     }
 }
