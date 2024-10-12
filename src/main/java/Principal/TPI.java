@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 public class TPI {
     public static void main(String[] args) {
+        
         VentanaRegister ventana1 = new VentanaRegister();
         Usuario User = new Usuario();
         // Descomenta esto si necesitas abrir la ventana
