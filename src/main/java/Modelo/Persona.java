@@ -4,6 +4,11 @@
  */
 package Modelo;
 
+import Principal.Conexion;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Max
@@ -71,9 +76,26 @@ public class Persona {
         this.Contra = Contra;
     }
 
-    public void RegistrarUsuario(String Nombre, String Direccion, String Correo, String Contra)
+    public int RegistrarUsuario()
     {
-        
+        Conexion con = new Conexion();
+        Connection cn = Conexion.conectar();
+         try { 
+            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
+                    + "VALUES (?, ?, ?, ?)";
+            
+            PreparedStatement ps = cn.prepareStatement(consulta);
+            ps.setString(1, Nombre);
+            ps.setString(2, Direccion);
+            ps.setString(3, Correo);
+            ps.setString(4, Contra);
+            
+            ps.executeUpdate();
+            return 1;
+        } catch(Exception ex) {
+            System.out.println("Error al registrar el usuario: " + ex);
+        }
+       return 0;
     }
 }
 

@@ -25,5 +25,6 @@ public class Usuario extends Persona {
         this.ID_Usuario = ID_Usuario;
     }
 
+
     
 }

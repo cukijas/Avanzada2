@@ -4,6 +4,7 @@
  */
 package Vista;
 
+import Controlador.Ventana1Controller;
 import Principal.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -14,11 +15,11 @@ import javax.swing.JOptionPane;
  * @author emito
  */
 public class VentanaRegister extends javax.swing.JFrame {
-    Conexion con = new Conexion();
-    Connection cn = Conexion.conectar();
+    
     
     public VentanaRegister() {
         initComponents();  
+        
     }
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -129,21 +130,7 @@ public class VentanaRegister extends javax.swing.JFrame {
     }//GEN-LAST:event_txtnombreActionPerformed
 
     private void btnregisterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnregisterActionPerformed
-        String nombre = txtnombre.getText();
-        String dir = txtdir.getText();
-        String mail = txtmail.getText();
-        String pass = txtpass.getText();
         
-        try{ //alta de usuario2
-            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
-                    + "VALUES ('"+ nombre + "','"+ dir +"','"+mail+"','"+ pass +"')";
-            
-            PreparedStatement ps = cn.prepareStatement(consulta);
-            ps.executeUpdate();
-            JOptionPane.showMessageDialog(null, "Registrado!");
-        }catch(Exception e){
-            System.out.println("mal"+e);
-        }
     }//GEN-LAST:event_btnregisterActionPerformed
 
     private void txtmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtmailActionPerformed
@@ -175,4 +162,5 @@ public class VentanaRegister extends javax.swing.JFrame {
     public javax.swing.JTextField txtnombre;
     public javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables
+
 }
