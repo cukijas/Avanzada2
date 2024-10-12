@@ -7,6 +7,7 @@ package Modelo;
 import Principal.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
 /**
@@ -75,29 +76,46 @@ public class Persona {
     public void setContra(String Contra) {
         this.Contra = Contra;
     }
-
-    public int RegistrarUsuario()
-    {
+    
+    //CASO DE USO: Iniciar Sesion
+    public int IniciarSesion() {
         Conexion con = new Conexion();
         Connection cn = Conexion.conectar();
-         try { 
+        try {
             String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
                     + "VALUES (?, ?, ?, ?)";
-            
+
+            PreparedStatement ps = cn.prepareStatement(consulta);
+            ps.setString(1, Correo);
+            ps.setString(2, Contra);
+
+            ps.executeUpdate();
+            return 1;
+        } catch (SQLException ex) {
+            System.out.println("Error al registrar el usuario: " + ex);
+        }
+        return 0;
+    }
+    
+    //CASO DE USO: Registrar Usuario
+    public boolean RegistrarUsuario() {
+        Conexion con = new Conexion();
+        Connection cn = Conexion.conectar();
+        try {
+            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
+                    + "VALUES (?, ?, ?, ?)";
+
             PreparedStatement ps = cn.prepareStatement(consulta);
             ps.setString(1, Nombre);
             ps.setString(2, Direccion);
             ps.setString(3, Correo);
             ps.setString(4, Contra);
-            
+
             ps.executeUpdate();
-            return 1;
-        } catch(Exception ex) {
+            return true;
+        } catch (SQLException ex) {
             System.out.println("Error al registrar el usuario: " + ex);
         }
-       return 0;
+        return false;
     }
 }
-
-    
-   

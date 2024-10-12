@@ -17,12 +17,12 @@ import javax.swing.JOptionPane;
  *
  * @author Max 
  */
-public class Ventana1Controller implements ActionListener {
+public class RegisterController implements ActionListener {
 
     Usuario user = new Usuario();
     VentanaRegister vista = new VentanaRegister();    
    
-    public Ventana1Controller(VentanaRegister vista, Usuario user) {
+    public RegisterController(VentanaRegister vista, Usuario user) {
         this.vista = vista;
         this.user = user;
         // Registrar el controlador como ActionListener en la vista
@@ -32,14 +32,18 @@ public class Ventana1Controller implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) 
     {
-        int band = 0;
+        boolean band;
         user.setNombre(vista.txtnombre.getText());
         user.setCorreo(vista.txtmail.getText());
         user.setDireccion(vista.txtdir.getText());
         user.setContra(vista.txtpass.getText());
         band = user.RegistrarUsuario();
-        if(band == 1){
-            JOptionPane.showMessageDialog(null, "Usuario Registrado!");
+        if(band){
+            vista.dispose();
+            JOptionPane.showMessageDialog(null, "Usuario Registrado!\n Ya puede Iniciar sesion");
+        }else{
+            JOptionPane.showMessageDialog(null, "Error al Registrar :(\n Intente Nuevamente");
+            vista.limpiar();
         }
         
     }

@@ -4,7 +4,7 @@
  */
 package Vista;
 
-import Controlador.Ventana1Controller;
+import Controlador.RegisterController;
 import Principal.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -145,7 +145,11 @@ public class VentanaRegister extends javax.swing.JFrame {
        
        
     }//GEN-LAST:event_txtpassActionPerformed
-
+    public void limpiar(){
+        txtnombre.setText("");
+        txtmail.setText("");
+        
+    }
     /**
      * @param args the command line arguments
      */

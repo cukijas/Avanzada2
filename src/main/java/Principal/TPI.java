@@ -1,4 +1,4 @@
-import Controlador.Ventana1Controller;
+import Controlador.RegisterController;
 import Modelo.Usuario;
 import Vista.VentanaRegister;
 import java.sql.Connection;
@@ -11,7 +11,7 @@ public class TPI {
         // Descomenta esto si necesitas abrir la ventana
         ventana1.setVisible(true); // Descomenta esto si necesitas mostrar la ventana
         ventana1.setLocationRelativeTo(null);
-        Ventana1Controller ctrl = new Ventana1Controller(ventana1, User);
+        RegisterController ctrl = new RegisterController(ventana1, User);
         
     }
 }
