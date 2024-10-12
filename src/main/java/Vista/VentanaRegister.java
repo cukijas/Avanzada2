@@ -133,7 +133,7 @@ public class VentanaRegister extends javax.swing.JFrame {
         String dir = txtdir.getText();
         String mail = txtmail.getText();
         String pass = txtpass.getText();
-        System.out.println("hola");
+        
         try{ //alta de usuario2
             String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
                     + "VALUES ('"+ nombre + "','"+ dir +"','"+mail+"','"+ pass +"')";
