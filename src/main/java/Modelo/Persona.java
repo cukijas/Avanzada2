@@ -82,10 +82,11 @@ public class Persona {
     public boolean IniciarSesion() {
         Conexion con = new Conexion();
         Connection cn = Conexion.conectar();
-        String consulta = "SELECT * FROM usuarios WHERE Correo LIKE ? ";
+        String consulta = "SELECT * FROM usuarios WHERE Correo LIKE ? AND Contraseña LIKE ?;";
         try {
             PreparedStatement ps = cn.prepareStatement(consulta);
             ps.setString(1, Correo);
+            ps.setString(2, Contra);
             ResultSet rs = ps.executeQuery();
             if(rs.next())
             {
