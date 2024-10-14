@@ -9,13 +9,14 @@ import Vista.VentanaLogin;
 import Vista.VentanaRegister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author emito
  */
-/*public class LoginController implements ActionListener{
+public class LoginController implements ActionListener{
     
     Usuario user = new Usuario();
     VentanaLogin vista = new VentanaLogin();    
@@ -25,18 +26,23 @@ import javax.swing.JOptionPane;
         this.user = user;
         // Registrar el controlador como ActionListener en la vista
         this.vista.btnlogin.addActionListener(this);
+       // this.vista.labelregister.addKeyListener();
     }
+    
     public void actionPerformed(ActionEvent e) 
     {
-        int band = 0;
+        boolean band;
         user.setCorreo(vista.txtmail.getText());
         user.setContra(vista.txtpass.getText());
-        band = user.RegistrarUsuario();
-        if(band == 1){
+        band = user.IniciarSesion();
+        if(band){
             vista.dispose();
-            JOptionPane.showMessageDialog(null, "Usuario Registrado!\n Ya puede Iniciar sesion");
+            JOptionPane.showMessageDialog(null, "Felicidades!");
         }
         
     }
+    public void mouseClicked(MouseEvent e){
+        System.out.println("hola");
+            
+    }
 }
-*/
