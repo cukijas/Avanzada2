@@ -7,6 +7,7 @@ package Modelo;
 import Principal.Conexion;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -78,23 +79,24 @@ public class Persona {
     }
     
     //CASO DE USO: Iniciar Sesion
-    public int IniciarSesion() {
+    public boolean IniciarSesion() {
         Conexion con = new Conexion();
         Connection cn = Conexion.conectar();
+        String consulta = "SELECT * FROM usuarios WHERE Correo LIKE ? ";
         try {
-            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
-                    + "VALUES (?, ?, ?, ?)";
-
             PreparedStatement ps = cn.prepareStatement(consulta);
             ps.setString(1, Correo);
-            ps.setString(2, Contra);
-
-            ps.executeUpdate();
-            return 1;
+            ResultSet rs = ps.executeQuery();
+            if(rs.next())
+            {
+                 return true;
+            }else{
+                return false;
+            }
         } catch (SQLException ex) {
             System.out.println("Error al registrar el usuario: " + ex);
         }
-        return 0;
+        return false;
     }
     
     //CASO DE USO: Registrar Usuario
