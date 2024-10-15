@@ -19,22 +19,16 @@ public class VentanaPrincipalController implements ActionListener {
 
     VentanaPrincipal vista;
     Producto prod = new Producto();
-    
-    
-    public VentanaPrincipalController (VentanaPrincipal vista) {
+
+    public VentanaPrincipalController(VentanaPrincipal vista) {
         this.vista = vista;
-        // Registrar el controlador como ActionListener en la vista
-        //this.vista.btnlogin.addActionListener(this);
-       // this.vista.labelregister.addKeyListener();
-       vista.setVisible(true);
-       prod.ListarProductosUsuarios(vista);
+        vista.setVisible(true);
+        prod.ListarProductosUsuarios(vista);
     }
-    
+
     @Override
     public void actionPerformed(ActionEvent e) {
-       prod.ListarProductosUsuarios(vista);
+        prod.ListarProductosUsuarios(vista);
     }
-    
-    
-    
+
 }

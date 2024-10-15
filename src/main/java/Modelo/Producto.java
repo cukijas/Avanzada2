@@ -15,42 +15,44 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  *
- * @author Max 
+ * @author Max
  */
 public class Producto {
-    
+
     private int Codigo_Producto;
     private int Nombre_Producto;
     private String descripcion;
     private char categoria;
     private float Precio;
     private int Stock;
-    
-    public void ListarProductosUsuarios(VentanaPrincipal vista)
-    {
+
+    public void ListarProductosUsuarios(VentanaPrincipal vista) {
         Conexion con = new Conexion();
         Connection cn = Conexion.conectar();
-        String consulta = "SELECT Nombre, Descripcion, c.Categoria, Precio, Stock "
+        String consulta = "SELECT Nombre, Descripcion, c.Categoria, Precio, PrecioEnvio, Stock "
                 + "FROM productos p INNER JOIN categorias c "
                 + "ON c.ID_categoria = p.Categoria "; //consulta para tomar las categorias
-        String N, D, C, P, S;
+        String N, D, C, P, S, PE;
         try {
             PreparedStatement ps = cn.prepareStatement(consulta);
             ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = new DefaultTableModel(new String[]{"Nombre","Descripcion","Categoria","Precio","Stock"},0);
+            DefaultTableModel model = new DefaultTableModel(new String[]{"Nombre", "Descripcion", 
+                "Categoria", "Precio","Precio de Envio", "Stock"}, 0);
             vista.listaproductos.setModel(model);
             while (rs.next()) {
                 N = rs.getString("Nombre");
                 D = rs.getString("Descripcion");
                 C = rs.getString("Categoria");
                 P = rs.getString("Precio");
+                PE = rs.getString("PrecioEnvio");
                 S = rs.getString("Stock");
-                model.addRow(new Object[]{N,D,C,P,S});
+                model.addRow(new Object[]{N, D, C, P, PE, S});
             }
         } catch (SQLException error) {
             System.out.println("Error al cargar productos" + error);
         }
     }
+
     /**
      * @return the Codigo_Producto
      */
@@ -134,6 +136,5 @@ public class Producto {
     public void setStock(int Stock) {
         this.Stock = Stock;
     }
-    
-    
+
 }
