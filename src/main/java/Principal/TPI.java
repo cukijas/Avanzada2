@@ -1,5 +1,6 @@
 import Controlador.LoginController;
 import Controlador.RegisterController;
+import Controlador.VentanaPrincipalController;
 import Modelo.Usuario;
 import Vista.VListarProductos;
 import Vista.VentanaLogin;
@@ -18,7 +19,8 @@ public class TPI {
         // Descomenta esto si necesitas abrir la ventana
         LoginController ctrl = new LoginController(ventana1, User);
         
-        //RegisterController ctrl = new RegisterController(ventana1, User);
+        VentanaPrincipal v = new VentanaPrincipal();
+        VentanaPrincipalController ctrlp = new VentanaPrincipalController(v);
         //VListarProductos listarpedidos = new VListarProductos();
         //listarpedidos.setVisible(true);
         

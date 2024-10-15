@@ -4,7 +4,14 @@
  */
 package Modelo;
 
+import Principal.Conexion;
 import Vista.VentanaPrincipal;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 
 /**
  *
@@ -21,7 +28,28 @@ public class Producto {
     
     public void ListarProductosUsuarios(VentanaPrincipal vista)
     {
-        
+        Conexion con = new Conexion();
+        Connection cn = Conexion.conectar();
+        String consulta = "SELECT Nombre, Descripcion, c.Categoria, Precio, Stock "
+                + "FROM productos p INNER JOIN categorias c "
+                + "ON c.ID_categoria = p.Categoria "; //consulta para tomar las categorias
+        String N, D, C, P, S;
+        try {
+            PreparedStatement ps = cn.prepareStatement(consulta);
+            ResultSet rs = ps.executeQuery();
+            DefaultTableModel model = new DefaultTableModel(new String[]{"Nombre","Descripcion","Categoria","Precio","Stock"},0);
+            vista.listaproductos.setModel(model);
+            while (rs.next()) {
+                N = rs.getString("Nombre");
+                D = rs.getString("Descripcion");
+                C = rs.getString("Categoria");
+                P = rs.getString("Precio");
+                S = rs.getString("Stock");
+                model.addRow(new Object[]{N,D,C,P,S});
+            }
+        } catch (SQLException error) {
+            System.out.println("Error al cargar productos" + error);
+        }
     }
     /**
      * @return the Codigo_Producto

@@ -41,8 +41,9 @@ public class LoginController implements ActionListener, MouseListener {
         try {
             band = user.IniciarSesion();
             if (band) {
+                //Cerrar ventana de Inicio de sesion
                 vista.dispose();
-                //inicio sesion correctamente
+                //Inicio sesion correctamente, se despliega la pantalla principal
                 VentanaPrincipal VistaMain = new VentanaPrincipal();
                 VentanaPrincipalController controladorPrincipal = new VentanaPrincipalController(VistaMain);
                 //JOptionPane.showMessageDialog(null, "Felicidades!");
@@ -74,4 +75,6 @@ public class LoginController implements ActionListener, MouseListener {
 
 
     public void mouseExited(MouseEvent evt) {}
+
+   
 }

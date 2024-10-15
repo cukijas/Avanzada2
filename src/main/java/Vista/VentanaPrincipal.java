@@ -32,7 +32,7 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        listaproductos = new javax.swing.JTable();
         btnadd = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
@@ -92,10 +92,10 @@ public class VentanaPrincipal extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(153, 153, 255));
         jPanel2.setForeground(new java.awt.Color(153, 153, 255));
 
-        jTable1.setBackground(new java.awt.Color(204, 204, 204));
-        jTable1.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
-        jTable1.setForeground(new java.awt.Color(0, 0, 0));
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        listaproductos.setBackground(new java.awt.Color(204, 204, 204));
+        listaproductos.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
+        listaproductos.setForeground(new java.awt.Color(0, 0, 0));
+        listaproductos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null},
                 {null, null, null, null, null},
@@ -106,8 +106,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
                 "Nombre", "Descripcion", "Categoria", "Precio", "Stock"
             }
         ));
-        jTable1.setSelectionBackground(new java.awt.Color(0, 153, 255));
-        jScrollPane1.setViewportView(jTable1);
+        listaproductos.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        jScrollPane1.setViewportView(listaproductos);
 
         btnadd.setFont(new java.awt.Font("Microsoft Sans Serif", 0, 12)); // NOI18N
         btnadd.setText("Añadir al Carrito");
@@ -253,8 +253,8 @@ public class VentanaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    public javax.swing.JTable jTable1;
     public javax.swing.JTextField jTextField1;
     public javax.swing.JToggleButton jToggleButton1;
+    public javax.swing.JTable listaproductos;
     // End of variables declaration//GEN-END:variables
 }

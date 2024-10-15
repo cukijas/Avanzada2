@@ -28,12 +28,11 @@ public class VentanaPrincipalController implements ActionListener {
        // this.vista.labelregister.addKeyListener();
        vista.setVisible(true);
        prod.ListarProductosUsuarios(vista);
-       
     }
     
     @Override
     public void actionPerformed(ActionEvent e) {
-       
+       prod.ListarProductosUsuarios(vista);
     }
     
     
