@@ -77,7 +77,7 @@ public class Persona {
     public void setContra(String Contra) {
         this.Contra = Contra;
     }
-    
+
     //CASO DE USO: Iniciar Sesion
     public boolean IniciarSesion() {
         Conexion con = new Conexion();
@@ -88,10 +88,9 @@ public class Persona {
             ps.setString(1, Correo);
             ps.setString(2, Contra);
             ResultSet rs = ps.executeQuery();
-            if(rs.next())
-            {
-                 return true;
-            }else{
+            if (rs.next()) {
+                return true;
+            } else {
                 return false;
             }
         } catch (SQLException ex) {
@@ -99,13 +98,30 @@ public class Persona {
         }
         return false;
     }
-    
+
     //CASO DE USO: Registrar Usuario
-    public boolean RegistrarUsuario() {
+    public int RegistrarUsuario() {
         Conexion con = new Conexion();
         Connection cn = Conexion.conectar();
+        //consulta si existe el usuario antes de registrar
+        String consulta = "SELECT * FROM usuarios WHERE Correo LIKE ? AND Contraseña LIKE ?;";
         try {
-            String consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
+            PreparedStatement ps = cn.prepareStatement(consulta);
+            ps.setString(1, Correo);
+            ps.setString(2, Contra);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                if (rs != null) { //si encontro algo distinto de null termina la funcion
+                    JOptionPane.showMessageDialog(null, "Ya se encuentra registrado \n Inicie Sesion");
+                    return 0;
+                }
+            }
+        } catch (SQLException error) {
+            System.out.println("Error al registrar el usuario: " + error);
+        }
+        //si no existe entonces inserta
+        try {
+            consulta = "INSERT INTO `usuarios`( `Nombre`, `Direccion`, `Correo`, `Contraseña`) "
                     + "VALUES (?, ?, ?, ?)";
 
             PreparedStatement ps = cn.prepareStatement(consulta);
@@ -115,10 +131,10 @@ public class Persona {
             ps.setString(4, Contra);
 
             ps.executeUpdate();
-            return true;
+            return 1;
         } catch (SQLException ex) {
             System.out.println("Error al registrar el usuario: " + ex);
+            return 2;
         }
-        return false;
     }
 }

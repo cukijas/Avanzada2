@@ -4,6 +4,10 @@
  */
 package Vista;
 
+import java.awt.Cursor;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 /**
  *
  * @author emito
@@ -38,6 +42,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         btnlogin = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         labelregister = new javax.swing.JLabel();
+        labelregister1 = new javax.swing.JLabel();
         jPanel4 = new javax.swing.JPanel();
 
         jButton1.setText("jButton1");
@@ -74,6 +79,8 @@ public class VentanaLogin extends javax.swing.JFrame {
         btnadmin.setBackground(new java.awt.Color(255, 51, 51));
         btnadmin.setForeground(new java.awt.Color(0, 0, 0));
         btnadmin.setText("Administrador");
+        btnadmin.setToolTipText("");
+        btnadmin.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         btnadmin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnadminActionPerformed(evt);
@@ -134,12 +141,20 @@ public class VentanaLogin extends javax.swing.JFrame {
         labelregister.setBackground(new java.awt.Color(0, 0, 0));
         labelregister.setFont(new java.awt.Font("Microsoft YaHei", 0, 14)); // NOI18N
         labelregister.setForeground(new java.awt.Color(0, 0, 0));
-        labelregister.setText("¿No tienes cuenta? Registrate aqui");
+        labelregister.setText("<html><a href=''>Registrate aquí</a></html>");
+        labelregister.setToolTipText("");
+        labelregister.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         labelregister.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 labelregisterMouseClicked(evt);
             }
         });
+
+        labelregister1.setBackground(new java.awt.Color(0, 0, 0));
+        labelregister1.setFont(new java.awt.Font("Microsoft YaHei", 0, 14)); // NOI18N
+        labelregister1.setForeground(new java.awt.Color(0, 0, 0));
+        labelregister1.setText("¿No tienes cuenta?");
+        labelregister1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,17 +163,20 @@ public class VentanaLogin extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(78, 78, 78)
+                        .addGap(12, 12, 12)
+                        .addComponent(labelregister1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(labelregister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(77, 77, 77)
                         .addComponent(jLabel2))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
-                        .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(labelregister))))
-                .addContainerGap(22, Short.MAX_VALUE))
+                        .addGap(55, 55, 55)
+                        .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 159, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(18, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -170,8 +188,10 @@ public class VentanaLogin extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnlogin, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(labelregister)
-                .addContainerGap(27, Short.MAX_VALUE))
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(labelregister, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labelregister1))
+                .addContainerGap(33, Short.MAX_VALUE))
         );
 
         jPanel4.setBackground(new java.awt.Color(255, 102, 102));
@@ -180,7 +200,7 @@ public class VentanaLogin extends javax.swing.JFrame {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 260, Short.MAX_VALUE)
+            .addGap(0, 222, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -193,8 +213,9 @@ public class VentanaLogin extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,10 +243,6 @@ public class VentanaLogin extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtmailActionPerformed
 
-    private void labelregisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelregisterMouseClicked
-        // TODO add your handling code here:
-    }//GEN-LAST:event_labelregisterMouseClicked
-
     private void btnloginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnloginActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnloginActionPerformed
@@ -233,6 +250,10 @@ public class VentanaLogin extends javax.swing.JFrame {
     private void btnadminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnadminActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnadminActionPerformed
+
+    private void labelregisterMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_labelregisterMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_labelregisterMouseClicked
 
     /**
      * @param args the command line arguments
@@ -281,6 +302,7 @@ public class VentanaLogin extends javax.swing.JFrame {
     public javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel4;
     public javax.swing.JLabel labelregister;
+    public javax.swing.JLabel labelregister1;
     public javax.swing.JTextField txtmail;
     public javax.swing.JPasswordField txtpass;
     // End of variables declaration//GEN-END:variables

@@ -4,6 +4,7 @@
  */
 package Controlador;
 
+import Modelo.Producto;
 import Modelo.Usuario;
 import Vista.VentanaLogin;
 import Vista.VentanaPrincipal;
@@ -16,7 +17,8 @@ import java.awt.event.ActionListener;
  */
 public class VentanaPrincipalController implements ActionListener {
 
-    VentanaPrincipal vista = new VentanaPrincipal();
+    VentanaPrincipal vista;
+    Producto prod = new Producto();
     
     
     public VentanaPrincipalController (VentanaPrincipal vista) {
@@ -24,6 +26,9 @@ public class VentanaPrincipalController implements ActionListener {
         // Registrar el controlador como ActionListener en la vista
         //this.vista.btnlogin.addActionListener(this);
        // this.vista.labelregister.addKeyListener();
+       vista.setVisible(true);
+       prod.ListarProductosUsuarios(vista);
+       
     }
     
     @Override

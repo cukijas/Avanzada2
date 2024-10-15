@@ -4,6 +4,8 @@
  */
 package Modelo;
 
+import Vista.VentanaPrincipal;
+
 /**
  *
  * @author Max 
@@ -16,7 +18,11 @@ public class Producto {
     private char categoria;
     private float Precio;
     private int Stock;
-
+    
+    public void ListarProductosUsuarios(VentanaPrincipal vista)
+    {
+        
+    }
     /**
      * @return the Codigo_Producto
      */

@@ -11,6 +11,7 @@ import Vista.VentanaRegister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.sql.SQLException;
 import javax.swing.JOptionPane;
 
@@ -18,17 +19,19 @@ import javax.swing.JOptionPane;
  *
  * @author emito
  */
-public class LoginController implements ActionListener {
+public class LoginController implements ActionListener, MouseListener {
 
-    Usuario user = new Usuario();
-    VentanaLogin vista = new VentanaLogin();
+    Usuario user;
+    VentanaLogin vista;
 
     public LoginController(VentanaLogin vista, Usuario user) {
         this.vista = vista;
         this.user = user;
         // Registrar el controlador como ActionListener en la vista
         this.vista.btnlogin.addActionListener(this);
-        // this.vista.labelregister.addKeyListener();
+        this.vista.labelregister.addMouseListener(this);
+        this.vista.setVisible(true); // Descomenta esto si necesitas mostrar la ventana
+        this.vista.setLocationRelativeTo(null);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -40,10 +43,8 @@ public class LoginController implements ActionListener {
             if (band) {
                 vista.dispose();
                 //inicio sesion correctamente
-                VentanaPrincipal nuevaVista = new VentanaPrincipal();
-                VentanaPrincipalController controladorPrincipal = new VentanaPrincipalController(nuevaVista);
-                nuevaVista.setVisible(true);
-                nuevaVista.setLocationRelativeTo(null);
+                VentanaPrincipal VistaMain = new VentanaPrincipal();
+                VentanaPrincipalController controladorPrincipal = new VentanaPrincipalController(VistaMain);
                 //JOptionPane.showMessageDialog(null, "Felicidades!");
             } else {
                 JOptionPane.showMessageDialog(null, "Intente Nuevamente", "Datos Incorrectos!", 0); //esta bien asi?
@@ -51,7 +52,26 @@ public class LoginController implements ActionListener {
         }catch (Exception o) {
             JOptionPane.showMessageDialog(null, "Intente Nuevamente", "Error!", 0);
         }
-
+        
     }
+    public void mouseClicked(MouseEvent evt) {
+        // Cambiar a la vista de registro
+        vista.dispose();
+        VentanaRegister reg = new VentanaRegister();
+        RegisterController ctrlreg = new RegisterController(reg,user); // Asumimos que existe una clase VentanaRegistro
+        
+    }
+    
+    // Métodos vacíos para los demás eventos del MouseListener
 
+    public void mousePressed(MouseEvent evt) {}
+
+
+    public void mouseReleased(MouseEvent evt) {}
+
+
+    public void mouseEntered(MouseEvent evt) {}
+
+
+    public void mouseExited(MouseEvent evt) {}
 }

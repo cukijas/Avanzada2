@@ -6,6 +6,7 @@ package Controlador;
 
 import Modelo.Usuario;
 import Principal.Conexion;
+import Vista.VentanaLogin;
 import Vista.VentanaRegister;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,36 +16,42 @@ import javax.swing.JOptionPane;
 
 /**
  *
- * @author Max 
+ * @author Max
  */
 public class RegisterController implements ActionListener {
 
     Usuario user = new Usuario();
-    VentanaRegister vista = new VentanaRegister();    
-   
+    VentanaRegister vista = new VentanaRegister();
+
     public RegisterController(VentanaRegister vista, Usuario user) {
         this.vista = vista;
         this.user = user;
         // Registrar el controlador como ActionListener en la vista
         this.vista.btnregister.addActionListener(this);
+        vista.setVisible(true);
+        vista.setLocationRelativeTo(null);
     }
-     
+
     @Override
-    public void actionPerformed(ActionEvent e) 
-    {
-        boolean band;
+    public void actionPerformed(ActionEvent e) {
+        int band;
         user.setNombre(vista.txtnombre.getText());
         user.setCorreo(vista.txtmail.getText());
         user.setDireccion(vista.txtdir.getText());
         user.setContra(vista.txtpass.getText());
         band = user.RegistrarUsuario();
-        if(band){
+        if (band == 1) {
             vista.dispose();
             JOptionPane.showMessageDialog(null, "Usuario Registrado!\n Ya puede Iniciar sesion");
-        }else{
-            JOptionPane.showMessageDialog(null, "Error al Registrar :(\n Intente Nuevamente");
-            vista.limpiar();
+            VentanaLogin login = new VentanaLogin();
+            LoginController ctrl = new LoginController(login, user);
+        } else {
+            if (band == 0) {
+                vista.limpiar();
+
+            }
+
         }
-        
+
     }
 }
