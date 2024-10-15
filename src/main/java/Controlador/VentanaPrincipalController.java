@@ -10,6 +10,7 @@ import Vista.VentanaLogin;
 import Vista.VentanaPrincipal;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JFrame;
 
 /**
  *
@@ -23,6 +24,7 @@ public class VentanaPrincipalController implements ActionListener {
     public VentanaPrincipalController(VentanaPrincipal vista) {
         this.vista = vista;
         vista.setVisible(true);
+        vista.setExtendedState(JFrame.MAXIMIZED_BOTH);
         prod.ListarProductosUsuarios(vista);
     }
 

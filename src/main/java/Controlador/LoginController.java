@@ -5,6 +5,7 @@
 package Controlador;
 
 import Modelo.Usuario;
+import Vista.VentanaAdministrador;
 import Vista.VentanaLogin;
 import Vista.VentanaPrincipal;
 import Vista.VentanaRegister;
@@ -31,6 +32,7 @@ public class LoginController implements ActionListener, MouseListener {
         this.vista.btnlogin.addActionListener(this);
         this.vista.labelregister.addMouseListener(this);
         this.vista.setVisible(true); // Descomenta esto si necesitas mostrar la ventana
+        this.vista.setResizable(false);
         this.vista.setLocationRelativeTo(null);
     }
 
@@ -43,38 +45,43 @@ public class LoginController implements ActionListener, MouseListener {
             if (band) {
                 //Cerrar ventana de Inicio de sesion
                 vista.dispose();
-                //Inicio sesion correctamente, se despliega la pantalla principal
-                VentanaPrincipal VistaMain = new VentanaPrincipal();
-                VentanaPrincipalController controladorPrincipal = new VentanaPrincipalController(VistaMain);
-                //JOptionPane.showMessageDialog(null, "Felicidades!");
+                if (vista.btnadmin.isSelected()) {
+                   VentanaAdministrador VistaMainAdm = new VentanaAdministrador();
+                   VentanaAdministradorCtrl ControladorAdm = new VentanaAdministradorCtrl(VistaMainAdm);
+                } else {
+                    //Inicio sesion correctamente, se despliega la pantalla principal
+                    VentanaPrincipal VistaMain = new VentanaPrincipal();
+                    VentanaPrincipalController controladorPrincipal = new VentanaPrincipalController(VistaMain);
+                    //JOptionPane.showMessageDialog(null, "Felicidades!");
+                }
             } else {
                 JOptionPane.showMessageDialog(null, "Intente Nuevamente", "Datos Incorrectos!", 0); //esta bien asi?
             }
-        }catch (Exception o) {
+        } catch (Exception o) {
             JOptionPane.showMessageDialog(null, "Intente Nuevamente", "Error!", 0);
         }
-        
+
     }
+
     public void mouseClicked(MouseEvent evt) {
         // Cambiar a la vista de registro
         vista.dispose();
         VentanaRegister reg = new VentanaRegister();
-        RegisterController ctrlreg = new RegisterController(reg,user); // Asumimos que existe una clase VentanaRegistro
-        
+        RegisterController ctrlreg = new RegisterController(reg, user); // Asumimos que existe una clase VentanaRegistro
+
     }
-    
+
     // Métodos vacíos para los demás eventos del MouseListener
+    public void mousePressed(MouseEvent evt) {
+    }
 
-    public void mousePressed(MouseEvent evt) {}
+    public void mouseReleased(MouseEvent evt) {
+    }
 
+    public void mouseEntered(MouseEvent evt) {
+    }
 
-    public void mouseReleased(MouseEvent evt) {}
+    public void mouseExited(MouseEvent evt) {
+    }
 
-
-    public void mouseEntered(MouseEvent evt) {}
-
-
-    public void mouseExited(MouseEvent evt) {}
-
-   
 }

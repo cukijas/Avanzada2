@@ -20,7 +20,7 @@ public class TPI {
         LoginController ctrl = new LoginController(ventana1, User);
         
         VentanaPrincipal v = new VentanaPrincipal();
-        VentanaPrincipalController ctrlp = new VentanaPrincipalController(v);
+        //VentanaPrincipalController ctrlp = new VentanaPrincipalController(v);
         //VListarProductos listarpedidos = new VListarProductos();
         //listarpedidos.setVisible(true);
         

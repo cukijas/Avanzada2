@@ -30,6 +30,7 @@ public class RegisterController implements ActionListener {
         this.vista.btnregister.addActionListener(this);
         vista.setVisible(true);
         vista.setLocationRelativeTo(null);
+        this.vista.setResizable(false);
     }
 
     @Override
