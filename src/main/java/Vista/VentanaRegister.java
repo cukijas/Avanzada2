@@ -4,12 +4,6 @@
  */
 package Vista;
 
-import Controlador.RegisterController;
-import Principal.Conexion;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
 /**
  *
  * @author emito

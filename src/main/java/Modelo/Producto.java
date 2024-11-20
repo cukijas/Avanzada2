@@ -4,137 +4,86 @@
  */
 package Modelo;
 
-import Principal.Conexion;
-import Vista.VentanaPrincipal;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 /**
  *
  * @author Max
  */
-public class Producto {
+@Entity
+public class Producto implements Serializable {
 
-    private int Codigo_Producto;
-    private int Nombre_Producto;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private int id;
+    private int nombre_producto;
     private String descripcion;
     private char categoria;
-    private float Precio;
-    private int Stock;
+    private float precio;
+    private int stock;
 
-    public void ListarProductosUsuarios(VentanaPrincipal vista) {
-        Conexion con = new Conexion();
-        Connection cn = Conexion.conectar();
-        String consulta = "SELECT Nombre, Descripcion, c.Categoria, Precio, PrecioEnvio, Stock "
-                + "FROM productos p INNER JOIN categorias c "
-                + "ON c.ID_categoria = p.Categoria "; //consulta para tomar las categorias
-        String N, D, C, P, S, PE;
-        try {
-            PreparedStatement ps = cn.prepareStatement(consulta);
-            ResultSet rs = ps.executeQuery();
-            DefaultTableModel model = new DefaultTableModel(new String[]{"Nombre", "Descripcion", 
-                "Categoria", "Precio","Precio de Envio", "Stock"}, 0);
-            vista.listaproductos.setModel(model);
-            while (rs.next()) {
-                N = rs.getString("Nombre");
-                D = rs.getString("Descripcion");
-                C = rs.getString("Categoria");
-                P = rs.getString("Precio");
-                PE = rs.getString("PrecioEnvio");
-                S = rs.getString("Stock");
-                model.addRow(new Object[]{N, D, C, P, PE, S});
-            }
-        } catch (SQLException error) {
-            System.out.println("Error al cargar productos" + error);
-        }
+    public Producto() {
     }
 
-    /**
-     * @return the Codigo_Producto
-     */
-    public int getCodigo_Producto() {
-        return Codigo_Producto;
+    public Producto(int id, int nombre_producto, String descripcion, char categoria, float precio, int stock) {
+        this.id = id;
+        this.nombre_producto = nombre_producto;
+        this.descripcion = descripcion;
+        this.categoria = categoria;
+        this.precio = precio;
+        this.stock = stock;
     }
 
-    /**
-     * @param Codigo_Producto the Codigo_Producto to set
-     */
-    public void setCodigo_Producto(int Codigo_Producto) {
-        this.Codigo_Producto = Codigo_Producto;
+    public int getId() {
+        return id;
     }
 
-    /**
-     * @return the Nombre_Producto
-     */
-    public int getNombre_Producto() {
-        return Nombre_Producto;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    /**
-     * @param Nombre_Producto the Nombre_Producto to set
-     */
-    public void setNombre_Producto(int Nombre_Producto) {
-        this.Nombre_Producto = Nombre_Producto;
+    public int getNombre_producto() {
+        return nombre_producto;
     }
 
-    /**
-     * @return the descripcion
-     */
+    public void setNombre_producto(int nombre_producto) {
+        this.nombre_producto = nombre_producto;
+    }
+
     public String getDescripcion() {
         return descripcion;
     }
 
-    /**
-     * @param descripcion the descripcion to set
-     */
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
 
-    /**
-     * @return the categoria
-     */
     public char getCategoria() {
         return categoria;
     }
 
-    /**
-     * @param categoria the categoria to set
-     */
     public void setCategoria(char categoria) {
         this.categoria = categoria;
     }
 
-    /**
-     * @return the Precio
-     */
     public float getPrecio() {
-        return Precio;
+        return precio;
     }
 
-    /**
-     * @param Precio the Precio to set
-     */
-    public void setPrecio(float Precio) {
-        this.Precio = Precio;
+    public void setPrecio(float precio) {
+        this.precio = precio;
     }
 
-    /**
-     * @return the Stock
-     */
     public int getStock() {
-        return Stock;
+        return stock;
     }
 
-    /**
-     * @param Stock the Stock to set
-     */
-    public void setStock(int Stock) {
-        this.Stock = Stock;
+    public void setStock(int stock) {
+        this.stock = stock;
     }
 
 }

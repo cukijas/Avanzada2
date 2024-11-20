@@ -8,7 +8,7 @@ package Modelo;
  *
  * @author Max Saturn
  */
-public class Administrador extends Persona {
+public class Administrador{
     private int ID_Administrador;
 
     /**
