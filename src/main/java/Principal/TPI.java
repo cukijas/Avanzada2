@@ -1,10 +1,13 @@
+package Principal;
 
-import Persistencia.ControladoraPersistencia;
+
+import Controlador.ControladoraAdmin;
 
 public class TPI {
 
     public static void main(String[] args) {
 
-        ControladoraPersistencia ctrlP = new ControladoraPersistencia();
+        ControladoraAdmin ctrl = new ControladoraAdmin();
+        ctrl.ControladoraAdmin();
     }
 }

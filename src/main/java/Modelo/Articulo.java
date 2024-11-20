@@ -11,7 +11,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 @Entity
-public class Articulo implements Serializable {  
+public class Articulo implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id_articulo;
@@ -51,7 +52,4 @@ public class Articulo implements Serializable {
         this.Nombre_Articulo = Nombre_Articulo;
     }
 
-    
-    
-  
 }
