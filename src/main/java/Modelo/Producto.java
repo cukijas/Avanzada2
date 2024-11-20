@@ -18,18 +18,18 @@ import javax.persistence.Id;
 public class Producto implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private int id;
-    private int nombre_producto;
+    private String nombre_producto;
     private String descripcion;
-    private char categoria;
+    private String categoria;
     private float precio;
     private int stock;
 
     public Producto() {
     }
 
-    public Producto(int id, int nombre_producto, String descripcion, char categoria, float precio, int stock) {
+    public Producto(int id, String nombre_producto, String descripcion, String categoria, float precio, int stock) {
         this.id = id;
         this.nombre_producto = nombre_producto;
         this.descripcion = descripcion;
@@ -46,11 +46,11 @@ public class Producto implements Serializable {
         this.id = id;
     }
 
-    public int getNombre_producto() {
+    public String getNombre_producto() {
         return nombre_producto;
     }
 
-    public void setNombre_producto(int nombre_producto) {
+    public void setNombre_producto(String nombre_producto) {
         this.nombre_producto = nombre_producto;
     }
 
@@ -62,11 +62,11 @@ public class Producto implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public char getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(char categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
 

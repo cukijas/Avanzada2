@@ -2,12 +2,13 @@ package Principal;
 
 
 import Controlador.ControladoraAdmin;
+import Vista.VentanaAdministrador;
 
 public class TPI {
 
     public static void main(String[] args) {
 
-        ControladoraAdmin ctrl = new ControladoraAdmin();
-        ctrl.ControladoraAdmin();
+        VentanaAdministrador admin = new VentanaAdministrador();
+        admin.setVisible(true);
     }
 }

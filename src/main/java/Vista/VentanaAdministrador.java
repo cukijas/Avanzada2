@@ -4,15 +4,16 @@
  */
 package Vista;
 
+import Controlador.ControladoraAdmin;
+
 /**
  *
  * @author emito
  */
 public class VentanaAdministrador extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VentanaAdministrador
-     */
+    ControladoraAdmin Admin = new ControladoraAdmin();
+    
     public VentanaAdministrador() {
         initComponents();
     }
@@ -130,15 +131,15 @@ public class VentanaAdministrador extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnlistpedidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistpedidosActionPerformed
-        // TODO add your handling code here:
+        Admin.AbrirVPedidos();
     }//GEN-LAST:event_btnlistpedidosActionPerformed
 
     private void btnlistprodActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistprodActionPerformed
-        // TODO add your handling code here:
+        Admin.AbrirVProductos();
     }//GEN-LAST:event_btnlistprodActionPerformed
 
     private void btnlistusuariosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnlistusuariosActionPerformed
-        // TODO add your handling code here:
+        Admin.AbrirVUsuarios();
     }//GEN-LAST:event_btnlistusuariosActionPerformed
 
     /**

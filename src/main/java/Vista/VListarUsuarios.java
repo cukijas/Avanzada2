@@ -4,25 +4,16 @@
  */
 package Vista;
 
-import Controlador.ControladoraAdmin;
-import Modelo.Producto;
-import java.util.List;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-
 /**
  *
  * @author emito
  */
-public class VListarProductos extends javax.swing.JFrame {
-
-    ControladoraAdmin ctrl = null;
+public class VListarUsuarios extends javax.swing.JFrame {
 
     /**
      * Creates new form VListarPedidos
      */
-    public VListarProductos() {
-        ctrl = new ControladoraAdmin();
+    public VListarUsuarios() {
         initComponents();
     }
 
@@ -54,11 +45,6 @@ public class VListarProductos extends javax.swing.JFrame {
         TableProd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowOpened(java.awt.event.WindowEvent evt) {
-                formWindowOpened(evt);
-            }
-        });
 
         jPanel2.setBackground(new java.awt.Color(255, 235, 83));
 
@@ -144,9 +130,16 @@ public class VListarProductos extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(19, 19, 19)
+                        .addComponent(btnAgregar)
+                        .addGap(29, 29, 29)
+                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnEliminar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(cmbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
@@ -154,29 +147,23 @@ public class VListarProductos extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(jLabel6)
-                            .addComponent(txtNombre)
+                            .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                             .addComponent(txtDescripcion)
                             .addComponent(txtPrecio)
-                            .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, 238, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAgregar)
-                        .addGap(29, 29, 29)
-                        .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
-                        .addComponent(btnEliminar)
-                        .addGap(14, 14, 14))))
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(82, 82, 82)
+                            .addComponent(txtStock))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGap(0, 80, Short.MAX_VALUE)
                 .addComponent(jLabel5)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(72, 72, 72))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
+                .addGap(17, 17, 17)
                 .addComponent(jLabel5)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtNombre, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -196,7 +183,7 @@ public class VListarProductos extends javax.swing.JFrame {
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(cmbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(31, 31, 31)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
                     .addComponent(btnEditar)
@@ -204,7 +191,8 @@ public class VListarProductos extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        TableProd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableProd.setBackground(new java.awt.Color(204, 204, 204));
+        TableProd.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 12)); // NOI18N
         TableProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -217,11 +205,6 @@ public class VListarProductos extends javax.swing.JFrame {
             }
         ));
         TableProd.setSelectionBackground(new java.awt.Color(0, 153, 255));
-        TableProd.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableProdMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(TableProd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -230,69 +213,28 @@ public class VListarProductos extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 438, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 366, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 418, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-
-        try {
-            String Nombre = txtNombre.getText();
-            String Descripcion = txtDescripcion.getText();
-            float Precio = Float.parseFloat(txtPrecio.getText());
-            int Stock = Integer.parseInt(txtStock.getText());
-            String Categoria = (String) cmbCat.getSelectedItem();
-
-            ctrl.EscribirProducto(Nombre, Descripcion, Precio, Stock, Categoria);
-            MostrarMensaje("Producto Agregado", "El Producto se agrego correctamente", "Info");
-        } catch (Exception e) {
-            MostrarMensaje("Error al Agregar Producto", "Intente nuevamente y asegurese de"
-                    + "\nrellenar los campos correctamente", "Error");
-        }
-
-        CargarTabla();
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-
-        if (TableProd.getRowCount() != 0) {
-            if (TableProd.getSelectedRow() != -1) {
-                try {
-
-                    int CodigoProducto = Integer.parseInt(String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 0)));
-                    ctrl.EliminarProducto(CodigoProducto);
-                    CargarTabla();
-
-                    MostrarMensaje("Producto Eliminado", "El Producto se eliminó correctamente", "Info");
-                } catch (Exception e) {
-                    MostrarMensaje("Error al Eliminar Producto", "Intente nuevamente", "Error");
-                }
-            } else {
-                MostrarMensaje("Error al Eliminar Producto", "No seleccionó ninguna fila", "Error");
-            }
-        } else {
-            MostrarMensaje("Error al Eliminar Producto", "La tabla esta vacia", "Error");
-        }
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void MostrarMensaje(String Titulo, String Cuerpo, String Tipo) {
-
-        if (Tipo.equals("Error")) {
-            JOptionPane.showMessageDialog(null, Cuerpo, Titulo, 0);
-        } else if (Tipo.equals("Info")) {
-            JOptionPane.showMessageDialog(null, Cuerpo, Titulo, 1);
-        }
-    }
 
     private void cmbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatActionPerformed
         // TODO add your handling code here:
@@ -305,27 +247,6 @@ public class VListarProductos extends javax.swing.JFrame {
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
-
-    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        CargarTabla();
-    }//GEN-LAST:event_formWindowOpened
-
-    private void TableProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProdMouseClicked
-
-        //toma los valores de la fila seleccionada
-        String nombre = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 1));
-        String descripcion = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 2));
-        String Precio = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 3));
-        String Stock = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 4));
-        String Categoria = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 5));
-
-        //escribe los valores de la tabla en los campos de texto
-        txtNombre.setText(nombre);
-        txtDescripcion.setText(descripcion);
-        txtPrecio.setText(Precio);
-        txtStock.setText(Stock);
-        cmbCat.setSelectedItem(Categoria);
-    }//GEN-LAST:event_TableProdMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -347,33 +268,4 @@ public class VListarProductos extends javax.swing.JFrame {
     private javax.swing.JTextField txtPrecio;
     public javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
-
-    public void CargarTabla() {
-        DefaultTableModel ModeloTabla = new DefaultTableModel() {
-
-            @Override
-            public boolean isCellEditable(int row, int column) {
-                return false;
-            }
-        };
-
-        //se asigan los nombres de los titulos de las columnas
-        String titulos[] = {"Codigo", "Nombre", "Descripcion", "Precio", "Stock", "Categoria"};
-        ModeloTabla.setColumnIdentifiers(titulos);
-
-        //leer los productos de la base de datos  
-        List<Producto> LProds = ctrl.LeerProductos();
-
-        //asigna a la tabla todos los productos de la lista
-        if (LProds != null) {
-            for (Producto prod : LProds) {
-                Object[] objetos = {prod.getId(), prod.getNombre_producto(), prod.getDescripcion(), prod.getPrecio(),
-                    prod.getStock(), prod.getCategoria()};
-                ModeloTabla.addRow(objetos);
-            }
-        }
-        //Asigno el modelo tabla al JTable
-        TableProd.setModel(ModeloTabla);
-    }
-
 }

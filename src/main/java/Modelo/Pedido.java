@@ -13,9 +13,9 @@ import javax.persistence.Id;
 @Entity
 public class Pedido implements Serializable {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE) 
     private int id;
-    private char Estado_Pedido;
+    private String Estado_Pedido;
     private int Fecha_Pedido;
     private float Total_pedido;
 
@@ -30,11 +30,11 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public char getEstado_Pedido() {
+    public String getEstado_Pedido() {
         return Estado_Pedido;
     }
 
-    public void setEstado_Pedido(char Estado_Pedido) {
+    public void setEstado_Pedido(String Estado_Pedido) {
         this.Estado_Pedido = Estado_Pedido;
     }
 
@@ -54,7 +54,7 @@ public class Pedido implements Serializable {
         this.Total_pedido = Total_pedido;
     }
 
-    public Pedido(int id, char Estado_Pedido, int Fecha_Pedido, float Total_pedido) {
+    public Pedido(int id, String Estado_Pedido, int Fecha_Pedido, float Total_pedido) {
         this.id = id;
         this.Estado_Pedido = Estado_Pedido;
         this.Fecha_Pedido = Fecha_Pedido;
