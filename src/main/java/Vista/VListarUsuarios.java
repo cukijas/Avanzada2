@@ -32,7 +32,6 @@ public class VListarUsuarios extends javax.swing.JFrame {
         btnEliminar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
         txtDescripcion = new javax.swing.JTextField();
-        cmbCat = new javax.swing.JComboBox<>();
         txtPrecio = new javax.swing.JTextField();
         txtStock = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
@@ -40,7 +39,6 @@ public class VListarUsuarios extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         TableProd = new javax.swing.JTable();
 
@@ -91,14 +89,6 @@ public class VListarUsuarios extends javax.swing.JFrame {
             }
         });
 
-        cmbCat.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        cmbCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ropa", "Libros" }));
-        cmbCat.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cmbCatActionPerformed(evt);
-            }
-        });
-
         txtPrecio.setBackground(new java.awt.Color(51, 51, 51));
         txtPrecio.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         txtPrecio.setForeground(new java.awt.Color(255, 255, 255));
@@ -108,22 +98,19 @@ public class VListarUsuarios extends javax.swing.JFrame {
         txtStock.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel1.setText("Descripcion");
+        jLabel1.setText("Direccion");
 
         jLabel2.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         jLabel2.setText("Nombre");
 
         jLabel3.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel3.setText("Precio");
+        jLabel3.setText("Correo");
 
         jLabel4.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel4.setText("Stock");
+        jLabel4.setText("Contraseña");
 
         jLabel5.setFont(new java.awt.Font("Microsoft YaHei UI", 1, 14)); // NOI18N
-        jLabel5.setText("Administrar Productos");
-
-        jLabel6.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        jLabel6.setText("Categoria");
+        jLabel5.setText("Administrar Usuarios");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -134,27 +121,24 @@ public class VListarUsuarios extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(19, 19, 19)
                         .addComponent(btnAgregar)
-                        .addGap(29, 29, 29)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEditar, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(btnEliminar))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(cmbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel1)
                             .addComponent(jLabel2)
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
-                            .addComponent(jLabel6)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
                             .addComponent(txtDescripcion)
                             .addComponent(txtPrecio)
-                            .addComponent(txtStock))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                            .addComponent(txtStock))))
+                .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addGap(0, 80, Short.MAX_VALUE)
+                .addGap(0, 90, Short.MAX_VALUE)
                 .addComponent(jLabel5)
                 .addGap(72, 72, 72))
         );
@@ -179,11 +163,7 @@ public class VListarUsuarios extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel6)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(cmbCat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
                     .addComponent(btnEditar)
@@ -191,8 +171,7 @@ public class VListarUsuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        TableProd.setBackground(new java.awt.Color(204, 204, 204));
-        TableProd.setFont(new java.awt.Font("Microsoft New Tai Lue", 0, 12)); // NOI18N
+        TableProd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         TableProd.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
@@ -219,10 +198,8 @@ public class VListarUsuarios extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
         );
 
         pack();
@@ -235,10 +212,6 @@ public class VListarUsuarios extends javax.swing.JFrame {
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
-
-    private void cmbCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbCatActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cmbCatActionPerformed
 
     private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
         // TODO add your handling code here:
@@ -254,13 +227,11 @@ public class VListarUsuarios extends javax.swing.JFrame {
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
-    public javax.swing.JComboBox<String> cmbCat;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextField txtDescripcion;
