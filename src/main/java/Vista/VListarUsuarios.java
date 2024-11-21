@@ -4,16 +4,22 @@
  */
 package Vista;
 
+import Controlador.ControladoraAdmin;
+import Modelo.Persona;
+import java.util.List;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+
 /**
  *
  * @author emito
  */
 public class VListarUsuarios extends javax.swing.JFrame {
 
-    /**
-     * Creates new form VListarPedidos
-     */
+    ControladoraAdmin ctrl = null;
+    
     public VListarUsuarios() {
+        ctrl = new ControladoraAdmin();
         initComponents();
     }
 
@@ -31,9 +37,9 @@ public class VListarUsuarios extends javax.swing.JFrame {
         btnAgregar = new javax.swing.JButton();
         btnEliminar = new javax.swing.JButton();
         txtNombre = new javax.swing.JTextField();
-        txtDescripcion = new javax.swing.JTextField();
-        txtPrecio = new javax.swing.JTextField();
-        txtStock = new javax.swing.JTextField();
+        txtDireccion = new javax.swing.JTextField();
+        txtCorreo = new javax.swing.JTextField();
+        txtContra = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -43,6 +49,11 @@ public class VListarUsuarios extends javax.swing.JFrame {
         TableProd = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         jPanel2.setBackground(new java.awt.Color(255, 235, 83));
 
@@ -80,22 +91,22 @@ public class VListarUsuarios extends javax.swing.JFrame {
             }
         });
 
-        txtDescripcion.setBackground(new java.awt.Color(51, 51, 51));
-        txtDescripcion.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        txtDescripcion.setForeground(new java.awt.Color(255, 255, 255));
-        txtDescripcion.addActionListener(new java.awt.event.ActionListener() {
+        txtDireccion.setBackground(new java.awt.Color(51, 51, 51));
+        txtDireccion.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        txtDireccion.setForeground(new java.awt.Color(255, 255, 255));
+        txtDireccion.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDescripcionActionPerformed(evt);
+                txtDireccionActionPerformed(evt);
             }
         });
 
-        txtPrecio.setBackground(new java.awt.Color(51, 51, 51));
-        txtPrecio.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        txtPrecio.setForeground(new java.awt.Color(255, 255, 255));
+        txtCorreo.setBackground(new java.awt.Color(51, 51, 51));
+        txtCorreo.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        txtCorreo.setForeground(new java.awt.Color(255, 255, 255));
 
-        txtStock.setBackground(new java.awt.Color(51, 51, 51));
-        txtStock.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        txtStock.setForeground(new java.awt.Color(255, 255, 255));
+        txtContra.setBackground(new java.awt.Color(51, 51, 51));
+        txtContra.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
+        txtContra.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         jLabel1.setText("Direccion");
@@ -133,9 +144,9 @@ public class VListarUsuarios extends javax.swing.JFrame {
                             .addComponent(jLabel3)
                             .addComponent(jLabel4)
                             .addComponent(txtNombre, javax.swing.GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)
-                            .addComponent(txtDescripcion)
-                            .addComponent(txtPrecio)
-                            .addComponent(txtStock))))
+                            .addComponent(txtDireccion)
+                            .addComponent(txtCorreo)
+                            .addComponent(txtContra))))
                 .addContainerGap(27, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                 .addGap(0, 90, Short.MAX_VALUE)
@@ -154,15 +165,15 @@ public class VListarUsuarios extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtDescripcion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDireccion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtPrecio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(12, 12, 12)
                 .addComponent(jLabel4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtStock, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 76, Short.MAX_VALUE)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnEliminar)
@@ -184,6 +195,11 @@ public class VListarUsuarios extends javax.swing.JFrame {
             }
         ));
         TableProd.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        TableProd.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                TableProdMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(TableProd);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -206,20 +222,60 @@ public class VListarUsuarios extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here:
+        try {
+            String Nombre = txtNombre.getText();
+            String Direccion = txtDireccion.getText();
+            String Correo = txtCorreo.getText();
+            String Contra = txtContra.getText();
+
+            ctrl.EscribirUsuario(Nombre, Direccion, Correo, Contra);
+            MostrarMensaje("Usuario Agregado", "El Usuario se agrego correctamente", "Info");
+        } catch (Exception e) {
+            MostrarMensaje("Error al Agregar Usuario", "Intente nuevamente y asegurese de"
+                    + "\nrellenar los campos correctamente", "Error");
+        }
+
+        CargarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
+     private void MostrarMensaje(String Titulo, String Cuerpo, String Tipo) {
+
+        if (Tipo.equals("Error")) {
+            JOptionPane.showMessageDialog(null, Cuerpo, Titulo, 0);
+        } else if (Tipo.equals("Info")) {
+            JOptionPane.showMessageDialog(null, Cuerpo, Titulo, 1);
+        }
+    }
+     
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnEliminarActionPerformed
 
-    private void txtDescripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDescripcionActionPerformed
+    private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtDescripcionActionPerformed
+    }//GEN-LAST:event_txtDireccionActionPerformed
 
     private void txtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNombreActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
+
+    private void TableProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProdMouseClicked
+         //toma los valores de la fila seleccionada
+        String nombre = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 1));
+        String direccion = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 2));
+        String correo = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 3));
+        String contra = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 4));
+
+        //escribe los valores de la tabla en los campos de texto
+        txtNombre.setText(nombre);
+        txtDireccion.setText(direccion);
+        txtCorreo.setText(correo);
+        txtContra.setText(contra);
+    }//GEN-LAST:event_TableProdMouseClicked
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        CargarTabla();
+    }//GEN-LAST:event_formWindowOpened
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -234,9 +290,38 @@ public class VListarUsuarios extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextField txtDescripcion;
+    public javax.swing.JTextField txtContra;
+    private javax.swing.JTextField txtCorreo;
+    private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
-    private javax.swing.JTextField txtPrecio;
-    public javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
+    
+    public void CargarTabla() {
+           DefaultTableModel ModeloTabla = new DefaultTableModel() {
+ 
+               @Override
+               public boolean isCellEditable(int row, int column) {
+                   return false;
+               }
+           };
+
+           //se asigan los nombres de los titulos de las columnas
+           String titulos[] = {"Identificador","Nombre", "Domicilio", "Correo", "Contraseña"};
+           ModeloTabla.setColumnIdentifiers(titulos);
+
+           //leer los productos de la base de datos  
+           List<Persona> LUsrs = ctrl.LeerUsuarios();
+
+           //asigna a la tabla todos los productos de la lista
+           if (LUsrs != null) {
+               for (Persona usr : LUsrs) {
+                   Object[] objetos = {usr.getId(), usr.getNombre(), usr.getDireccion(), usr.getCorreo(),
+                       usr.getContra()};
+                   ModeloTabla.addRow(objetos);
+               }
+           }
+           //Asigno el modelo tabla al JTable
+           TableProd.setModel(ModeloTabla);
+       }
+
 }

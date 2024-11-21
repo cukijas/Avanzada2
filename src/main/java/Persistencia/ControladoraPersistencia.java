@@ -1,12 +1,11 @@
 package Persistencia;
 
+import Modelo.Persona;
 import Modelo.Producto;
 import Persistencia.exceptions.NonexistentEntityException;
-import java.sql.SQLException;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JOptionPane;
 
 public class ControladoraPersistencia {
 
@@ -46,6 +45,14 @@ public class ControladoraPersistencia {
         //UsrJPA.create();
     }
      */
+
+    public List<Persona> LeerUsuarios() {
+        return UsrJPA.findPersonaEntities();
+    }
+
+    public void EscribirUsuario(Persona Usr) {
+        UsrJPA.create(Usr);
+    }
 
     
 }
