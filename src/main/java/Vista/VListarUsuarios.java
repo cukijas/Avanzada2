@@ -4,7 +4,7 @@
  */
 package Vista;
 
-import Controlador.ControladoraAdmin;
+import Controlador.ControladorUsuarios;
 import Modelo.Persona;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -16,10 +16,10 @@ import javax.swing.table.DefaultTableModel;
  */
 public class VListarUsuarios extends javax.swing.JFrame {
 
-    ControladoraAdmin ctrl = null;
-    
+    ControladorUsuarios ctrl = null;
+
     public VListarUsuarios() {
-        ctrl = new ControladoraAdmin();
+        ctrl = new ControladorUsuarios();
         initComponents();
     }
 
@@ -46,7 +46,7 @@ public class VListarUsuarios extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        TableProd = new javax.swing.JTable();
+        TableUsr = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -182,8 +182,8 @@ public class VListarUsuarios extends javax.swing.JFrame {
                 .addGap(18, 18, 18))
         );
 
-        TableProd.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        TableProd.setModel(new javax.swing.table.DefaultTableModel(
+        TableUsr.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        TableUsr.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {},
                 {},
@@ -194,13 +194,13 @@ public class VListarUsuarios extends javax.swing.JFrame {
 
             }
         ));
-        TableProd.setSelectionBackground(new java.awt.Color(0, 153, 255));
-        TableProd.addMouseListener(new java.awt.event.MouseAdapter() {
+        TableUsr.setSelectionBackground(new java.awt.Color(0, 153, 255));
+        TableUsr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                TableProdMouseClicked(evt);
+                TableUsrMouseClicked(evt);
             }
         });
-        jScrollPane1.setViewportView(TableProd);
+        jScrollPane1.setViewportView(TableUsr);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,7 +238,7 @@ public class VListarUsuarios extends javax.swing.JFrame {
         CargarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-     private void MostrarMensaje(String Titulo, String Cuerpo, String Tipo) {
+    private void MostrarMensaje(String Titulo, String Cuerpo, String Tipo) {
 
         if (Tipo.equals("Error")) {
             JOptionPane.showMessageDialog(null, Cuerpo, Titulo, 0);
@@ -246,9 +246,26 @@ public class VListarUsuarios extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, Cuerpo, Titulo, 1);
         }
     }
-     
+
     private void btnEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEliminarActionPerformed
-        // TODO add your handling code here:
+        if (TableUsr.getRowCount() != 0) {
+            if (TableUsr.getSelectedRow() != -1) {
+                try {
+
+                    int id = Integer.parseInt(String.valueOf(TableUsr.getValueAt(TableUsr.getSelectedRow(), 0)));
+                    ctrl.EliminarUsuario(id);
+                    CargarTabla();
+
+                    MostrarMensaje("Usuario Eliminado", "El Usuario se eliminó correctamente", "Info");
+                } catch (Exception e) {
+                    MostrarMensaje("Error al Eliminar Usuario", "Intente nuevamente", "Error");
+                }
+            } else {
+                MostrarMensaje("Error al Eliminar Usuario", "No seleccionó ninguna fila", "Error");
+            }
+        } else {
+            MostrarMensaje("Error al Eliminar Usuario", "La tabla esta vacia", "Error");
+        }
     }//GEN-LAST:event_btnEliminarActionPerformed
 
     private void txtDireccionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDireccionActionPerformed
@@ -259,19 +276,19 @@ public class VListarUsuarios extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNombreActionPerformed
 
-    private void TableProdMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableProdMouseClicked
-         //toma los valores de la fila seleccionada
-        String nombre = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 1));
-        String direccion = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 2));
-        String correo = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 3));
-        String contra = String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 4));
+    private void TableUsrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_TableUsrMouseClicked
+        //toma los valores de la fila seleccionada
+        String nombre = String.valueOf(TableUsr.getValueAt(TableUsr.getSelectedRow(), 1));
+        String direccion = String.valueOf(TableUsr.getValueAt(TableUsr.getSelectedRow(), 2));
+        String correo = String.valueOf(TableUsr.getValueAt(TableUsr.getSelectedRow(), 3));
+        String contra = String.valueOf(TableUsr.getValueAt(TableUsr.getSelectedRow(), 4));
 
         //escribe los valores de la tabla en los campos de texto
         txtNombre.setText(nombre);
         txtDireccion.setText(direccion);
         txtCorreo.setText(correo);
         txtContra.setText(contra);
-    }//GEN-LAST:event_TableProdMouseClicked
+    }//GEN-LAST:event_TableUsrMouseClicked
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         CargarTabla();
@@ -279,7 +296,7 @@ public class VListarUsuarios extends javax.swing.JFrame {
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTable TableProd;
+    private javax.swing.JTable TableUsr;
     public javax.swing.JButton btnAgregar;
     public javax.swing.JButton btnEditar;
     public javax.swing.JButton btnEliminar;
@@ -295,33 +312,33 @@ public class VListarUsuarios extends javax.swing.JFrame {
     private javax.swing.JTextField txtDireccion;
     private javax.swing.JTextField txtNombre;
     // End of variables declaration//GEN-END:variables
-    
+
     public void CargarTabla() {
-           DefaultTableModel ModeloTabla = new DefaultTableModel() {
- 
-               @Override
-               public boolean isCellEditable(int row, int column) {
-                   return false;
-               }
-           };
+        DefaultTableModel ModeloTabla = new DefaultTableModel() {
 
-           //se asigan los nombres de los titulos de las columnas
-           String titulos[] = {"Identificador","Nombre", "Domicilio", "Correo", "Contraseña"};
-           ModeloTabla.setColumnIdentifiers(titulos);
+            @Override
+            public boolean isCellEditable(int row, int column) {
+                return false;
+            }
+        };
 
-           //leer los productos de la base de datos  
-           List<Persona> LUsrs = ctrl.LeerUsuarios();
+        //se asigan los nombres de los titulos de las columnas
+        String titulos[] = {"Identificador", "Nombre", "Domicilio", "Correo", "Contraseña"};
+        ModeloTabla.setColumnIdentifiers(titulos);
 
-           //asigna a la tabla todos los productos de la lista
-           if (LUsrs != null) {
-               for (Persona usr : LUsrs) {
-                   Object[] objetos = {usr.getId(), usr.getNombre(), usr.getDireccion(), usr.getCorreo(),
-                       usr.getContra()};
-                   ModeloTabla.addRow(objetos);
-               }
-           }
-           //Asigno el modelo tabla al JTable
-           TableProd.setModel(ModeloTabla);
-       }
+        //leer los productos de la base de datos  
+        List<Persona> LUsrs = ctrl.LeerUsuarios();
+
+        //asigna a la tabla todos los productos de la lista
+        if (LUsrs != null) {
+            for (Persona usr : LUsrs) {
+                Object[] objetos = {usr.getId(), usr.getNombre(), usr.getDireccion(), usr.getCorreo(),
+                    usr.getContra()};
+                ModeloTabla.addRow(objetos);
+            }
+        }
+        //Asigno el modelo tabla al JTable
+        TableUsr.setModel(ModeloTabla);
+    }
 
 }

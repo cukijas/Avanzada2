@@ -54,5 +54,11 @@ public class ControladoraPersistencia {
         UsrJPA.create(Usr);
     }
 
-    
+    public void EliminarUsuario(int id) {
+        try {
+            UsrJPA.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

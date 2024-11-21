@@ -4,25 +4,36 @@
  */
 package Controlador;
 
+import Modelo.Producto;
 import Persistencia.ControladoraPersistencia;
-import Vista.VentanaAdministrador;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.util.List;
 
 /**
  *
  * @author emito
  */
-public class ControladorProductos implements ActionListener {
+public class ControladorProductos {
 
-   
+    ControladoraPersistencia CtrlPer = new ControladoraPersistencia();
+    Producto prod = new Producto();
     
-    ControladoraPersistencia ctrlP = new ControladoraPersistencia();
-    
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        
+    public List<Producto> LeerProductos() {
+        return CtrlPer.LeerProductos();
     }
-    
-    
+
+    public void EscribirProducto(String Nombre, String Descripcion, float Precio,
+            int Stock, String Categoria) {
+        prod.setNombre_producto(Nombre);
+        prod.setDescripcion(Descripcion);
+        prod.setPrecio(Precio);
+        prod.setStock(Stock);
+        prod.setCategoria(Categoria);
+        CtrlPer.EscribirProducto(prod);
+
+    }
+
+    public void EliminarProducto(int CodigoProducto) {
+        CtrlPer.EliminarProducto(CodigoProducto);
+    }
+
 }
