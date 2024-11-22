@@ -59,6 +59,11 @@ public class VListarProductos extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setBackground(new java.awt.Color(255, 51, 0));
         btnAgregar.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
@@ -99,7 +104,7 @@ public class VListarProductos extends javax.swing.JFrame {
         });
 
         cmbCat.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
-        cmbCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Ropa", "Libros" }));
+        cmbCat.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Libros", "Electronicos", "Ropa", "Alimentos" }));
         cmbCat.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cmbCatActionPerformed(evt);
@@ -319,6 +324,34 @@ public class VListarProductos extends javax.swing.JFrame {
         txtStock.setText(Stock);
         cmbCat.setSelectedItem(Categoria);
     }//GEN-LAST:event_TableProdMouseClicked
+
+    //boton para editar valores
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (TableProd.getRowCount() != 0) {
+            if (TableProd.getSelectedRow() != -1) {
+                try {
+                    //tomo el identificador de la fila seleccionada
+                    int CodigoProducto = Integer.parseInt(String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 0)));
+                    //busco el producto en la base de datos
+                    Producto prod = ctrl.BuscarProducto(CodigoProducto);
+                    
+                    //tomo los valores modificados desde los campos de texto de la vista
+                    String Nombre = txtNombre.getText();
+                    String Descripcion = txtDescripcion.getText();
+                    float Precio = Float.parseFloat(txtPrecio.getText());
+                    int Stock = Integer.parseInt(txtStock.getText());
+                    String Categoria = (String) cmbCat.getSelectedItem();
+                    
+                    ctrl.EditarProducto(prod, Nombre, Descripcion, Precio, Stock, Categoria);
+                    CargarTabla();
+
+                    MostrarMensaje("Producto Editado", "El Producto se editó correctamente", "Info");
+                } catch (Exception e) {
+                    MostrarMensaje("Error al Editar Producto", "Intente nuevamente", "Error");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

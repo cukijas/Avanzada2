@@ -16,7 +16,7 @@ public class ControladorProductos {
 
     ControladoraPersistencia CtrlPer = new ControladoraPersistencia();
     Producto prod = new Producto();
-    
+
     public List<Producto> LeerProductos() {
         return CtrlPer.LeerProductos();
     }
@@ -34,6 +34,19 @@ public class ControladorProductos {
 
     public void EliminarProducto(int CodigoProducto) {
         CtrlPer.EliminarProducto(CodigoProducto);
+    }
+
+    public Producto BuscarProducto(int CodigoProducto) {
+        return prod = CtrlPer.BuscarProducto(CodigoProducto);
+    }
+
+    public void EditarProducto(Producto prod, String Nombre, String Descripcion, float Precio, int Stock, String Categoria) {
+        prod.setNombre_producto(Nombre);
+        prod.setDescripcion(Descripcion);
+        prod.setPrecio(Precio);
+        prod.setStock(Stock);
+        prod.setCategoria(Categoria);
+        CtrlPer.EditarProducto(prod);
     }
 
 }
