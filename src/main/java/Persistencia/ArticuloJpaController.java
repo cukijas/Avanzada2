@@ -25,11 +25,10 @@ public class ArticuloJpaController implements Serializable {
     public ArticuloJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-    
-    public ArticuloJpaController(){
+
+    public ArticuloJpaController() {
         emf = Persistence.createEntityManagerFactory("TPIPU");
     }
-    
     private EntityManagerFactory emf = null;
 
     public EntityManager getEntityManager() {
@@ -139,5 +138,5 @@ public class ArticuloJpaController implements Serializable {
             em.close();
         }
     }
-    
+
 }

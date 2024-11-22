@@ -25,8 +25,7 @@ public class ProductoJpaController implements Serializable {
     public ProductoJpaController(EntityManagerFactory emf) {
         this.emf = emf;
     }
-
-    public ProductoJpaController() {
+    public ProductoJpaController(){
         emf = Persistence.createEntityManagerFactory("TPIPU");
     }
     private EntityManagerFactory emf = null;
@@ -138,5 +137,5 @@ public class ProductoJpaController implements Serializable {
             em.close();
         }
     }
-
+    
 }

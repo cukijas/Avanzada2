@@ -26,7 +26,7 @@ public class CarritoJpaController implements Serializable {
         this.emf = emf;
     }
 
-    public CarritoJpaController(){
+    public CarritoJpaController() {
         emf = Persistence.createEntityManagerFactory("TPIPU");
     }
     private EntityManagerFactory emf = null;
