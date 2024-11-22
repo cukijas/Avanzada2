@@ -10,11 +10,11 @@ import java.util.List;
 
 //controladora logica de VListarUsuarios
 public class ControladorUsuarios {
-    
+
     //instacias de las clases involucradas
     Persona Usr = new Persona();
     ControladoraPersistencia CtrlPer = new ControladoraPersistencia();
-    
+
     //metodos intermediarios entre el controlador de CRUD y la vista
     public List<Persona> LeerUsuarios() {
         return CtrlPer.LeerUsuarios();
@@ -30,5 +30,17 @@ public class ControladorUsuarios {
 
     public void EliminarUsuario(int id) {
         CtrlPer.EliminarUsuario(id);
+    }
+
+    public Persona BuscarUsuario(int id) {
+        return CtrlPer.BuscarUsuario(id);
+    }
+
+    public void EditarUsuario(Persona Usr, String Nombre, String Direccion, String Correo, String Contra) {
+        Usr.setNombre(Nombre);
+        Usr.setDireccion(Direccion);
+        Usr.setCorreo(Correo);
+        Usr.setContra(Contra);
+        CtrlPer.EditarUsuario(Usr);
     }
 }

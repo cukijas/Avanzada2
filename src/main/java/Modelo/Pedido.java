@@ -5,18 +5,22 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 @Entity
 public class Pedido implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE) 
     private int id;
-    private String Estado_Pedido;
-    private int Fecha_Pedido;
+    private String Estado_Pedido; 
+    @Temporal(TemporalType.DATE)
+    private Date Fecha_Pedido;
     private float Total_pedido;
 
     public Pedido() {
@@ -38,11 +42,11 @@ public class Pedido implements Serializable {
         this.Estado_Pedido = Estado_Pedido;
     }
 
-    public int getFecha_Pedido() {
+    public Date getFecha_Pedido() {
         return Fecha_Pedido;
     }
 
-    public void setFecha_Pedido(int Fecha_Pedido) {
+    public void setFecha_Pedido(Date Fecha_Pedido) {
         this.Fecha_Pedido = Fecha_Pedido;
     }
 
@@ -54,7 +58,7 @@ public class Pedido implements Serializable {
         this.Total_pedido = Total_pedido;
     }
 
-    public Pedido(int id, String Estado_Pedido, int Fecha_Pedido, float Total_pedido) {
+    public Pedido(int id, String Estado_Pedido, Date Fecha_Pedido, float Total_pedido) {
         this.id = id;
         this.Estado_Pedido = Estado_Pedido;
         this.Fecha_Pedido = Fecha_Pedido;

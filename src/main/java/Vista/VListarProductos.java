@@ -10,12 +10,8 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author emito
- */
 public class VListarProductos extends javax.swing.JFrame {
-
+    
     ControladorProductos ctrl = null;
 
     public VListarProductos() {
@@ -243,20 +239,21 @@ public class VListarProductos extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
 
-        try {
+        try { //toma los datos de los campos de texto
             String Nombre = txtNombre.getText();
             String Descripcion = txtDescripcion.getText();
             float Precio = Float.parseFloat(txtPrecio.getText());
             int Stock = Integer.parseInt(txtStock.getText());
             String Categoria = (String) cmbCat.getSelectedItem();
 
+            //envia los datos a la controladora logica
             ctrl.EscribirProducto(Nombre, Descripcion, Precio, Stock, Categoria);
             MostrarMensaje("Producto Agregado", "El Producto se agrego correctamente", "Info");
         } catch (Exception e) {
             MostrarMensaje("Error al Agregar Producto", "Intente nuevamente y asegurese de"
                     + "\nrellenar los campos correctamente", "Error");
         }
-
+        //actualiza la tabla
         CargarTabla();
     }//GEN-LAST:event_btnAgregarActionPerformed
 
@@ -266,8 +263,10 @@ public class VListarProductos extends javax.swing.JFrame {
             if (TableProd.getSelectedRow() != -1) {
                 try {
 
+                    //toma el codigo de producto de la fila seleccionada
                     int CodigoProducto = Integer.parseInt(String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 0)));
                     ctrl.EliminarProducto(CodigoProducto);
+                    //actualiza la tabla
                     CargarTabla();
 
                     MostrarMensaje("Producto Eliminado", "El Producto se eliminó correctamente", "Info");
@@ -305,6 +304,7 @@ public class VListarProductos extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNombreActionPerformed
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        //carga la tabla al iniciar la ventana
         CargarTabla();
     }//GEN-LAST:event_formWindowOpened
 
@@ -334,19 +334,19 @@ public class VListarProductos extends javax.swing.JFrame {
                     int CodigoProducto = Integer.parseInt(String.valueOf(TableProd.getValueAt(TableProd.getSelectedRow(), 0)));
                     //busco el producto en la base de datos
                     Producto prod = ctrl.BuscarProducto(CodigoProducto);
-                    
+
                     //tomo los valores modificados desde los campos de texto de la vista
                     String Nombre = txtNombre.getText();
                     String Descripcion = txtDescripcion.getText();
                     float Precio = Float.parseFloat(txtPrecio.getText());
                     int Stock = Integer.parseInt(txtStock.getText());
                     String Categoria = (String) cmbCat.getSelectedItem();
-                    
+
                     ctrl.EditarProducto(prod, Nombre, Descripcion, Precio, Stock, Categoria);
                     CargarTabla();
 
                     MostrarMensaje("Producto Editado", "El Producto se editó correctamente", "Info");
-                } catch (Exception e) {
+                } catch (NumberFormatException e) {
                     MostrarMensaje("Error al Editar Producto", "Intente nuevamente", "Error");
                 }
             }
@@ -374,16 +374,17 @@ public class VListarProductos extends javax.swing.JFrame {
     public javax.swing.JTextField txtStock;
     // End of variables declaration//GEN-END:variables
 
+    //metodo que carga los datos y el modelo del JTable
     public void CargarTabla() {
         DefaultTableModel ModeloTabla = new DefaultTableModel() {
-
+            //no permite editar los datos directamente en la tabla
             @Override
             public boolean isCellEditable(int row, int column) {
                 return false;
             }
         };
 
-        //se asigan los nombres de los titulos de las columnas
+        //asigna los nombres de los titulos de las columnas
         String titulos[] = {"Codigo", "Nombre", "Descripcion", "Precio", "Stock", "Categoria"};
         ModeloTabla.setColumnIdentifiers(titulos);
 
@@ -398,7 +399,7 @@ public class VListarProductos extends javax.swing.JFrame {
                 ModeloTabla.addRow(objetos);
             }
         }
-        //Asigno el modelo tabla al JTable
+        //Asigna el modelo tabla al JTable
         TableProd.setModel(ModeloTabla);
     }
 

@@ -6,6 +6,7 @@ package Vista;
 
 import Controlador.ControladorUsuarios;
 import Modelo.Persona;
+import Modelo.Producto;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
@@ -61,6 +62,11 @@ public class VListarUsuarios extends javax.swing.JFrame {
         btnEditar.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
         btnEditar.setForeground(new java.awt.Color(255, 255, 255));
         btnEditar.setText("Editar");
+        btnEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnEditarActionPerformed(evt);
+            }
+        });
 
         btnAgregar.setBackground(new java.awt.Color(255, 51, 0));
         btnAgregar.setFont(new java.awt.Font("Microsoft YaHei UI", 0, 12)); // NOI18N
@@ -293,6 +299,33 @@ public class VListarUsuarios extends javax.swing.JFrame {
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         CargarTabla();
     }//GEN-LAST:event_formWindowOpened
+
+    private void btnEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnEditarActionPerformed
+        if (TableUsr.getRowCount() != 0) {
+            if (TableUsr.getSelectedRow() != -1) {
+                try {
+                    //tomo el identificador de la fila seleccionada
+                    int id = Integer.parseInt(String.valueOf(TableUsr.getValueAt(TableUsr.getSelectedRow(), 0)));
+                    //busco el producto en la base de datos
+                    Persona Usr = ctrl.BuscarUsuario(id);
+
+                    //tomo los valores modificados desde los campos de texto de la vista
+                    String Nombre = txtNombre.getText();
+                    String Direccion = txtDireccion.getText();
+                    String Correo = txtCorreo.getText();
+                    String Contra = txtContra.getText();
+                    
+                    //paso el usuario encontrado y los datos a modificar
+                    ctrl.EditarUsuario(Usr, Nombre, Direccion, Correo, Contra);
+                    CargarTabla();
+
+                    MostrarMensaje("Usuario Editado", "El Usuario se editó correctamente", "Info");
+                } catch (NumberFormatException e) {
+                    MostrarMensaje("Error al Editar Usuario", "Intente nuevamente", "Error");
+                }
+            }
+        }
+    }//GEN-LAST:event_btnEditarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

@@ -12,12 +12,12 @@
         <exec.mainClass>com.mycompany.tpi.TPI</exec.mainClass>
     </properties>
     <dependencies>
-    <!-- Otras dependencias -->
-    <dependency>
-        <groupId>mysql</groupId>
-        <artifactId>mysql-connector-java</artifactId>
-        <version>8.0.33</version> <!-- Asegúrate de usar la última versión -->
-    </dependency>
+        <!-- Otras dependencias -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+            <version>8.0.33</version> <!-- Asegúrate de usar la última versión -->
+        </dependency>
         <dependency>
             <groupId>org.eclipse.persistence</groupId>
             <artifactId>org.eclipse.persistence.core</artifactId>
@@ -60,5 +60,10 @@
             <scope>provided</scope>
         </dependency>
     </dependencies>
-
+    <repositories>
+        <repository>
+            <id>local-repo</id>
+            <url>file:C:\Users\emito\Downloads\jcalendar-1.4.jar</url>
+        </repository>
+    </repositories>
 </project>

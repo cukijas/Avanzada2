@@ -23,11 +23,12 @@ public class ControladoraPersistencia {
         ProdJPA.create(prod);
 
     }
+
     /*
     public void ActualizarProducto(Producto prod) {
         ProdJPA.create(prod);
     }*/
-    public void EliminarProducto(int CodigoProducto){
+    public void EliminarProducto(int CodigoProducto) {
         try {
             ProdJPA.destroy(CodigoProducto);
         } catch (NonexistentEntityException ex) {
@@ -45,7 +46,6 @@ public class ControladoraPersistencia {
         //UsrJPA.create();
     }
      */
-
     public List<Persona> LeerUsuarios() {
         return UsrJPA.findPersonaEntities();
     }
@@ -69,6 +69,18 @@ public class ControladoraPersistencia {
     public void EditarProducto(Producto prod) {
         try {
             ProdJPA.edit(prod);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Persona BuscarUsuario(int id) {
+        return UsrJPA.findPersona(id);
+    }
+
+    public void EditarUsuario(Persona Usr) {
+        try {
+            UsrJPA.edit(Usr);
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
