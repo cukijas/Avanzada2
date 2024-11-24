@@ -52,4 +52,5 @@ public class Articulo implements Serializable {
         this.Nombre_Articulo = Nombre_Articulo;
     }
 
+
 }
