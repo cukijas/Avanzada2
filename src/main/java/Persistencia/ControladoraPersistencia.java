@@ -1,5 +1,6 @@
 package Persistencia;
 
+import Modelo.Pedido;
 import Modelo.Persona;
 import Modelo.Producto;
 import Persistencia.exceptions.NonexistentEntityException;
@@ -13,50 +14,19 @@ public class ControladoraPersistencia {
     PersonaJpaController UsrJPA = new PersonaJpaController();
     PedidoJpaController PedJPA = new PedidoJpaController();
 
-    //leer los productos en la base de datos
+    //Administrar Productos
     public List<Producto> LeerProductos() {
         return ProdJPA.findProductoEntities();
     }
 
-    //Administrar Productos
     public void EscribirProducto(Producto prod) {
         ProdJPA.create(prod);
 
     }
 
-    /*
-    public void ActualizarProducto(Producto prod) {
-        ProdJPA.create(prod);
-    }*/
     public void EliminarProducto(int CodigoProducto) {
         try {
             ProdJPA.destroy(CodigoProducto);
-        } catch (NonexistentEntityException ex) {
-            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
-        }
-    }
-
-    //Administrar Usuarios
-    /*
-    public void EscribirUsuario() {
-        //UsrJPA.create();
-    }
-    
-     public void EscribirUsuario() {
-        //UsrJPA.create();
-    }
-     */
-    public List<Persona> LeerUsuarios() {
-        return UsrJPA.findPersonaEntities();
-    }
-
-    public void EscribirUsuario(Persona Usr) {
-        UsrJPA.create(Usr);
-    }
-
-    public void EliminarUsuario(int id) {
-        try {
-            UsrJPA.destroy(id);
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -74,6 +44,23 @@ public class ControladoraPersistencia {
         }
     }
 
+    //Administrar Usuarios
+    public List<Persona> LeerUsuarios() {
+        return UsrJPA.findPersonaEntities();
+    }
+
+    public void EscribirUsuario(Persona Usr) {
+        UsrJPA.create(Usr);
+    }
+
+    public void EliminarUsuario(int id) {
+        try {
+            UsrJPA.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
     public Persona BuscarUsuario(int id) {
         return UsrJPA.findPersona(id);
     }
@@ -84,5 +71,34 @@ public class ControladoraPersistencia {
         } catch (Exception ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    //Administrar Pedidos
+    public void EscribirPedido(Pedido ped) {
+        PedJPA.create(ped);
+    }
+
+    public void EliminarPedido(int id) {
+        try {
+            PedJPA.destroy(id);
+        } catch (NonexistentEntityException ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public Pedido BuscarPedido(int id) {
+        return PedJPA.findPedido(id);
+    }
+
+    public void EditarPedido(Pedido ped) {
+        try {
+            PedJPA.edit(ped);
+        } catch (Exception ex) {
+            Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public List<Pedido> LeerPedidos() {
+        return PedJPA.findPedidoEntities();
     }
 }

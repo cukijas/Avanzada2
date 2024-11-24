@@ -17,6 +17,7 @@ public class ControladorProductos {
     ControladoraPersistencia CtrlPer = new ControladoraPersistencia();
     Producto prod = new Producto();
 
+    //metodos intermediarios entre el controlador de CRUD y la vista
     public List<Producto> LeerProductos() {
         return CtrlPer.LeerProductos();
     }
