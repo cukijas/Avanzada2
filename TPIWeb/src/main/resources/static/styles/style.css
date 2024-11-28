@@ -1,0 +1,182 @@
+/*ajustes predeterminados (color secundario #110f29)*/
+:root {
+    --color-principal: white;
+    --color-secundario: #E84E1B; 
+    --color-texto: #181818;
+}
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    border: none;
+    outline: none;
+    font-family: "Poppins", sans-serif;
+}
+
+.body {
+    background-color: var(--color-principal);
+}
+
+.wrapper {
+    width: 95%;
+    margin: 0 auto;
+
+}
+/*seccion: boton y cuadro de bsuqueda*/
+#cuadro-busqueda {
+    margin: 1em 0;
+}
+
+#cuadro-busqueda input {
+    background-color: var(--color-principal);
+    width: 50%;
+    border-bottom: 2px solid var(--color-secundario);
+    padding: 1em 0.3em;
+}
+
+#cuadro-busqueda input:focus {
+    border-bottom-color: var(--color-secundario);
+
+}
+
+#cuadro-busqueda button {
+    padding: 1em 2em;
+    margin-left: 1em;
+    border-radius: 5px;
+    background-color: var(--color-secundario);
+    color: var(--color-principal);
+}
+/*oculta la "X" del cuadro de texto*/
+input[type="search"]::-webkit-search-cancel-button { /* Oculta la X en Chrome/Safari */
+    display: none;
+}
+
+/*seccion: botones de filtros*/
+.btnCategoria {
+    margin: 1em 0;
+    border: 2px solid var(--color-secundario);
+    padding: 1em 2.2em;
+    border-radius: 3em;
+    background-color: transparent;
+    color: var(--color-secundario);
+    cursor: pointer;
+}
+
+/*cambia el color del boton al estar activo*/
+.active {
+    background-color: var(--color-secundario);
+    color: var(--color-principal);
+}
+
+/*esconde el cotenido de la pagina*/
+.hide {
+    display: none;
+}
+/* boton de ver carrito con el icono */
+.icono-carrito {
+    position: absolute;
+    top: 1em; /* Espaciado desde la parte superior */
+    right: 50px; /* Espaciado desde la derecha */
+    background-color: var(--color-secundario); /* Color de fondo */
+    color: var(--color-principal); /* Color del ícono */
+    padding: 10px;
+    border-radius: 5px;
+   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease; /* Animación */
+}
+
+.icono-carrito:hover {
+    background-color: var(--color-secundario); /* Cambia el color al pasar el mouse */
+}
+
+/* Icono dentro del contenedor */
+.icono-carrito i {
+    font-size: 24px;
+}
+/**/
+#productos {
+    display: flex;
+    flex-wrap: wrap;
+    /* Permite que los productos se envuelvan en varias filas */
+    gap: 1em;
+    /* Espaciado uniforme */
+    justify-content: space-between;
+    /* Ajusta el espacio entre los productos */
+}
+
+.carta {
+    position: relative;
+    background-color: var(--color-principal);
+    max-width: 18em;
+    margin-top: 1em;
+    padding: 1em;
+    border-radius: 5px;
+    /*box-shadow: 1em 2em 2.5em rgba(1, 2, 68, 0.15);*/
+    transition: all 0.3s ease;
+}
+
+.carta:hover {
+    border: 2px solid var(--color-secundario);
+    /* Resalta con un borde*/
+    transform: scale(1.05);
+    /* Hace que el elemento crezca un poco */
+    box-shadow: 1em 3em 3.5em rgba(1, 2, 68, 0.25);
+    /* Incrementa la sombra */
+}
+
+.image-container {
+    text-align: center;
+}
+
+img {
+    max-width: 80%;
+    width: 20em;
+    height: 15em;
+    object-fit: contain;
+    height: 15;
+}
+
+.container {
+    padding-top: 1em;
+    color: black
+}
+
+.container h5 {
+    font-weight: 500;
+}
+
+@media screen and (max-width: 720px) {
+    img {
+        max-width: 100%;
+        object-fit: contain;
+        height: 10em;
+    }
+}
+/*boton para agregar al carrito por cada carta*/
+.btn-carrito{
+    position: absolute;
+    bottom: 0px; /* Ajusta el espacio desde el borde inferior */
+    right: 0px; /* Ajusta el espacio desde el borde derecho */
+    background: var(--color-secundario);
+    color: var(--color-principal);
+    padding: 10px;
+    cursor: pointer;
+    border: none;
+    border-radius: 5px; /* Opcional: redondear esquinas */
+    transition: all 0.3s ease;
+}
+.btn-carrito:hover{ 
+    transform: scale(1.1);
+}
+.carta {
+    max-width: 15em;
+    max-height: 25em;
+    margin-top: 1em;
+    flex: 1 1 calc(30% - 1em);
+    max-width: calc(30% - 1em);
+}
+
+#productos {
+    grid-template-columns: auto auto;
+}
