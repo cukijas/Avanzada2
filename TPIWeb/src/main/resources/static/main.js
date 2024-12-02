@@ -1,9 +1,9 @@
 // URL de la API
-const apiUrl = "http://localhost:8080/api/productos";
+const apiProdUrl = "http://localhost:8080/api/productos";
 
 // Función para consumir la API y tomar los productos a mostrar
 function fetchProductos() {
-    fetch(apiUrl)
+    fetch(apiProdUrl)
         .then(response => {
             if (!response.ok) {
                 throw new Error(`Error HTTP: ${response.status}`);
@@ -135,4 +135,52 @@ window.onload = () => {
     filtrarProductos("Todo");
     buscar("Todo");
 };
+
+//funcion del boton ver carrito
+function verCarrito() {
+    const carrito = document.getElementById('Carrito');
+    const productosWrapper = document.querySelector('.wrapper');
+
+    // Alterna la clase activa del carrito
+    carrito.classList.toggle('visible');
+
+    // Agrega o elimina la clase para ajustar el margen de los productos
+    if (carrito.classList.contains('visible')) {
+        productosWrapper.classList.add('carrito-visible');
+        cargarArticulos();
+    } else {
+        productosWrapper.classList.remove('carrito-visible');
+    }
+}
+
+function cargarArticulos() {
+
+    //imagenes de cada division
+    let imgContainer = document.createElement("div");
+    imgContainer.classList.add("image-container");
+    //tag de la imagen
+    let imagen = document.createElement("img");
+    imagen.setAttribute("src", producto.imagen);
+    imgContainer.appendChild(imagen);
+    carta.appendChild(imgContainer);
+
+    //contenedor
+    let container = document.createElement("div");
+    container.classList.add("container");
+
+    //nombre del producto
+    let nombre = document.createElement("h5");
+    nombre.classList.add("producto-nombre");
+    nombre.innerText = producto.nombre_producto.toUpperCase();
+    container.appendChild(nombre);
+
+    // Precio
+    let precio = document.createElement("p");
+    precio.classList.add("producto-precio");
+    precio.innerText = `$${producto.precio.toFixed(2)}`;
+    container.appendChild(precio);
+    carta.appendChild(container);
+
+    document.getElementById("cont-carrito").appendChild(articulo);
+}
 

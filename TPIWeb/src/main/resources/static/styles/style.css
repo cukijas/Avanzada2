@@ -1,9 +1,10 @@
 /*ajustes predeterminados (color secundario #110f29)*/
 :root {
     --color-principal: white;
-    --color-secundario: #E84E1B; 
+    --color-secundario: #E84E1B;
     --color-texto: #181818;
 }
+
 * {
     padding: 0;
     margin: 0;
@@ -12,17 +13,47 @@
     outline: none;
     font-family: "Poppins", sans-serif;
 }
+/* organizacion de los paneles*/
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;  /*El header está encima y el contenido abajo */
+    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
+    min-height: 100vh;
+}
 
-.body {
-    background-color: var(--color-principal);
+header {
+    padding: 20px;
+    background: var(--color-header);
+    box-shadow: 0 2px 4px hsl(0 4% 15% / 10%);
+    width: 100%;
+}
+
+.main {
+    display: flex; 
+}
+
+.productos { /* Los productos ocupan el espacio restante en el contenedor */
+    padding: 20px;
+    background: var(--color-secundario);
+}
+
+.carrito {
+    width: 360px; /* Ancho fijo del carrito */
+    background: var(--color-carrito);
+    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
 }
 
 .wrapper {
+    display: flex; /* Hace que los productos y el carrito estén en una fila */
     width: 95%;
     margin: 0 auto;
-
+    transition: margin-right 0.3s ease-in-out;
 }
-/*seccion: boton y cuadro de bsuqueda*/
+
+
+/*seccion: boton y cuadro de busqueda*/
 #cuadro-busqueda {
     margin: 1em 0;
 }
@@ -30,6 +61,7 @@
 #cuadro-busqueda input {
     background-color: var(--color-principal);
     width: 50%;
+    margin-left: 1em;
     border-bottom: 2px solid var(--color-secundario);
     padding: 1em 0.3em;
 }
@@ -46,12 +78,18 @@
     background-color: var(--color-secundario);
     color: var(--color-principal);
 }
+
 /*oculta la "X" del cuadro de texto*/
-input[type="search"]::-webkit-search-cancel-button { /* Oculta la X en Chrome/Safari */
+input[type="search"]::-webkit-search-cancel-button {
+    /* Oculta la X en Chrome/Safari */
     display: none;
 }
 
 /*seccion: botones de filtros*/
+#btnCategoria {
+    margin-left: 1em;
+}
+
 .btnCategoria {
     margin: 1em 0;
     border: 2px solid var(--color-secundario);
@@ -72,44 +110,58 @@ input[type="search"]::-webkit-search-cancel-button { /* Oculta la X en Chrome/Sa
 .hide {
     display: none;
 }
+
 /* boton de ver carrito con el icono */
 .icono-carrito {
     position: absolute;
-    top: 1em; /* Espaciado desde la parte superior */
-    right: 50px; /* Espaciado desde la derecha */
-    background-color: var(--color-secundario); /* Color de fondo */
-    color: var(--color-principal); /* Color del ícono */
+    top: 1em;
+    right: 50px;
+    background-color: var(--color-secundario);
+    color: var(--color-principal);
     padding: 10px;
     border-radius: 5px;
-   /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);  */
     cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease; /* Animación */
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    /* Animación */
 }
 
 .icono-carrito:hover {
-    background-color: var(--color-secundario); /* Cambia el color al pasar el mouse */
+    background-color: var(--color-secundario);
+    /* Cambia el color al pasar el mouse */
 }
 
 /* Icono dentro del contenedor */
-.icono-carrito i {
+.icono-carrito i{
     font-size: 24px;
 }
-/**/
+
+/*configuracion inicial de todos los productos*/
 #productos {
     display: flex;
-    flex-wrap: wrap;
-    /* Permite que los productos se envuelvan en varias filas */
-    gap: 1em;
+    flex-wrap: wrap; 
+    /* Permite que los productos se ajusten en varias filas si es necesario */
+    gap: 2em;
     /* Espaciado uniforme */
-    justify-content: space-between;
+    justify-content: center;
     /* Ajusta el espacio entre los productos */
+    margin-right: 0px;
 }
-
+#productos > div {
+    flex: 1 0 1 ; /* Asegura que no colapsen */
+    max-width: 18em; /*mantiene el maximo*/
+    text-align: center;
+}
+.productos
+{
+    padding: 20px;
+    background: var(--color-secundario);
+}
 .carta {
     position: relative;
     background-color: var(--color-principal);
     max-width: 18em;
     margin-top: 1em;
+    margin-bottom: 1em;
     padding: 1em;
     border-radius: 5px;
     /*box-shadow: 1em 2em 2.5em rgba(1, 2, 68, 0.15);*/
@@ -132,7 +184,7 @@ input[type="search"]::-webkit-search-cancel-button { /* Oculta la X en Chrome/Sa
 img {
     max-width: 80%;
     width: 20em;
-    height: 15em;
+    height: 14em;
     object-fit: contain;
     height: 15;
 }
@@ -153,22 +205,28 @@ img {
         height: 10em;
     }
 }
+
 /*boton para agregar al carrito por cada carta*/
-.btn-carrito{
+.btn-carrito {
     position: absolute;
-    bottom: 0px; /* Ajusta el espacio desde el borde inferior */
-    right: 0px; /* Ajusta el espacio desde el borde derecho */
+    bottom: 0px;
+    /* Ajusta el espacio desde el borde inferior */
+    right: 0px;
+    /* Ajusta el espacio desde el borde derecho */
     background: var(--color-secundario);
     color: var(--color-principal);
     padding: 10px;
     cursor: pointer;
     border: none;
-    border-radius: 5px; /* Opcional: redondear esquinas */
+    border-radius: 5px;
+    /* Opcional: redondear esquinas */
     transition: all 0.3s ease;
 }
-.btn-carrito:hover{ 
+
+.btn-carrito:hover {
     transform: scale(1.1);
 }
+/*tamaños de la carta*/
 .carta {
     max-width: 15em;
     max-height: 25em;
@@ -179,4 +237,32 @@ img {
 
 #productos {
     grid-template-columns: auto auto;
+    transition: margin-right 0.3s ease;
+}
+
+/*Panel de carrito para ver los articulos*/
+.panel-carrito {
+    position: fixed;
+    top: 300px; /*quitar esto y ponerlo en 0*/
+    right: 0;
+    width: 360px;
+    height: 100vh;
+    background: var(--color-principal);
+    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+    transform: translateX(100%); /* Oculta fuera de la pantalla */
+    transition: transform 0.3s ease; /* Animación para mostrar/ocultar */
+}
+.panel-carrito.visible {
+    transform: translateX(0);
+}
+/*wrapper que contiene los productos, deja un margen si el carrito es visible*/
+.wrapper.carrito-visible #productos {
+    margin-right: 360px; /* Reserva espacio para el carrito */
+}
+
+.titulo-carrito{
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-top: 2rem;
 }
