@@ -21,5 +21,4 @@ public class ProductoController {
     public List<Producto> listarProductos() {
         return servicio.listarProductos();
     }
-    
 }
