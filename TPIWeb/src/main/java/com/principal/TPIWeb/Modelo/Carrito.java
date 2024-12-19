@@ -5,11 +5,14 @@
 package com.principal.TPIWeb.Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 
 @Entity
 public class Carrito implements Serializable {
@@ -20,14 +23,31 @@ public class Carrito implements Serializable {
     private float Detalle_envio;
     private float PrecioXarticulo;
     private float resumenCarrito;
+    @OneToMany
+    private List<Articulo> articulos;
+
+    @OneToOne
+    private Persona usuario;
 
     public Carrito() {
     }
 
-    public Carrito(int Cantidad_Producto, float Detalle_envio, float PrecioXarticulo) {
+    public Carrito(int Cantidad_Producto, float Detalle_envio, float PrecioXarticulo, List<Articulo> articulos, int id, float resumenCarrito, Persona usuario) {
         this.Cantidad_Producto = Cantidad_Producto;
         this.Detalle_envio = Detalle_envio;
         this.PrecioXarticulo = PrecioXarticulo;
+        this.articulos = articulos;
+        this.id = id;
+        this.resumenCarrito = resumenCarrito;
+        this.usuario = usuario;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public int getCantidad_Producto() {
@@ -62,12 +82,23 @@ public class Carrito implements Serializable {
         this.resumenCarrito = resumenCarrito;
     }
 
-    public int getId() {
-        return id;
+    public List<Articulo> getArticulos() {
+        return articulos;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setArticulos(List<Articulo> articulos) {
+        this.articulos = articulos;
     }
+
+    public Persona getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Persona usuario) {
+        this.usuario = usuario;
+    }
+
+    
+
     
 }

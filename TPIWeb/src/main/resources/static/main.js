@@ -1,4 +1,4 @@
-// URL de la API
+// URL de la API para tomar los productos
 const apiProdUrl = "http://localhost:8080/api/productos";
 
 // Función para consumir la API y tomar los productos a mostrar

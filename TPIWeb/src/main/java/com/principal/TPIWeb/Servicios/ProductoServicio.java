@@ -22,8 +22,8 @@ public class ProductoServicio {
         repositorio.save(producto);
     }
 
-    public void obtenerProductoPorId(int id) {
-        repositorio.findById(id).get();
+    public Producto obtenerProductoPorId(int id) {
+        return repositorio.findById(id).get();
     }
 
     public void eliminarProducto(int id){

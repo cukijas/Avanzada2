@@ -5,11 +5,13 @@
 package com.principal.TPIWeb.Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 /**
  *
@@ -27,11 +29,14 @@ public class Producto implements Serializable {
     private float precio;
     private int stock;
     private String imagen;
+    @OneToMany
+    private List<Articulo> articulos;
 
     public Producto() {
     }
 
-    public Producto(String categoria, String descripcion, int id, String imagen, String nombre_producto, float precio, int stock) {
+    public Producto(List<Articulo> articulos, String categoria, String descripcion, int id, String imagen, String nombre_producto, float precio, int stock) {
+        this.articulos = articulos;
         this.categoria = categoria;
         this.descripcion = descripcion;
         this.id = id;
@@ -96,7 +101,14 @@ public class Producto implements Serializable {
     public void setImagen(String imagen) {
         this.imagen = imagen;
     }
+
+    public List<Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(List<Articulo> articulos) {
+        this.articulos = articulos;
+    }
     
-   
 
 }

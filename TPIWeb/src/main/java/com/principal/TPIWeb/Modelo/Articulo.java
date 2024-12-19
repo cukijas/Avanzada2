@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Articulo implements Serializable {
@@ -18,15 +19,19 @@ public class Articulo implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id_articulo;
     private int Cantidad_Articulo;
-    private char Nombre_Articulo;
+    @ManyToOne
+    private Producto producto;
+    @ManyToOne
+    private Carrito carrito;
 
     public Articulo() {
     }
 
-    public Articulo(int id_articulo, int Cantidad_Articulo, char Nombre_Articulo) {
-        this.id_articulo = id_articulo;
+    public Articulo(int Cantidad_Articulo, Carrito carrito, int id_articulo, Producto producto) {
         this.Cantidad_Articulo = Cantidad_Articulo;
-        this.Nombre_Articulo = Nombre_Articulo;
+        this.carrito = carrito;
+        this.id_articulo = id_articulo;
+        this.producto = producto;
     }
 
     public int getId_articulo() {
@@ -45,13 +50,20 @@ public class Articulo implements Serializable {
         this.Cantidad_Articulo = Cantidad_Articulo;
     }
 
-    public char getNombre_Articulo() {
-        return Nombre_Articulo;
+    public Producto getProducto() {
+        return producto;
     }
 
-    public void setNombre_Articulo(char Nombre_Articulo) {
-        this.Nombre_Articulo = Nombre_Articulo;
+    public void setProducto(Producto producto) {
+        this.producto = producto;
     }
 
+    public Carrito getCarrito() {
+        return carrito;
+    }
+
+    public void setCarrito(Carrito carrito) {
+        this.carrito = carrito;
+    }
 
 }

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Tienda Online Mica y Emi</title>
+    <title>Tienda Online Romero y Toledo</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="styles/style.css">
@@ -15,51 +15,62 @@
 
 
 <body>
-    <header>
-        <div id="cuadro-busqueda">
-            <input type="search" id="txtBusqueda" placeholder="Busque aqui el nombre del producto" />
-            <button id="btnBuscarP">
-                Buscar
-            </button>
-            <div class="icono-carrito" onclick="verCarrito()">
-                Ver Carrito
-                <i class="bx bx-cart"></i>
+    <div class="Iniciar-Sesion">
+        
+    </div>
+    <div class="Registrar">
+
+    </div>
+    <div class="Principal">
+        <header>
+            <div id="cuadro-busqueda">
+                <input type="search" id="txtBusqueda" placeholder="Busque aqui el nombre del producto" />
+                <button id="btnBuscarP">
+                    Buscar
+                </button>
+                <div class="icono-carrito" onclick="verCarrito()">
+                    Ver Carrito
+                    <i class="bx bx-cart"></i>
+                </div>
             </div>
-        </div>
-        <div id="btnCategoria">
-            <button class="btnCategoria" onclick="filtrarProductos('Todo')">
-                Todo
-            </button>
-            <button class="btnCategoria" onclick="filtrarProductos('Ropa')">
-                Ropa
-            </button>
-            <button class="btnCategoria" onclick="filtrarProductos('Electrónicos')">
-                Electrónicos
-            </button>
-            <button class="btnCategoria" onclick="filtrarProductos('Libros')">
-                Libros
-            </button>
-            <button class="btnCategoria" onclick="filtrarProductos('Alimentos')">
-                Alimentos
-            </button>
-        </div>
-       <div class="panel-carrito" id="Carrito">
-            <div class="titulo-carrito">
-                Tu Carrito
+            <div id="btnCategoria">
+                <button class="btnCategoria" onclick="filtrarProductos('Todo')">
+                    Todo
+                </button>
+                <button class="btnCategoria" onclick="filtrarProductos('Ropa')">
+                    Ropa
+                </button>
+                <button class="btnCategoria" onclick="filtrarProductos('Electrónicos')">
+                    Electrónicos
+                </button>
+                <button class="btnCategoria" onclick="filtrarProductos('Libros')">
+                    Libros
+                </button>
+                <button class="btnCategoria" onclick="filtrarProductos('Alimentos')">
+                    Alimentos
+                </button>
             </div>
-            <div class="contenido-carrito" id="cont-carrito">
-                <div class="total">
-                    <div class="titulo-total">
-                        Total
+           <div class="panel-carrito" id="Carrito">
+                <div class="titulo-carrito">
+                    Tu Carrito
+                </div>
+                <div class="contenido-carrito" id="cont-carrito">
+                    <div class="total">
+                        <div class="titulo-total">
+                            Total
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </header>
-    <main class="wrapper">
-        <div id="productos">
-        </div>
-    </main>
+        </header>
+        <main class="wrapper">
+            <div id="productos">
+            </div>
+        </main>
+    </div>
+    <div class="Finalizar-Compra">
+
+    </div>
     <script src="main.js" async defer></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
 </body>

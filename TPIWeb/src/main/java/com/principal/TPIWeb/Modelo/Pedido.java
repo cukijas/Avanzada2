@@ -5,11 +5,14 @@
 package com.principal.TPIWeb.Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Pedido implements Serializable {
@@ -19,7 +22,10 @@ public class Pedido implements Serializable {
     private String Estado_Pedido; 
     private String Fecha_Pedido;
     private float Total_pedido;
-
+    @OneToMany
+    private List<Detalle_de_pedido> Detalle;
+    @ManyToOne
+    private Persona usuario;
     public Pedido() {
     }
 
@@ -55,11 +61,22 @@ public class Pedido implements Serializable {
         this.Total_pedido = Total_pedido;
     }
 
-    public Pedido(int id, String Estado_Pedido, String Fecha_Pedido, float Total_pedido) {
-        this.id = id;
-        this.Estado_Pedido = Estado_Pedido;
-        this.Fecha_Pedido = Fecha_Pedido;
-        this.Total_pedido = Total_pedido;
+    public List<Detalle_de_pedido> getDetalle() {
+        return Detalle;
     }
+
+    public void setDetalle(List<Detalle_de_pedido> Detalle) {
+        this.Detalle = Detalle;
+    }
+
+    public Persona getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Persona usuario) {
+        this.usuario = usuario;
+    }
+
+   
     
 }
