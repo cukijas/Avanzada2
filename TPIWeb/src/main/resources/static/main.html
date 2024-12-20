@@ -15,14 +15,23 @@
 
 
 <body>
-    <div class="Iniciar-Sesion">
-        
+
+    <div  class="Pagina" id="IniciarSesion">
+        <h1>Iniciar Sesión</h1>
+        <h2>Correo electrónico</h2>
+        <input type="text" id="txtCorreo">
+        <h2>Contraseña</h2>
+        <input type="text" id="txtContrasena">
+        <button id="btnIniciarSesion" onclick="iniciarSesion()">
+            Iniciar Sesión
+        </button>
     </div>
+
     <div class="Registrar">
 
     </div>
-    <div class="Principal">
-        <header>
+    <div class="Pagina" id="PaginaPrincipal">
+        <header class="Encabezado">
             <div id="cuadro-busqueda">
                 <input type="search" id="txtBusqueda" placeholder="Busque aqui el nombre del producto" />
                 <button id="btnBuscarP">
@@ -31,6 +40,9 @@
                 <div class="icono-carrito" onclick="verCarrito()">
                     Ver Carrito
                     <i class="bx bx-cart"></i>
+                </div>
+                <div class="CerrarSesion" id="btnCerrarSesion" onclick="cerrarSesion()">
+                    CerrarSesion
                 </div>
             </div>
             <div id="btnCategoria">
@@ -68,7 +80,7 @@
             </div>
         </main>
     </div>
-    <div class="Finalizar-Compra">
+    <div class="Pagina">
 
     </div>
     <script src="main.js" async defer></script>

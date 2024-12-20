@@ -12,7 +12,7 @@ import com.principal.TPIWeb.Servicios.UsuarioServicio;
 
 @RestController
 @RequestMapping("/api/usuarios")
-public class UsuarioControlller {
+public class UsuarioController {
 
     @Autowired
     private UsuarioServicio servicio;

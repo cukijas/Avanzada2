@@ -23,7 +23,17 @@ body {
     min-height: 100vh;
 }
 
-header {
+/*seccion: paginas*/
+.Pagina{
+    display: none;
+    transform: translateX(100%);
+}
+.Pagina.visible{
+    display: block;
+    transform: translateX(0);
+}
+
+.Encabezado {
     padding: 20px;
     background: var(--color-header);
     box-shadow: 0 2px 4px hsl(0 4% 15% / 10%);
@@ -115,7 +125,7 @@ input[type="search"]::-webkit-search-cancel-button {
 .icono-carrito {
     position: absolute;
     top: 1em;
-    right: 50px;
+    right: 150px;
     background-color: var(--color-secundario);
     color: var(--color-principal);
     padding: 10px;
@@ -125,6 +135,18 @@ input[type="search"]::-webkit-search-cancel-button {
     /* Animación */
 }
 
+#btnCerrarSesion {
+    position: absolute;
+    top: 1em;
+    right: 25px;
+    background-color: var(--color-secundario);
+    color: var(--color-principal);
+    padding: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.3s ease, background-color 0.3s ease;
+    /* Animación */
+}
 .icono-carrito:hover {
     background-color: var(--color-secundario);
     /* Cambia el color al pasar el mouse */
