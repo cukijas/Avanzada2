@@ -18,12 +18,12 @@ public class ArticuloServicio {
         return repositorio.findAll();
     }
 
-    public void escribirArticulo(Articulo articulo) {
-        repositorio.save(articulo);
+    public Articulo escribirArticulo(Articulo articulo) {
+        return repositorio.save(articulo);
     }
 
-    public void obtenerArticuloPorId(int id) {
-        repositorio.findById(id).get();
+    public Articulo obtenerArticuloPorId(int id) {
+        return repositorio.findById(id).orElse(null);
     }
 
     public void modificarArticulo(Articulo articulo) {

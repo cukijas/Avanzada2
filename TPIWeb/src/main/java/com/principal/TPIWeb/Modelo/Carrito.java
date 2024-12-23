@@ -19,10 +19,6 @@ public class Carrito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int Cantidad_Producto;
-    private float Detalle_envio;
-    private float PrecioXarticulo;
-    private float resumenCarrito;
     @OneToMany
     private List<Articulo> articulos;
 
@@ -32,13 +28,9 @@ public class Carrito implements Serializable {
     public Carrito() {
     }
 
-    public Carrito(int Cantidad_Producto, float Detalle_envio, float PrecioXarticulo, List<Articulo> articulos, int id, float resumenCarrito, Persona usuario) {
-        this.Cantidad_Producto = Cantidad_Producto;
-        this.Detalle_envio = Detalle_envio;
-        this.PrecioXarticulo = PrecioXarticulo;
-        this.articulos = articulos;
+    public Carrito(int id, List<Articulo> articulos, Persona usuario) {
         this.id = id;
-        this.resumenCarrito = resumenCarrito;
+        this.articulos = articulos;
         this.usuario = usuario;
     }
 
@@ -48,38 +40,6 @@ public class Carrito implements Serializable {
 
     public void setId(int id) {
         this.id = id;
-    }
-
-    public int getCantidad_Producto() {
-        return Cantidad_Producto;
-    }
-
-    public void setCantidad_Producto(int Cantidad_Producto) {
-        this.Cantidad_Producto = Cantidad_Producto;
-    }
-
-    public float getDetalle_envio() {
-        return Detalle_envio;
-    }
-
-    public void setDetalle_envio(float Detalle_envio) {
-        this.Detalle_envio = Detalle_envio;
-    }
-
-    public float getPrecioXarticulo() {
-        return PrecioXarticulo;
-    }
-
-    public void setPrecioXarticulo(float PrecioXarticulo) {
-        this.PrecioXarticulo = PrecioXarticulo;
-    }
-
-    public float getResumenCarrito() {
-        return resumenCarrito;
-    }
-
-    public void setResumenCarrito(float resumenCarrito) {
-        this.resumenCarrito = resumenCarrito;
     }
 
     public List<Articulo> getArticulos() {
@@ -98,7 +58,16 @@ public class Carrito implements Serializable {
         this.usuario = usuario;
     }
 
-    
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Carrito{");
+        sb.append("id=").append(id);
+        sb.append(", articulos=").append(articulos);
+        sb.append(", usuario=").append(usuario);
+        sb.append('}');
+        return sb.toString();
+    }
 
     
 }

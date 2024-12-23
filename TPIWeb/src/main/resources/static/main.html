@@ -1,90 +1,133 @@
 <!DOCTYPE html>
 <html>
-
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Tienda Online Romero y Toledo</title>
-    <meta name="description" content="">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="stylesheet" href="styles/style.css">
-    <link rel="stylesheet" href="bootstrap-5.3.3-dist\css\bootstrap.css">
-    <link rel="stylesheet" href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css">
-</head>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="styles/style.css" />
+    <link rel="stylesheet" href="bootstrap-5.3.3-dist\css\bootstrap.css" />
+    <link
+      rel="stylesheet"
+      href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css"
+    />
+  </head>
 
-
-
-<body>
-
-    <div  class="Pagina" id="IniciarSesion">
+  <body>
+    <div class="Pagina" id="PaginaInicial">
+      <div id="IniciarSesion">
         <h1>Iniciar Sesión</h1>
         <h2>Correo electrónico</h2>
-        <input type="text" id="txtCorreo">
+        <input type="text" id="txtCorreo" placeholder="Ingresa tu Correo" />
         <h2>Contraseña</h2>
-        <input type="text" id="txtContrasena">
+        <input
+          type="text"
+          id="txtContrasena"
+          placeholder="Ingresa tu Contraseña"
+        />
         <button id="btnIniciarSesion" onclick="iniciarSesion()">
-            Iniciar Sesión
+          Iniciar Sesión
         </button>
+        <div id="opcion-registro">
+          <h3>¿No tienes cuenta?</h3>
+          <button id="btnregistroAqui" onclick="MostrarRegistrar()">
+            Registrate Aqui
+          </button>
+        </div>
+      </div>
     </div>
 
-    <div class="Registrar">
-
+    <div class="Pagina" id="PaginaRegistro">
+      <div class="Registrar">
+        <h1>Registro</h1>
+        <h2>Nombre</h2>
+        <input type="text" id="txtNombreR" placeholder="Ingresa tu Nombre" />
+        <h2>Direccion</h2>
+        <input
+          type="text"
+          id="txtDireccionR"
+          placeholder="Ingresa tu Direccion"
+        />
+        <h2>Correo electrónico</h2>
+        <input type="text" id="txtCorreoR" placeholder="Ingresa tu Correo" />
+        <h2>Contraseña</h2>
+        <input
+          type="text"
+          id="txtContrasenaR"
+          placeholder="Ingresa tu Contraseña"
+        />
+        <button id="btnRegistrar" onclick="registrarUsuario()">
+          Registrar
+        </button>
+        <div id="opcion-registro">
+          <h3>¿Ya tienes cuenta?</h3>
+          <button id="btnregistroAqui" onclick="MostrarLogin()">
+            Inicia Sesión Aqui
+          </button>
+        </div>
+      </div>
     </div>
+
     <div class="Pagina" id="PaginaPrincipal">
-        <header class="Encabezado">
-            <div id="cuadro-busqueda">
-                <input type="search" id="txtBusqueda" placeholder="Busque aqui el nombre del producto" />
-                <button id="btnBuscarP">
-                    Buscar
-                </button>
-                <div class="icono-carrito" onclick="verCarrito()">
-                    Ver Carrito
-                    <i class="bx bx-cart"></i>
-                </div>
-                <div class="CerrarSesion" id="btnCerrarSesion" onclick="cerrarSesion()">
-                    CerrarSesion
-                </div>
+      <header class="Encabezado">
+        <div id="cuadro-busqueda">
+          <input
+            type="search"
+            id="txtBusqueda"
+            placeholder="Busque aqui el nombre del producto"
+          />
+          <button id="btnBuscarP">Buscar</button>
+          <div class="icono-carrito" onclick="verCarrito()">
+            Ver Carrito
+            <i class="bx bx-cart"></i>
+          </div>
+          <div
+            class="CerrarSesion"
+            id="btnCerrarSesion"
+            onclick="cerrarSesion()"
+          >
+            Cerrar Sesion
+          </div>
+        </div>
+        <div id="btnCategoria">
+          <button class="btnCategoria" onclick="filtrarProductos('Todo')">
+            Todo
+          </button>
+          <button class="btnCategoria" onclick="filtrarProductos('Ropa')">
+            Ropa
+          </button>
+          <button
+            class="btnCategoria"
+            onclick="filtrarProductos('Electrónicos')"
+          >
+            Electrónicos
+          </button>
+          <button class="btnCategoria" onclick="filtrarProductos('Libros')">
+            Libros
+          </button>
+          <button class="btnCategoria" onclick="filtrarProductos('Alimentos')">
+            Alimentos
+          </button>
+        </div>
+        <div class="panel-carrito" id="Carrito">
+          <div class="titulo-carrito">Tu Carrito</div>
+          <div class="panel-lateral" id="cont-carrito">
+            <div class="total">
+              <div class="titulo-total">Total</div>
             </div>
-            <div id="btnCategoria">
-                <button class="btnCategoria" onclick="filtrarProductos('Todo')">
-                    Todo
-                </button>
-                <button class="btnCategoria" onclick="filtrarProductos('Ropa')">
-                    Ropa
-                </button>
-                <button class="btnCategoria" onclick="filtrarProductos('Electrónicos')">
-                    Electrónicos
-                </button>
-                <button class="btnCategoria" onclick="filtrarProductos('Libros')">
-                    Libros
-                </button>
-                <button class="btnCategoria" onclick="filtrarProductos('Alimentos')">
-                    Alimentos
-                </button>
-            </div>
-           <div class="panel-carrito" id="Carrito">
-                <div class="titulo-carrito">
-                    Tu Carrito
-                </div>
-                <div class="contenido-carrito" id="cont-carrito">
-                    <div class="total">
-                        <div class="titulo-total">
-                            Total
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </header>
-        <main class="wrapper">
-            <div id="productos">
-            </div>
-        </main>
+            <button class="cerrar" id="cerrar" onclick="cerrarCarrito()" >  
+              Cerrar
+            </button>
+          </div>
+        </div>
+      </header>
+      <main class="wrapper">
+        <div id="productos"></div>
+      </main>
     </div>
-    <div class="Pagina">
-
-    </div>
+    <div class="Pagina"></div>
     <script src="main.js" async defer></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
-</body>
-
+  </body>
 </html>

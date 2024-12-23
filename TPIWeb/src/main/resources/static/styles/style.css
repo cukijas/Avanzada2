@@ -1,290 +1,383 @@
-/*ajustes predeterminados (color secundario #110f29)*/
+/*ajustes predeterminados (color secundario #110f29)
+naranja: #e84e1b*/
 :root {
-    --color-principal: white;
-    --color-secundario: #E84E1B;
-    --color-texto: #181818;
+  --color-principal: white;
+  --color-secundario: #e84e1b;
+  --color-texto: #181818;
 }
 
 * {
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-    border: none;
-    outline: none;
-    font-family: "Poppins", sans-serif;
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  font-family: "Poppins", sans-serif;
 }
 /* organizacion de los paneles*/
 body {
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;  /*El header está encima y el contenido abajo */
-    height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
-    min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /*El header está encima y el contenido abajo */
+  height: 100vh; /* Asegura que el body ocupe toda la altura de la ventana */
+  min-height: 100vh;
 }
 
 /*seccion: paginas*/
-.Pagina{
-    display: none;
-    transform: translateX(100%);
+/*por defecto las paginas no se ven*/
+.Pagina {
+  display: none;
+  transform: translateX(100%);
 }
-.Pagina.visible{
-    display: block;
-    transform: translateX(0);
+/*formato predeterminado principal*/
+.Pagina.visible {
+  display: block;
+  overflow-x: hidden;
+  transform: translateX(0);
+}
+/*formato de pagina para iniciar sesion o registrarse*/
+.Pagina.centrada {
+  margin: 0;
+  height: 100%;
+  display: flex;
+  justify-content: center; /* Centra horizontalmente */
+  align-items: center; /* Centra verticalmente */
+  background-color: --color-secundario;
+  transform: translateX(0);
 }
 
+/*configuracion de la pantalla incial al entrar al sitio web*/
+#PaginaInicial {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: var(--color-secundario);
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+}
+
+#IniciarSesion {
+  background-color: #fff;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+}
+
+#IniciarSesion h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+#IniciarSesion h2 {
+  font-size: 1.5em;
+  text-align: left;
+  margin-bottom: 0.5em;
+}
+
+#IniciarSesion input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+#IniciarSesion button {
+  display: block; /* Convierte el botón en un elemento de bloque */
+  margin: 0 auto; /* Centra horizontalmente */
+  background: var(--color-secundario);
+  color: var(--color-principal);
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#opcion-registro {
+  text-align: center;
+  align-items: center;
+  margin-top: 2em;
+  display: flex;
+  justify-content: center;
+}
+#opcion-registro h3 {
+  font-size: 1em;
+  margin-right: 0 1em;
+  margin-top: 0.5em;
+  margin-left: 2em;
+}
+#opcion-registro button {
+  background-color: white;
+  color: var(--color-secundario);
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block; /* Convierte el botón en un elemento de bloque */
+  margin-left: 1em;
+}
+
+/*seccion: Proncipal*/
 .Encabezado {
-    padding: 20px;
-    background: var(--color-header);
-    box-shadow: 0 2px 4px hsl(0 4% 15% / 10%);
-    width: 100%;
+  padding: 20px;
+  background: var(--color-header);
+  box-shadow: 0 2px 4px hsl(0 4% 15% / 10%);
+  width: 100%;
 }
 
 .main {
-    display: flex; 
+  display: flex;
 }
 
-.productos { /* Los productos ocupan el espacio restante en el contenedor */
-    padding: 20px;
-    background: var(--color-secundario);
+.productos {
+  /* Los productos ocupan el espacio restante en el contenedor */
+  padding: 20px;
+  background: var(--color-secundario);
 }
 
 .carrito {
-    width: 360px; /* Ancho fijo del carrito */
-    background: var(--color-carrito);
-    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+  width: 360px; /* Ancho fijo del carrito */
+  background: var(--color-carrito);
+  box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
 }
 
 .wrapper {
-    display: flex; /* Hace que los productos y el carrito estén en una fila */
-    width: 95%;
-    margin: 0 auto;
-    transition: margin-right 0.3s ease-in-out;
+  display: flex; /* Hace que los productos y el carrito estén en una fila */
+  width: 95%;
+  margin: 0 auto;
+  transition: margin-right 0.3s ease-in-out;
 }
-
 
 /*seccion: boton y cuadro de busqueda*/
 #cuadro-busqueda {
-    margin: 1em 0;
+  margin: 1em 0;
 }
 
 #cuadro-busqueda input {
-    background-color: var(--color-principal);
-    width: 50%;
-    margin-left: 1em;
-    border-bottom: 2px solid var(--color-secundario);
-    padding: 1em 0.3em;
+  background-color: var(--color-principal);
+  width: 50%;
+  margin-left: 1em;
+  border-bottom: 2px solid var(--color-secundario);
+  padding: 1em 0.3em;
 }
 
 #cuadro-busqueda input:focus {
-    border-bottom-color: var(--color-secundario);
-
+  border-bottom-color: var(--color-secundario);
 }
 
 #cuadro-busqueda button {
-    padding: 1em 2em;
-    margin-left: 1em;
-    border-radius: 5px;
-    background-color: var(--color-secundario);
-    color: var(--color-principal);
+  padding: 1em 2em;
+  margin-left: 1em;
+  border-radius: 5px;
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
 }
 
 /*oculta la "X" del cuadro de texto*/
 input[type="search"]::-webkit-search-cancel-button {
-    /* Oculta la X en Chrome/Safari */
-    display: none;
+  /* Oculta la X en Chrome/Safari */
+  display: none;
 }
 
 /*seccion: botones de filtros*/
 #btnCategoria {
-    margin-left: 1em;
+  margin-left: 1em;
 }
 
 .btnCategoria {
-    margin: 1em 0;
-    border: 2px solid var(--color-secundario);
-    padding: 1em 2.2em;
-    border-radius: 3em;
-    background-color: transparent;
-    color: var(--color-secundario);
-    cursor: pointer;
+  margin: 1em 0;
+  border: 2px solid var(--color-secundario);
+  padding: 1em 2.2em;
+  border-radius: 3em;
+  background-color: transparent;
+  color: var(--color-secundario);
+  cursor: pointer;
 }
 
 /*cambia el color del boton al estar activo*/
 .active {
-    background-color: var(--color-secundario);
-    color: var(--color-principal);
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
 }
 
 /*esconde el cotenido de la pagina*/
 .hide {
-    display: none;
+  display: none;
 }
 
 /* boton de ver carrito con el icono */
 .icono-carrito {
-    position: absolute;
-    top: 1em;
-    right: 150px;
-    background-color: var(--color-secundario);
-    color: var(--color-principal);
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    /* Animación */
+  position: absolute;
+  top: 1em;
+  right: 150px;
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  /* Animación */
 }
 
 #btnCerrarSesion {
-    position: absolute;
-    top: 1em;
-    right: 25px;
-    background-color: var(--color-secundario);
-    color: var(--color-principal);
-    padding: 10px;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    /* Animación */
+  position: absolute;
+  top: 1em;
+  right: 25px;
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
+  padding: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+  /* Animación */
 }
 .icono-carrito:hover {
-    background-color: var(--color-secundario);
-    /* Cambia el color al pasar el mouse */
+  background-color: var(--color-secundario);
+  /* Cambia el color al pasar el mouse */
 }
 
 /* Icono dentro del contenedor */
-.icono-carrito i{
-    font-size: 24px;
+.icono-carrito i {
+  font-size: 24px;
 }
 
 /*configuracion inicial de todos los productos*/
 #productos {
-    display: flex;
-    flex-wrap: wrap; 
-    /* Permite que los productos se ajusten en varias filas si es necesario */
-    gap: 2em;
-    /* Espaciado uniforme */
-    justify-content: center;
-    /* Ajusta el espacio entre los productos */
-    margin-right: 0px;
+  display: flex;
+  flex-wrap: wrap;
+  /* Permite que los productos se ajusten en varias filas si es necesario */
+  gap: 2em;
+  /* Espaciado uniforme */
+  justify-content: center;
+  /* Ajusta el espacio entre los productos */
+  margin-right: 0px;
 }
 #productos > div {
-    flex: 1 0 1 ; /* Asegura que no colapsen */
-    max-width: 18em; /*mantiene el maximo*/
-    text-align: center;
+  flex: 1 0 1; /* Asegura que no colapsen */
+  max-width: 18em; /*mantiene el maximo*/
+  text-align: center;
 }
-.productos
-{
-    padding: 20px;
-    background: var(--color-secundario);
+.productos {
+  padding: 20px;
+  background: var(--color-secundario);
 }
 .carta {
-    position: relative;
-    background-color: var(--color-principal);
-    max-width: 18em;
-    margin-top: 1em;
-    margin-bottom: 1em;
-    padding: 1em;
-    border-radius: 5px;
-    /*box-shadow: 1em 2em 2.5em rgba(1, 2, 68, 0.15);*/
-    transition: all 0.3s ease;
+  position: relative;
+  background-color: var(--color-principal);
+  max-width: 18em;
+  margin-top: 1em;
+  margin-bottom: 1em;
+  padding: 1em;
+  border-radius: 5px;
+  /*box-shadow: 1em 2em 2.5em rgba(1, 2, 68, 0.15);*/
+  transition: all 0.3s ease;
 }
 
 .carta:hover {
-    border: 2px solid var(--color-secundario);
-    /* Resalta con un borde*/
-    transform: scale(1.05);
-    /* Hace que el elemento crezca un poco */
-    box-shadow: 1em 3em 3.5em rgba(1, 2, 68, 0.25);
-    /* Incrementa la sombra */
+  border: 2px solid var(--color-secundario);
+  /* Resalta con un borde*/
+  transform: scale(1.05);
+  /* Hace que el elemento crezca un poco */
+  box-shadow: 1em 3em 3.5em rgba(1, 2, 68, 0.25);
+  /* Incrementa la sombra */
 }
 
 .image-container {
-    text-align: center;
+  text-align: center;
 }
 
 img {
-    max-width: 80%;
-    width: 20em;
-    height: 14em;
-    object-fit: contain;
-    height: 15;
+  max-width: 80%;
+  width: 20em;
+  height: 14em;
+  object-fit: contain;
+  height: 15;
 }
 
 .container {
-    padding-top: 1em;
-    color: black
+  padding-top: 1em;
+  color: black;
 }
 
 .container h5 {
-    font-weight: 500;
+  font-weight: 500;
 }
 
 @media screen and (max-width: 720px) {
-    img {
-        max-width: 100%;
-        object-fit: contain;
-        height: 10em;
-    }
+  img {
+    max-width: 100%;
+    object-fit: contain;
+    height: 10em;
+  }
 }
 
 /*boton para agregar al carrito por cada carta*/
 .btn-carrito {
-    position: absolute;
-    bottom: 0px;
-    /* Ajusta el espacio desde el borde inferior */
-    right: 0px;
-    /* Ajusta el espacio desde el borde derecho */
-    background: var(--color-secundario);
-    color: var(--color-principal);
-    padding: 10px;
-    cursor: pointer;
-    border: none;
-    border-radius: 5px;
-    /* Opcional: redondear esquinas */
-    transition: all 0.3s ease;
+  position: absolute;
+  bottom: 0px;
+  /* Ajusta el espacio desde el borde inferior */
+  right: 0px;
+  /* Ajusta el espacio desde el borde derecho */
+  background: var(--color-secundario);
+  color: var(--color-principal);
+  padding: 10px;
+  cursor: pointer;
+  border: none;
+  border-radius: 5px;
+  /* Opcional: redondear esquinas */
+  transition: all 0.3s ease;
 }
 
 .btn-carrito:hover {
-    transform: scale(1.1);
+  transform: scale(1.1);
 }
 /*tamaños de la carta*/
 .carta {
-    max-width: 15em;
-    max-height: 25em;
-    margin-top: 1em;
-    flex: 1 1 calc(30% - 1em);
-    max-width: calc(30% - 1em);
+  max-width: 15em;
+  max-height: 25em;
+  margin-top: 1em;
+  flex: 1 1 calc(30% - 1em);
+  max-width: calc(30% - 1em);
 }
 
 #productos {
-    grid-template-columns: auto auto;
-    transition: margin-right 0.3s ease;
+  grid-template-columns: auto auto;
+  transition: margin-right 0.3s ease;
 }
 
 /*Panel de carrito para ver los articulos*/
 .panel-carrito {
-    position: fixed;
-    top: 300px; /*quitar esto y ponerlo en 0*/
-    right: 0;
-    width: 360px;
-    height: 100vh;
-    background: var(--color-principal);
-    box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
-    transform: translateX(100%); /* Oculta fuera de la pantalla */
-    transition: transform 0.3s ease; /* Animación para mostrar/ocultar */
+  position: fixed;
+  top: 300px; /*quitar esto y ponerlo en 0*/
+  right: 0;
+  width: 360px;
+  height: 100vh;
+  background: var(--color-principal);
+  box-shadow: -2px 0 4px hsl(0 4% 15% / 10%);
+  transform: translateX(100%); /* Oculta fuera de la pantalla */
+  transition: transform 0.3s ease; /* Animación para mostrar/ocultar */
 }
 .panel-carrito.visible {
-    transform: translateX(0);
+  transform: translateX(0);
 }
 /*wrapper que contiene los productos, deja un margen si el carrito es visible*/
 .wrapper.carrito-visible #productos {
-    margin-right: 360px; /* Reserva espacio para el carrito */
+  margin-right: 360px; /* Reserva espacio para el carrito */
 }
 
-.titulo-carrito{
-    text-align: center;
-    font-size: 1.5rem;
-    font-weight: 600;
-    margin-top: 2rem;
+.titulo-carrito {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 2rem;
 }

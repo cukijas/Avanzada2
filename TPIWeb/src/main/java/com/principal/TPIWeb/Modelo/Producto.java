@@ -109,6 +109,22 @@ public class Producto implements Serializable {
     public void setArticulos(List<Articulo> articulos) {
         this.articulos = articulos;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Producto{");
+        sb.append("id=").append(id);
+        sb.append(", nombre_producto=").append(nombre_producto);
+        sb.append(", descripcion=").append(descripcion);
+        sb.append(", categoria=").append(categoria);
+        sb.append(", precio=").append(precio);
+        sb.append(", stock=").append(stock);
+        sb.append(", imagen=").append(imagen);
+        sb.append(", articulos=").append(articulos);
+        sb.append('}');
+        return sb.toString();
+    }
     
 
 }
