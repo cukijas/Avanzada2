@@ -18,8 +18,8 @@ public class CarritoServicio {
         return repositorio.findAll();
     }
     
-    public void escribirCarrito(Carrito carrito) {
-        repositorio.save(carrito);
+    public Carrito agregarCarrito(Carrito carrito) {
+        return repositorio.save(carrito);
     }
 
     public void obtenerCarritoPorId(int id) {

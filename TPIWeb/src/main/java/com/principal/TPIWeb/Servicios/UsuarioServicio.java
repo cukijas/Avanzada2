@@ -22,6 +22,10 @@ public class UsuarioServicio {
         return repositorio.findById(id).get();
     }
 
+    public Persona agregarUsuario(Persona usuario) {
+       return repositorio.save(usuario);
+    }
+
     public void eliminarUsuario(int id) {
         repositorio.deleteById(id);
     }

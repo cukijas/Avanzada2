@@ -37,6 +37,18 @@ public class Articulo implements Serializable {
         this.producto = producto;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Articulo{");
+        sb.append("id_articulo=").append(id_articulo);
+        sb.append(", Cantidad_Articulo=").append(Cantidad_Articulo);
+        sb.append(", producto=").append(producto);
+        sb.append(", carrito=").append(carrito);
+        sb.append('}');
+        return sb.toString();
+    }
+
     public int getId_articulo() {
         return id_articulo;
     }
@@ -69,16 +81,6 @@ public class Articulo implements Serializable {
         this.carrito = carrito;
     }
 
-    @Override
-    public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Articulo{");
-        sb.append("id_articulo=").append(id_articulo);
-        sb.append(", Cantidad_Articulo=").append(Cantidad_Articulo);
-        sb.append(", producto=").append(producto);
-        sb.append(", carrito=").append(carrito);
-        sb.append('}');
-        return sb.toString();
-    }
+    
 
 }

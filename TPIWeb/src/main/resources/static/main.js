@@ -4,7 +4,56 @@ const apiArtUrl = "http://localhost:8080/api/articulos";
 const apiUsrUrl = "http://localhost:8080/api/usuarios";
 const apiCartUrl = "http://localhost:8080/api/carritos";
 
+//tomo la pagina inicial para cambiar el fondo
+const paginaInicial = document.querySelector("#PaginaInicial");
+
+// Lista de imágenes
+const imagenes = [
+  "../images/fondo1.png",
+  "../images/fondo2.png",
+  "../images/fondo3.png",
+  "../images/fondo4.png",
+  "../images/fondo5.png",
+  "../images/fondo6.png",
+];
+
+let indiceActual = 0;
+
+// Cambia la imagen de fondo cada 5 segundos
+setInterval(() => {
+  const siguienteIndice = (indiceActual + 1) % imagenes.length;
+
+  // Configura las imágenes actuales y siguientes
+  paginaInicial.style.setProperty(
+    "--current-image",
+    `url(${imagenes[indiceActual]})`
+  );
+  paginaInicial.style.setProperty(
+    "--next-image",
+    `url(${imagenes[siguienteIndice]})`
+  );
+
+  // Activa la transición
+  paginaInicial.classList.add("transition-active");
+
+  // Espera a que termine la transición para preparar la siguiente
+  setTimeout(() => {
+    paginaInicial.classList.remove("transition-active");
+    paginaInicial.style.setProperty(
+      "--current-image",
+      `url(${imagenes[siguienteIndice]})`
+    );
+    paginaInicial.style.setProperty("--next-image", "");
+    indiceActual = siguienteIndice;
+  }, 1000); // Duración de la transición
+}, 5000); // Cambia cada 5 segundos
+
 window.onload = () => {
+  //establece el fondo al cargar la pagina
+  paginaInicial.style.setProperty(
+    "--current-image",
+    `url(${imagenes[indiceActual]})`
+  );
   verificarSesion();
 };
 
@@ -18,13 +67,27 @@ function verificarSesion() {
 }
 
 function mostrarLogin() {
+  document.getElementById("PaginaRegistro").classList.remove("centrada");
   document.getElementById("PaginaInicial").classList.add("centrada");
   document.getElementById("PaginaPrincipal").classList.remove("visible");
+}
+
+function mostrarRegistrar() {
+  const PaginaLogin = document.getElementById("PaginaInicial");
+  PaginaLogin.classList.remove("centrada");
+  PaginaLogin.classList.remove("visible");
+  document.getElementById("PaginaRegistro").classList.add("centrada");
 }
 
 function mostrarPrincipal() {
   document.getElementById("PaginaInicial").classList.remove("centrada");
   document.getElementById("PaginaPrincipal").classList.add("visible");
+
+  const totalContainer = document.getElementById("total");
+  const TotalValor = document.createElement("div");
+  TotalValor.classList.add("total-articulos");
+  TotalValor.id = "total-valor";
+  totalContainer.appendChild(TotalValor);
 
   const usuario = JSON.parse(localStorage.getItem("usuario"));
   //buscar el carrito que pertenece al usuario autenticado
@@ -48,12 +111,6 @@ function mostrarPrincipal() {
       console.log("No se encontró carrito para este usuario.");
     }
   });
-}
-
-function mostrarRegistrar() {
-  document.getElementById("PaginaInicial").classList.add("centrada");
-  document.getElementById("PaginaPrincipal").classList.remove("visible");
-  document.getElementById("PaginaRegistro").classList.add("visible");
 }
 
 async function fetchUsuarios() {
@@ -109,7 +166,7 @@ async function fetchProductos() {
     })
     .then((data) => {
       // Verifica si `data` es un array directamente o está dentro de otra propiedad
-      const productos = Array.isArray(data) ? data : (data.datos || []);
+      const productos = Array.isArray(data) ? data : data.datos || [];
 
       // Verifica si es iterable
       if (!Array.isArray(productos)) {
@@ -127,7 +184,9 @@ async function fetchCarrito(id_usuario) {
       throw new Error(`Error HTTP: ${response.status}`);
     }
     const responseData = await response.json();
-    const carritos = Array.isArray(responseData) ? responseData : responseData.datos;
+    const carritos = Array.isArray(responseData)
+      ? responseData
+      : responseData.datos;
 
     if (!Array.isArray(carritos)) {
       throw new Error("La respuesta no contiene un arreglo de carritos.");
@@ -135,7 +194,7 @@ async function fetchCarrito(id_usuario) {
 
     // Filtrar el carrito del usuario específico
     const carritoUsuario = carritos.find(
-      (carrito) => carrito.usuario.id === id_usuario
+      (carrito) => carrito.usuario && carrito.usuario.id === id_usuario
     );
 
     if (!carritoUsuario) {
@@ -170,7 +229,6 @@ async function iniciarSesion() {
     const usuarioEncontrado = usuarios.find(
       (usuario) => usuario.correo === correo && usuario.contra === contrasena
     );
-    console.log("Usuario encontrado:", usuarioEncontrado);
     if (usuarioEncontrado) {
       console.log("Usuario autenticado:", usuarioEncontrado);
       // Guardar información del usuario en localStorage
@@ -183,12 +241,13 @@ async function iniciarSesion() {
       );
       // Mostrar la página principal
       mostrarPrincipal();
-      
+
       filtrarProductos("Todo");
       buscar("Todo");
     } else {
       console.warn("Credenciales incorrectas.");
       alert("Correo o contraseña incorrectos. Intenta de nuevo.");
+      return;
     }
   } catch (error) {
     console.error("Error al iniciar sesión:", error);
@@ -199,7 +258,115 @@ async function iniciarSesion() {
 
 function cerrarSesion() {
   localStorage.removeItem("usuario");
+  localStorage.removeItem("carrito");
+  localStorage.removeItem("articulo-encontrado");
   mostrarLogin();
+}
+
+function registrarUsuario() {
+  const nombre = document.getElementById("txtNombreR").value.trim();
+  const direccion = document.getElementById("txtDireccionR").value.trim();
+  const correo = document.getElementById("txtCorreoR").value.trim();
+  const contrasena = document.getElementById("txtContrasenaR").value.trim();
+
+  if (!correo || !contrasena) {
+    alert("Por favor, completa todos los campos.");
+    return;
+  }else{
+    fetchUsuarios().then((usuarios) => {
+      if (!usuarios) {
+        console.error("No se pudo obtener la lista de usuarios.");
+        return; // Salir si no se cargan los usuarios
+      }
+      // Buscar el usuario en la lista
+      const usuarioRegistrado = usuarios.find(
+        (usuario) =>
+          usuario.correo === correo
+      );
+      if(usuarioRegistrado){
+        alert("El correo ingresado ya está registrado. Intenta con otro correo.");
+        return;
+      }else{
+        const nuevoUsuario = {
+          direccion: direccion,
+          contra: contrasena,
+          nombre: nombre,
+          correo: correo,
+        };
+      
+        fetch(apiUsrUrl, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(nuevoUsuario),
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Error HTTP: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Usuario registrado:", data);
+            // Guardar información del usuario en localStorage
+            localStorage.setItem(
+              "usuario",
+              JSON.stringify({
+                id: data.id,
+                correo: data.correo,
+              })
+            );
+            alert("Usuario registrado exitosamente.");
+            asignarCarrito(data.id);
+            localStorage.removeItem("usuario");
+            //mostrarAlerta();
+          })
+          .catch((error) => {
+            alert("Ocurrió un error al registrar el usuario. Intenta de nuevo.");
+            console.error("Error al registrar el usuario:", error);
+          });
+        }
+    });
+  }
+}
+
+function mostrarAlerta() {
+  const ventanaRegistro = document.getElementById("PaginaRegistro");
+  const alerta = document.getElementById("alerta");
+
+  ventanaRegistro.classList.add("fondo");
+
+  // Muestra la alerta
+  alerta.classList.remove("ocultar");
+  alerta.classList.add("mostrar");
+}
+
+function asignarCarrito(id_usuario) {
+  const nuevoCarrito = {
+    usuario: { id: id_usuario },
+  };
+  fetch(apiCartUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(nuevoCarrito),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Carrito asignado:", data);
+      //mostrarAlerta();
+    })
+    .catch((error) => {
+      alert("Ocurrió un error al asignar el carrito. Intenta de nuevo.");
+      console.error("Error al asignar el carrito:", error);
+    });
 }
 
 function recuperarArticulos(productos) {
@@ -207,14 +374,27 @@ function recuperarArticulos(productos) {
   fetchArticulos()
     .then((articulos) => {
       if (articulos) {
-        for (let producto of productos) {
+        let total = 0;
+        const panelCarrito = document.getElementById("cont-carrito");
+        panelCarrito.innerHTML = ""; // Limpiar el contenedor antes de renderizar
+
+        const totalContainer = document.getElementById("total-valor");
+        totalContainer.innerHTML = ""; // Limpiar el contenedor del total antes de agregar el nuevo valor
+
+        productos.forEach((producto) => {
           cargarArticulos(producto, articulos, carrito.id);
-        }
+          total += calcularTotal(producto, articulos, carrito.id);
+        });
+
+        totalContainer.innerHTML = `$${total.toFixed(2)}`;
+        //alert("Artículos recuperados correctamente.");
       } else {
         console.error("No se pudo obtener la lista de artículos.");
+        alert("Ocurrió un error al recuperar los artículos. Intenta de nuevo.");
       }
     })
     .catch((error) => {
+      alert("Ocurrió un error al recuperar los artículos. Intenta de nuevo.");
       console.error("Error al obtener los artículos:", error);
       return null; // Devolver null en caso de error
     });
@@ -223,6 +403,7 @@ function recuperarArticulos(productos) {
 //toma los productos y genera una carta por cada uno
 function tomarProductos(productos) {
   // Obtén el contenedor donde se mostrarán los productos
+  const fragmentoProductos = document.createDocumentFragment();
   const contenedorProductos = document.getElementById("productos");
 
   // Limpia el contenedor antes de renderizar (por si ya tiene contenido previo)
@@ -264,9 +445,25 @@ function tomarProductos(productos) {
     botonCarrito.classList.add("btn-carrito");
     botonCarrito.setAttribute("data-id", producto.id); // Identificador del producto
     botonCarrito.addEventListener("click", () => {
+      console.log("Producto agregado al carrito.");
       const productoId = botonCarrito.getAttribute("data-id"); // Obtener ID del producto desde el botón
       const carritoId = JSON.parse(localStorage.getItem("carrito")).id; // ID del carrito almacenado
-      agregarAlCarrito(productoId, carritoId);
+      verificarArticulo(productoId, carritoId).then((existe) => {
+        if (existe) {
+          //alert("El artículo ya está en el carrito. Aumentando cantidad...");
+          const articuloEncontrado = JSON.parse(
+            localStorage.getItem("articulo-encontrado")
+          );
+          const nuevaCantidad = articuloEncontrado.cantidad_Articulo + 1;
+          actualizarCantidadArticulo(
+            articuloEncontrado.id_articulo,
+            nuevaCantidad
+          );
+        } else {
+          agregarAlCarrito(productoId, carritoId);
+        }
+        verCarrito();
+      });
     });
     botonCarrito.innerHTML =
       "<box-icon name='cart-download' type='solid' color='rgba(255,255,255,0.98)' ></box-icon>"; // Ícono de carrito
@@ -275,6 +472,7 @@ function tomarProductos(productos) {
     carta.appendChild(container);
 
     contenedorProductos.appendChild(carta);
+    
   }
 }
 
@@ -361,6 +559,13 @@ function verCarrito() {
   // Ajusta la clase de los productos para dar espacio al carrito
   productosWrapper.classList.add("carrito-visible");
 
+  fetchProductos().then((productos) => {
+    if (productos) {
+      recuperarArticulos(productos);
+    } else {
+      console.error("No se pudo obtener la lista de productos.");
+    }
+  });
 }
 
 function cerrarCarrito() {
@@ -373,7 +578,6 @@ function cerrarCarrito() {
   // Ajusta la clase de los productos
   productosWrapper.classList.remove("carrito-visible");
 }
-
 
 async function agregarAlCarrito(productoId, carritoId) {
   try {
@@ -411,15 +615,15 @@ async function agregarAlCarrito(productoId, carritoId) {
     // Obtener la respuesta del servidor
     const data = await response.json();
     console.log("Respuesta del servidor:", data);
-    
-    fetchProductos().then((productos) => {  
+
+    fetchProductos().then((productos) => {
       if (productos) {
         recuperarArticulos(productos);
       } else {
         console.error("No se pudo obtener la lista de productos.");
       }
     });
-    
+
     // Actualizar visualización del carrito (opcional)
     verCarrito();
   } catch (error) {
@@ -439,19 +643,22 @@ function cargarArticulos(producto, articulos, id_carrito) {
     (articulo) =>
       articulo.producto.id === id && articulo.carrito.id === id_carrito
   );
+  //const fragmentoArticulos = document.createDocumentFragment();
+  const contenidoCarrrito = document.getElementById("cont-carrito");
 
   // Crear tarjetas para los artículos filtrados
-  articulosFiltrados.forEach(() => {
+  articulosFiltrados.forEach((articulo) => {
     // Crear contenedor principal de la carta
     const carta = document.createElement("div");
-    carta.classList.add("carta-carrito");
+    carta.classList.add("carta-articulo");
 
     // Contenedor de la imagen
     const imgContainer = document.createElement("div");
-    imgContainer.classList.add("image-container");
+    imgContainer.classList.add("containedor-imagen");
 
     const imagenTag = document.createElement("img");
     imagenTag.setAttribute("src", imagen); // Usar la URL de la imagen
+    imagenTag.classList.add("imagen-articulo");
     imgContainer.appendChild(imagenTag);
 
     // Añadir el contenedor de la imagen a la carta
@@ -459,7 +666,7 @@ function cargarArticulos(producto, articulos, id_carrito) {
 
     // Contenedor de información
     const container = document.createElement("div");
-    container.classList.add("container");
+    container.classList.add("contenedor-articulo");
 
     // Nombre del producto
     const nombre = document.createElement("h5");
@@ -473,10 +680,183 @@ function cargarArticulos(producto, articulos, id_carrito) {
     precioTag.innerText = `$${precio.toFixed(2)}`;
     container.appendChild(precioTag);
 
+    // Contenedor para cantidad y botón de eliminar
+    const cantidadYEliminarContainer = document.createElement("div");
+    cantidadYEliminarContainer.classList.add("cantidad-eliminar-container");
+
+    // Cantidad del producto
+    const cantidad = document.createElement("input");
+    cantidad.setAttribute("type", "number");
+    cantidad.setAttribute("min", "1");
+    cantidad.setAttribute("value", articulo.cantidad_Articulo);
+    cantidad.classList.add("articulo-cantidad");
+    cantidad.setAttribute("data-id", articulo.id_articulo);
+    cantidad.addEventListener("change", (event) => {
+      const nuevaCantidad = event.target.value;
+      const id = cantidad.getAttribute("data-id");
+      actualizarCantidadArticulo(id, nuevaCantidad);
+      fetchProductos().then((productos) => {
+        if (productos) {
+          recuperarArticulos(productos);
+        } else {
+          console.error("No se pudo obtener la lista de productos.");
+        }
+      });
+    });
+    cantidadYEliminarContainer.appendChild(cantidad);
+
+    //Botón para eliminar el artículo
+    const botonEliminar = document.createElement("button");
+    botonEliminar.classList.add("eliminar-articulo");
+    botonEliminar.innerHTML = '<i class="bx bx-trash"></i>';
+    botonEliminar.addEventListener("click", () => {
+      eliminarArticulo(articulo.id_articulo); // Llama la función de eliminar
+    });
+    cantidadYEliminarContainer.appendChild(botonEliminar);
+
+    // Añadir el contenedor de cantidad y eliminar a la carta
+    container.appendChild(cantidadYEliminarContainer);
+
     // Añadir el contenedor de información a la carta
     carta.appendChild(container);
 
     // Añadir la carta al contenedor principal del carrito
-    document.getElementById("cont-carrito").appendChild(carta);
+    contenidoCarrrito.appendChild(carta);
   });
+}
+
+function calcularTotal(producto, articulos, id_carrito) {
+  const { precio, id } = producto;
+  let subtotal = 0;
+  if (!articulos || !Array.isArray(articulos)) {
+    return 0;
+  }
+  articulos.forEach((articulo) => {
+    if (id_carrito === articulo.carrito.id && id === articulo.producto.id) {
+      subtotal += precio * articulo.cantidad_Articulo;
+    }
+  });
+  return subtotal;
+}
+
+async function verificarArticulo(id_producto, id_carrito) {
+  try {
+    // Validar parámetros
+    if (!id_producto || !id_carrito) {
+      throw new Error("id_producto o id_carrito no son válidos.");
+    }
+
+    const response = await fetch(`${apiArtUrl}`);
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+
+    const responseData = await response.json();
+    console.log("Estructura de la respuesta del servidor:", responseData);
+
+    // Verificar si la respuesta contiene un arreglo válido
+    const articulos = Array.isArray(responseData)
+      ? responseData
+      : responseData?.datos || [];
+    if (!Array.isArray(articulos)) {
+      throw new Error(
+        "La respuesta del servidor no es un arreglo de artículos."
+      );
+    }
+
+    // Buscar el artículo con las condiciones dadas
+    const articuloEncontrado = articulos.find(
+      (articulo) =>
+        articulo &&
+        articulo.producto &&
+        String(articulo.producto.id) === String(id_producto) &&
+        articulo.carrito &&
+        String(articulo.carrito.id) === String(id_carrito)
+    );
+
+    console.log("Artículo encontrado:", articuloEncontrado);
+
+    if (articuloEncontrado) {
+      //alert("El artículo ya está en el carrito.");
+      localStorage.setItem(
+        "articulo-encontrado",
+        JSON.stringify(articuloEncontrado)
+      );
+      return true;
+    } else {
+      //alert("El artículo no está en el carrito.");
+      return false;
+    }
+  } catch (error) {
+    alert("Ocurrió un error al verificar el artículo. Intenta de nuevo.");
+    console.error("Error al verificar el artículo:", error);
+    return false; // Manejar errores correctamente
+  }
+}
+
+//actualiza la cantidad del articulo en la base de datos
+function actualizarCantidadArticulo(id, nuevaCantidad) {
+  const articulo = {
+    cantidad_Articulo: nuevaCantidad,
+  };
+
+  fetch(`${apiArtUrl}/${id}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(articulo),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Artículo actualizado:", data);
+      fetchProductos().then((productos) => {
+        if (productos) {
+          recuperarArticulos(productos);
+        } else {
+          console.error("No se pudo obtener la lista de productos.");
+        }
+      });
+    })
+    .catch((error) => {
+      alert("Ocurrió un error al actualizar el artículo. Intenta de nuevo.");
+      console.error("Error al actualizar el artículo:", error);
+    });
+}
+
+function eliminarArticulo(id) {
+  if (!id) {
+    alert("El ID del artículo no es válido.");
+    return;
+  }
+  fetch(`${apiArtUrl}/${id}`, {
+    method: "DELETE",
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      // Si la respuesta tiene contenido
+      if (response.status !== 204) {
+        return response.json();
+      }
+    })
+    .then(() => {
+      fetchProductos().then((productos) => {
+        if (productos) {
+          recuperarArticulos(productos);
+        } else {
+          console.error("No se pudo obtener la lista de productos.");
+        }
+      });
+    })
+    .catch((error) => {
+      alert("Ocurrió un error al eliminar el artículo. Intenta de nuevo.");
+      console.error("Error al eliminar el artículo:", error);
+    });
 }

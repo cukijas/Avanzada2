@@ -21,63 +21,58 @@
         <h2>Correo electrónico</h2>
         <input type="text" id="txtCorreo" placeholder="Ingresa tu Correo" />
         <h2>Contraseña</h2>
-        <input
-          type="text"
-          id="txtContrasena"
-          placeholder="Ingresa tu Contraseña"
-        />
+        <input id="txtContrasena" placeholder="Ingresa tu Contraseña" type="password"/>
         <button id="btnIniciarSesion" onclick="iniciarSesion()">
           Iniciar Sesión
         </button>
         <div id="opcion-registro">
           <h3>¿No tienes cuenta?</h3>
-          <button id="btnregistroAqui" onclick="MostrarRegistrar()">
-            Registrate Aqui
+          <button id="btnregistroAqui" onclick="mostrarRegistrar()">
+            Registrate Aquí
           </button>
         </div>
       </div>
     </div>
-
     <div class="Pagina" id="PaginaRegistro">
-      <div class="Registrar">
-        <h1>Registro</h1>
-        <h2>Nombre</h2>
+      <div id="Registrar">
+        <h1>Registrarse</h1>
+        <h2 class="etiqueta" >Nombre</h2>
         <input type="text" id="txtNombreR" placeholder="Ingresa tu Nombre" />
-        <h2>Direccion</h2>
+        <h2 class="etiqueta">Dirección</h2>
         <input
           type="text"
           id="txtDireccionR"
-          placeholder="Ingresa tu Direccion"
+          placeholder="Ingresa tu Dirección"
         />
-        <h2>Correo electrónico</h2>
+        <h2 class="etiqueta">Correo electrónico</h2>
         <input type="text" id="txtCorreoR" placeholder="Ingresa tu Correo" />
-        <h2>Contraseña</h2>
+        <h2 class="etiqueta">Contraseña</h2>
         <input
           type="text"
           id="txtContrasenaR"
           placeholder="Ingresa tu Contraseña"
         />
         <button id="btnRegistrar" onclick="registrarUsuario()">
-          Registrar
+          Registrarse Ahora
         </button>
-        <div id="opcion-registro">
+        <div id="opcion-ingresar">
           <h3>¿Ya tienes cuenta?</h3>
-          <button id="btnregistroAqui" onclick="MostrarLogin()">
-            Inicia Sesión Aqui
+          <button id="btnregistroAqui" onclick="mostrarLogin()">
+            Inicia Sesión Aquí
           </button>
         </div>
       </div>
     </div>
-
     <div class="Pagina" id="PaginaPrincipal">
       <header class="Encabezado">
+        
         <div id="cuadro-busqueda">
           <input
             type="search"
             id="txtBusqueda"
             placeholder="Busque aqui el nombre del producto"
           />
-          <button id="btnBuscarP">Buscar</button>
+          <button id="btnBuscarP">Buscar</i></button>
           <div class="icono-carrito" onclick="verCarrito()">
             Ver Carrito
             <i class="bx bx-cart"></i>
@@ -111,15 +106,18 @@
           </button>
         </div>
         <div class="panel-carrito" id="Carrito">
-          <div class="titulo-carrito">Tu Carrito</div>
-          <div class="panel-lateral" id="cont-carrito">
-            <div class="total">
-              <div class="titulo-total">Total</div>
-            </div>
-            <button class="cerrar" id="cerrar" onclick="cerrarCarrito()" >  
-              Cerrar
+          <div class="titulo-carrito">
+            Tu Carrito
+            <button class="cerrar" id="cerrar-carrito" onclick="cerrarCarrito()">
+              <i class='bx bx-x-circle'></i>
             </button>
           </div>
+          <div id="cont-carrito">
+          </div>
+          <div class="panel-total">
+            <div class="titulo-total" id="total">Total: </div>
+          </div>
+          <button id="btnComprar" onclick="comprar()">Comprar Ahora</button>
         </div>
       </header>
       <main class="wrapper">

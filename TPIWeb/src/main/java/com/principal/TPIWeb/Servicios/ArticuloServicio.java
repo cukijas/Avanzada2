@@ -26,8 +26,15 @@ public class ArticuloServicio {
         return repositorio.findById(id).orElse(null);
     }
 
-    public void modificarArticulo(Articulo articulo) {
-        repositorio.save(articulo);
+    public Articulo modificarArticulo(Articulo articulo) {
+        // Verificar si el artículo existe
+        Articulo existente = repositorio.findById(articulo.getId_articulo())
+                .orElseThrow(() -> new RuntimeException("Artículo no encontrado"));
+        // Actualizar los datos necesarios
+        existente.setCantidad_Articulo(articulo.getCantidad_Articulo());
+
+        // Guardar cambios
+        return repositorio.save(existente);
     }
 
     public void eliminarArticulo(int id) {

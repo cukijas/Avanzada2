@@ -2,8 +2,9 @@
 naranja: #e84e1b*/
 :root {
   --color-principal: white;
-  --color-secundario: #e84e1b;
+  --color-secundario: #3c42eb;
   --color-texto: #181818;
+  --color-fondo: white;
 }
 
 * {
@@ -38,28 +39,78 @@ body {
 }
 /*formato de pagina para iniciar sesion o registrarse*/
 .Pagina.centrada {
-  margin: 0;
-  height: 100%;
   display: flex;
-  justify-content: center; /* Centra horizontalmente */
-  align-items: center; /* Centra verticalmente */
-  background-color: --color-secundario;
+  justify-content: center;
+  align-items: center;
   transform: translateX(0);
 }
 
-/*configuracion de la pantalla incial al entrar al sitio web*/
+/*configuracion de la pantalla incial al entrar al sitio web y registrar usuario*/
 #PaginaInicial {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-texto);
+}
+
+#PaginaInicial::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: var(--current-image);
+  filter: blur(4px) brightness(0.7); /* Desenfoque y filtro azul */
+  z-index: -1;
+  transition: transform 1s ease-in-out;
+}
+
+#PaginaInicial::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 100%; /* Comienza fuera del contenedor */
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-image: var(--next-image);
+  z-index: -2;
+  transition: transform 1s ease-in-out;
+}
+
+#PaginaInicial.transition-active::before {
+  transform: translateX(-100%); 
+}
+
+#PaginaInicial.transition-active::after {
+  transform: translateX(100%); 
+}
+
+#PaginaRegistro {
+  position: absolute;
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  width: 100%;
+  height: 100%;
   background-color: var(--color-secundario);
-  height: 100vh;
+  background-size: cover;
   justify-content: center;
   align-items: center;
 }
 
+#PaginaPrincipal {
+  background-color: var(--color-fondo);
+}
 #IniciarSesion {
-  background-color: #fff;
+  background-color: white;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
@@ -127,16 +178,83 @@ body {
   margin-left: 1em;
 }
 
+/*seccion: registrar Usuario*/
+#Registrar {
+  background-color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  max-height: 620px;
+}
+#Registrar h1 {
+  font-size: 2em;
+  text-align: center;
+  margin-bottom: 0.5em;
+}
+
+.etiqueta {
+  font-size: 1.5rem;
+  text-align: left;
+  margin-bottom: 0.5rem;
+}
+
+#Registrar input {
+  width: 100%;
+  padding: 0.8rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: 0.3s ease;
+}
+
+#btnRegistrar {
+  display: block; /* Convierte el botón en un elemento de bloque */
+  margin: 0 auto; /* Centra horizontalmente */
+  background: var(--color-secundario);
+  color: var(--color-principal);
+  border: none;
+  border-radius: 8px;
+  padding: 0.8rem 1.5rem;
+  font-size: 1.2rem;
+  cursor: pointer;
+}
+
+#opcion-ingresar {
+  text-align: center;
+  align-items: center;
+  margin-top: 0.5em;
+  display: flex;
+  justify-content: center;
+}
+#opcion-ingresar h3 {
+  font-size: 1em;
+  margin-right: 0 1em;
+  margin-top: 0.5em;
+}
+#opcion-ingresar button {
+  background-color: white;
+  color: var(--color-secundario);
+  border: none;
+  cursor: pointer;
+  border-radius: 0;
+  padding: 0;
+  font-size: 1rem;
+  cursor: pointer;
+  display: block; /* Convierte el botón en un elemento de bloque */
+  margin-left: 1em;
+}
+
 /*seccion: Proncipal*/
 .Encabezado {
   padding: 20px;
-  background: var(--color-header);
+  background: var(--color-fondo);
   box-shadow: 0 2px 4px hsl(0 4% 15% / 10%);
   width: 100%;
-}
-
-.main {
-  display: flex;
+  position: relative; /* Ensure it is positioned relative to the page */
+  z-index: 10;
 }
 
 .productos {
@@ -156,6 +274,7 @@ body {
   width: 95%;
   margin: 0 auto;
   transition: margin-right 0.3s ease-in-out;
+  background-color: var(--color-principal);
 }
 
 /*seccion: boton y cuadro de busqueda*/
@@ -261,6 +380,7 @@ input[type="search"]::-webkit-search-cancel-button {
   justify-content: center;
   /* Ajusta el espacio entre los productos */
   margin-right: 0px;
+  z-index: 1;
 }
 #productos > div {
   flex: 1 0 1; /* Asegura que no colapsen */
@@ -320,7 +440,20 @@ img {
     height: 10em;
   }
 }
-
+.container {
+  max-height: 125px;
+  gap: 2em;
+}
+.producto-nombre {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 2rem;
+}
+.producto-precio {
+  font-size: 1.75rem;
+  margin-bottom: 2rem;
+}
 /*boton para agregar al carrito por cada carta*/
 .btn-carrito {
   position: absolute;
@@ -353,13 +486,15 @@ img {
 #productos {
   grid-template-columns: auto auto;
   transition: margin-right 0.3s ease;
+  margin-top: 1%;
+  margin-bottom: 2%;
 }
 
 /*Panel de carrito para ver los articulos*/
 .panel-carrito {
   position: fixed;
-  top: 300px; /*quitar esto y ponerlo en 0*/
-  right: 0;
+  top: 0; /*quitar esto y ponerlo en 0*/
+  right: 0rem;
   width: 360px;
   height: 100vh;
   background: var(--color-principal);
@@ -379,5 +514,139 @@ img {
   text-align: center;
   font-size: 1.5rem;
   font-weight: 600;
-  margin-top: 2rem;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+.cerrar {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--color-secundario);
+  position: absolute;
+  top: 1rem;
+  left: 10px;
+}
+
+.cerrar:hover {
+  color: var(--color-secundario);
+}
+#cont-carrito {
+  max-height: 450px; /* Ajusta la altura máxima del carrito */
+  overflow-y: auto; /* Activa la barra de desplazamiento vertical */
+  padding: 1rem;
+  background-color: #fff;
+  scrollbar-width: thin; /* Para navegadores que soportan scrollbar-width */
+  scrollbar-color: var(--color-secundario) #f1f1f1; /* Personalización */
+}
+
+/* Personalización de la barra de desplazamiento */
+#cont-carrito::-webkit-scrollbar {
+  width: 8px; /* Ancho de la barra de desplazamiento */
+}
+
+#cont-carrito::-webkit-scrollbar-thumb {
+  background: #888; /* Color de la barra */
+  border-radius: 4px;
+}
+
+#cont-carrito::-webkit-scrollbar-thumb:hover {
+  background: #555; /* Color al pasar el ratón */
+}
+
+/*carta completa del articulo incluida la imagen*/
+.carta-articulo {
+  display: flex; /* Flexbox para alinear la imagen y detalles */
+  align-items: center; /* Centra verticalmente los elementos */
+  gap: 1rem; /* Espaciado entre los elementos */
+  margin: 0.5rem;
+  padding: 2px;
+  height: 175px;
+  width: 300px;
+  max-height: 200px;
+  border-radius: 2px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+}
+
+.containedor-imagen {
+  flex: 0 0 120px; /* Ancho fijo para la imagen */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  object-fit: contain;
+}
+.imagen-articulo {
+  max-width: 100%;
+  max-height: 120px;
+  object-fit: contain;
+}
+/*contenedor de nombre y detalles del articulo*/
+.contenedor-articulo {
+  flex: 1; /* Ocupa el resto del espacio disponible */
+  display: flex;
+  flex-direction: column; /* Los textos van en columna */
+  justify-content: flex-start; /* Alineación al inicio */
+  row-gap: 0.3rem; /* Espaciado entre los textos */
+}
+.articulo-nombre {
+  font-size: 1rem;
+  text-transform: uppercase;
+  font-weight: 500;
+  margin-top: 1rem;
+}
+.articulo-precio {
+  font-weight: 500;
+}
+.cantidad-eliminar-container {
+  display: flex;
+  gap: 50px; /* Espacio entre el input y el botón */
+}
+
+.articulo-cantidad {
+  border: 1px solid var(--color-secundario);
+  outline-color: var(--color-texto);
+  width: 2.4rem;
+  text-align: center;
+  font-size: 1rem;
+}
+
+.eliminar-articulo {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  font-size: 1.5rem;
+  color: var(--color-secundario);
+  display: inline-flex;
+  align-items: flex-end;
+}
+
+.titulo-total {
+  display: flex;
+  text-align: left;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  font-size: 1rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.total-articulos {
+  text-align: left;
+  margin-left: 0.5em;
+  font-size: 1rem;
+  font-weight: 0;
+}
+
+#btnComprar {
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  margin-top: 1rem;
+  margin-left: 25%;
+  transition: background-color 0.3s ease;
 }
