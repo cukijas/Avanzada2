@@ -86,11 +86,11 @@ body {
 }
 
 #PaginaInicial.transition-active::before {
-  transform: translateX(-100%); 
+  transform: translateX(-100%);
 }
 
 #PaginaInicial.transition-active::after {
-  transform: translateX(100%); 
+  transform: translateX(100%);
 }
 
 #PaginaRegistro {
@@ -253,7 +253,7 @@ body {
   background: var(--color-fondo);
   box-shadow: 0 2px 4px hsl(0 4% 15% / 10%);
   width: 100%;
-  position: relative; /* Ensure it is positioned relative to the page */
+  position: relative;
   z-index: 10;
 }
 
@@ -332,6 +332,18 @@ input[type="search"]::-webkit-search-cancel-button {
 /*esconde el cotenido de la pagina*/
 .hide {
   display: none;
+}
+
+#btnPedidos {
+  position: absolute;
+  top: 2em;
+  right: 350px;
+  background-color: transparent;
+  color: var(--color-secundario);
+  padding: 10px;
+  border-radius: 2px;
+  cursor: pointer;
+  transition: transform 0.3s ease, background-color 0.3s ease;
 }
 
 /* boton de ver carrito con el icono */
@@ -649,4 +661,75 @@ img {
   margin-top: 1rem;
   margin-left: 25%;
   transition: background-color 0.3s ease;
+}
+
+#PaginaPedidos
+{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-principal);
+}
+#PaginaCompra {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: var(--color-principal);
+}
+.Pie{
+  padding: 20px;
+  background: var(--color-fondo);
+  box-shadow: 4px 4px 4px hsl(0 4% 15% / 10%);
+  width: 100%;
+  position: absolute;
+  bottom: 1rem;
+}
+
+/*seccion: detalles de la compra*/
+#contenedor-total {
+  display: flex;
+  position: relative;
+  gap: 1em;
+  margin-left: 1em;
+}
+
+#contenedor-total h1 {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+#btnCancelar {
+  background-color: transparent;
+  border: 2px solid var(--color-secundario);
+  color: var(--color-texto);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+
+}
+#btnConfirmar {
+  background-color: var(--color-secundario);
+  color: var(--color-principal);
+  border: 2px solid var(--color-secundario);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+/*seccion: detalles de la compra*/
+.detalle
+{
+  display: block;
+  position: relative;
+  gap: 1em;
+  justify-content: center;
+  margin-top: 1em;
 }

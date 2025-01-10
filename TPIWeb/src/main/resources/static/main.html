@@ -21,7 +21,11 @@
         <h2>Correo electrónico</h2>
         <input type="text" id="txtCorreo" placeholder="Ingresa tu Correo" />
         <h2>Contraseña</h2>
-        <input id="txtContrasena" placeholder="Ingresa tu Contraseña" type="password"/>
+        <input
+          id="txtContrasena"
+          placeholder="Ingresa tu Contraseña"
+          type="password"
+        />
         <button id="btnIniciarSesion" onclick="iniciarSesion()">
           Iniciar Sesión
         </button>
@@ -36,7 +40,7 @@
     <div class="Pagina" id="PaginaRegistro">
       <div id="Registrar">
         <h1>Registrarse</h1>
-        <h2 class="etiqueta" >Nombre</h2>
+        <h2 class="etiqueta">Nombre</h2>
         <input type="text" id="txtNombreR" placeholder="Ingresa tu Nombre" />
         <h2 class="etiqueta">Dirección</h2>
         <input
@@ -65,14 +69,14 @@
     </div>
     <div class="Pagina" id="PaginaPrincipal">
       <header class="Encabezado">
-        
         <div id="cuadro-busqueda">
           <input
             type="search"
             id="txtBusqueda"
             placeholder="Busque aqui el nombre del producto"
           />
-          <button id="btnBuscarP">Buscar</i></button>
+          <button id="btnBuscarP">Buscar</button>
+          <button id="btnPedidos" onclick="verPedidos()">Mis Pedidos</button>
           <div class="icono-carrito" onclick="verCarrito()">
             Ver Carrito
             <i class="bx bx-cart"></i>
@@ -108,24 +112,82 @@
         <div class="panel-carrito" id="Carrito">
           <div class="titulo-carrito">
             Tu Carrito
-            <button class="cerrar" id="cerrar-carrito" onclick="cerrarCarrito()">
-              <i class='bx bx-x-circle'></i>
+            <button
+              class="cerrar"
+              id="cerrar-carrito"
+              onclick="cerrarCarrito()"
+            >
+              <i class="bx bx-x-circle"></i>
             </button>
           </div>
-          <div id="cont-carrito">
-          </div>
+          <div id="cont-carrito"></div>
           <div class="panel-total">
-            <div class="titulo-total" id="total">Total: </div>
+            <div class="titulo-total" id="total">Total:</div>
           </div>
           <button id="btnComprar" onclick="comprar()">Comprar Ahora</button>
         </div>
       </header>
       <main class="wrapper">
-        <div id="productos"></div>
+        <div id="productos">
+          <!-- en esta seccion se generan 
+          las cartas de todos los productos disponibles!-->
+        </div>
       </main>
     </div>
-    <div class="Pagina"></div>
+    <div class="Pagina" id="PaginaPedidos">
+      <div id="Pedidos">
+        <h1>Mis Pedidos</h1>
+        <div class="contenedor-pedidos">
+          <table class="table table-striped table-hover">
+            <thead class="tabla-pedidos">
+              <tr>
+                <th>Total</th>
+                <th>Fecha</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Las filas se agregarán dinámicamente aquí -->
+            </tbody>
+          </table>
+        </div>
+        <div class="detalle">hola</div>
+        <div class="Pie">
+          <button id="btnVolver" onclick="mostrarPrincipal()">Volver</button>
+        </div>
+      </div>
+    </div>
+    <div class="Pagina" id="PaginaCompra">
+      <table class="table table-striped table-hover">
+        <thead class="tabla-articulos">
+          <tr>
+            <th>Nombre</th>
+            <th>Cantidad</th>
+            <th>Precio</th>
+            <th>Subtotal</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- Las filas se agregarán dinámicamente aquí -->
+        </tbody>
+      </table>
+      <div class="Pie">
+        <div id="contenedor-pie">
+          <div id="contenedor-total">
+            <h1 id="titulo-total-f">Total</h1>
+            <h1 id="total-valor-f"></h1>
+          </div>
+          <button id="btnCancelar" onclick="mostrarPrincipal()">
+            Cancelar
+          </button>
+          <button id="btnConfirmar" onclick="finalizarCompra()">
+            Finalizar Compra
+          </button>
+        </div>
+      </div>
+    </div>
     <script src="main.js" async defer></script>
+    <script src="bootstrap-5.3.3-dist\js\bootstrap.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.4/dist/boxicons.js"></script>
   </body>
 </html>

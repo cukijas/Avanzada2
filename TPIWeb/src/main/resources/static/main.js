@@ -3,6 +3,8 @@ const apiProdUrl = "http://localhost:8080/api/productos";
 const apiArtUrl = "http://localhost:8080/api/articulos";
 const apiUsrUrl = "http://localhost:8080/api/usuarios";
 const apiCartUrl = "http://localhost:8080/api/carritos";
+const apiPedUrl = "http://localhost:8080/api/pedidos";
+const apiDetUrl = "http://localhost:8080/api/detalle_de_pedidos";
 
 //tomo la pagina inicial para cambiar el fondo
 const paginaInicial = document.querySelector("#PaginaInicial");
@@ -82,6 +84,8 @@ function mostrarRegistrar() {
 function mostrarPrincipal() {
   document.getElementById("PaginaInicial").classList.remove("centrada");
   document.getElementById("PaginaPrincipal").classList.add("visible");
+  document.getElementById("PaginaCompra").classList.remove("visible");
+  document.getElementById("PaginaPedidos").classList.remove("visible");
 
   const totalContainer = document.getElementById("total");
   const TotalValor = document.createElement("div");
@@ -212,6 +216,28 @@ async function fetchCarrito(id_usuario) {
   }
 }
 
+async function fetchPedidos() {
+  try {
+    const response = await fetch(apiPedUrl);
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    const responseData = await response.json();
+    const pedidos = Array.isArray(responseData)
+      ? responseData
+      : responseData.datos;
+
+    if (!Array.isArray(pedidos)) {
+      throw new Error("La respuesta no contiene un arreglo de pedidos.");
+    }
+
+    return pedidos;
+  } catch (error) {
+    console.error("Error al obtener los pedidos:", error);
+    return null;
+  }
+}
+
 //comprueba que el usuario exista y que la contraseña sea correcta
 async function iniciarSesion() {
   try {
@@ -272,7 +298,7 @@ function registrarUsuario() {
   if (!correo || !contrasena) {
     alert("Por favor, completa todos los campos.");
     return;
-  }else{
+  } else {
     fetchUsuarios().then((usuarios) => {
       if (!usuarios) {
         console.error("No se pudo obtener la lista de usuarios.");
@@ -280,20 +306,21 @@ function registrarUsuario() {
       }
       // Buscar el usuario en la lista
       const usuarioRegistrado = usuarios.find(
-        (usuario) =>
-          usuario.correo === correo
+        (usuario) => usuario.correo === correo
       );
-      if(usuarioRegistrado){
-        alert("El correo ingresado ya está registrado. Intenta con otro correo.");
+      if (usuarioRegistrado) {
+        alert(
+          "El correo ingresado ya está registrado. Intenta con otro correo."
+        );
         return;
-      }else{
+      } else {
         const nuevoUsuario = {
           direccion: direccion,
           contra: contrasena,
           nombre: nombre,
           correo: correo,
         };
-      
+
         fetch(apiUsrUrl, {
           method: "POST",
           headers: {
@@ -323,10 +350,12 @@ function registrarUsuario() {
             //mostrarAlerta();
           })
           .catch((error) => {
-            alert("Ocurrió un error al registrar el usuario. Intenta de nuevo.");
+            alert(
+              "Ocurrió un error al registrar el usuario. Intenta de nuevo."
+            );
             console.error("Error al registrar el usuario:", error);
           });
-        }
+      }
     });
   }
 }
@@ -387,6 +416,7 @@ function recuperarArticulos(productos) {
         });
 
         totalContainer.innerHTML = `$${total.toFixed(2)}`;
+        localStorage.setItem("total", total);
         //alert("Artículos recuperados correctamente.");
       } else {
         console.error("No se pudo obtener la lista de artículos.");
@@ -472,7 +502,6 @@ function tomarProductos(productos) {
     carta.appendChild(container);
 
     contenedorProductos.appendChild(carta);
-    
   }
 }
 
@@ -529,6 +558,75 @@ function filtrarProductos(valorCategoria) {
   });
 }
 
+function verPedidos() {
+  document.getElementById("PaginaPrincipal").classList.remove("visible");
+  document.getElementById("PaginaPedidos").classList.add("visible");
+  fetchPedidos().then((pedidos) => {
+    if (pedidos) {
+      const usuario = JSON.parse(localStorage.getItem("usuario"));
+      const pedidosUsuario = pedidos.filter(
+        (pedido) => pedido.usuario.id === usuario.id
+      );
+      console.log("Pedidos del usuario:", pedidosUsuario);
+      cargarPedidos(pedidosUsuario);
+    } else {
+      console.error("No se pudo obtener la lista de pedidos.");
+    }
+  });
+}
+
+function cargarPedidos(pedidos) {
+  const pedidosej = [
+    {
+      id: 1,
+      producto: "Teclado Mecánico",
+      cantidad: 2,
+      precio: 50,
+      estado: "Completado",
+    },
+    {
+      id: 2,
+      producto: 'Monitor 24"',
+      cantidad: 1,
+      precio: 150,
+      estado: "Pendiente",
+    },
+    {
+      id: 3,
+      producto: "Silla Gamer",
+      cantidad: 1,
+      precio: 200,
+      estado: "Cancelado",
+    },
+  ];
+
+  // Selecciona el <tbody> de la tabla
+  const tbody = document.querySelector("table tbody");
+
+  // Limpia el contenido previo del <tbody>
+  tbody.innerHTML = "";
+
+  // Recorre los pedidos y genera las filas dinámicamente
+  pedidos.forEach((pedido) => {
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+      <td>${pedido.total}</td>
+      <td>${pedido.fecha}</td>
+      <td>
+        <span class="badge bg-${
+          pedido.estado === "Entregado"
+            ? "success"
+            : pedido.estado === "Enviado"
+            ? "warning text-dark"
+            : "danger"
+        }">
+          ${pedido.estado}
+        </span>
+      </td>
+    `;
+    tbody.appendChild(fila);
+  });
+}
 //funcion del boton ver carrito alternadamente
 /*
 function verCarrito() {
@@ -547,7 +645,7 @@ function verCarrito() {
     productosWrapper.classList.remove("carrito-visible");
   }
 }
-  */
+*/
 
 function verCarrito() {
   const carrito = document.getElementById("Carrito");
@@ -859,4 +957,136 @@ function eliminarArticulo(id) {
       alert("Ocurrió un error al eliminar el artículo. Intenta de nuevo.");
       console.error("Error al eliminar el artículo:", error);
     });
+}
+
+function comprar() {
+  const total = localStorage.getItem("total");
+  if (total <= 0) {
+    alert("Añada un producto al carrito para poder finalizar su compra");
+    return;
+  } else {
+    const totalValor = document.getElementById("total-valor-f");
+    totalValor.innerHTML = "";
+    totalValor.innerHTML = `$${total}`;
+
+    document.getElementById("PaginaPrincipal").classList.remove("visible");
+    document.getElementById("PaginaCompra").classList.add("visible");
+    
+  }
+}
+
+function finalizarCompra() {
+  const usuario = JSON.parse(localStorage.getItem("usuario"));
+  const carrito = JSON.parse(localStorage.getItem("carrito"));
+  const total = localStorage.getItem("total");
+
+  const fechaActual = obtenerFechaActual();
+  const estadoInicial = "Pendiente";
+
+  const nuevoPedido = {
+    usuario: { id: usuario.id },
+    total: total,
+    fecha: fechaActual,
+    estado: estadoInicial,
+  };
+
+  fetch(apiPedUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(nuevoPedido),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Pedido registrado:", data);
+      encontrarArticulos().then((articulos) => {
+        articulos.forEach((articulo) => {
+          generarDetalle(articulo, data.id);
+        });
+      });
+      alert("Compra realizada con éxito.");
+      mostrarPrincipal();
+    })
+    .catch((error) => {
+      alert("Ocurrió un error al finalizar la compra. Intenta de nuevo.");
+      console.error("Error al finalizar la compra:", error);
+    });
+}
+
+function obtenerFechaActual() {
+  const fecha = new Date();
+
+  // Obtener el día, mes y año
+  const dia = String(fecha.getDate()).padStart(2, "0"); // Asegura dos dígitos
+  const mes = String(fecha.getMonth() + 1).padStart(2, "0"); // Mes comienza desde 0
+  const anio = fecha.getFullYear();
+
+  // Formatear la fecha en DD-MM-AAAA
+  return `${dia}-${mes}-${anio}`;
+}
+
+function generarDetalle(articulo, id_pedido) {
+  const total = articulo.cantidad_Articulo * articulo.producto.precio;
+  const detalle = {
+    cantidad_de_articulo: articulo.cantidad_Articulo,
+    precio_de_envio: 10.0,
+    total_por_articulo: total,
+    producto: { id: articulo.producto.id },
+    pedido: { id: id_pedido },
+  };
+
+  fetch(apiDetUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(detalle),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Error HTTP: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      console.log("Detalle registrado:", data);
+    })
+    .catch((error) => {
+      console.error("Error al registrar el detalle:", error);
+    });
+}
+
+async function encontrarArticulos() {
+  const carrito = JSON.parse(localStorage.getItem("carrito"));
+
+  try {
+    const productos = await fetchProductos();
+    if (!productos) {
+      console.error("No se pudo obtener la lista de productos.");
+      return [];
+    }
+
+    const articulos = await fetchArticulos();
+    if (!articulos) {
+      console.error("No se pudo obtener la lista de artículos.");
+      return [];
+    }
+
+    const articulosFiltrados = articulos.filter(
+      (articulo) =>
+        articulo.carrito.id === carrito.id &&
+        productos.some((producto) => producto.id === articulo.producto.id)
+    );
+
+    return articulosFiltrados;
+  } catch (error) {
+    console.error("Error al encontrar los artículos:", error);
+    return [];
+  }
 }

@@ -12,34 +12,33 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.principal.TPIWeb.Modelo.Persona;
-import com.principal.TPIWeb.Servicios.UsuarioServicio;
+import com.principal.TPIWeb.Modelo.Detalle_de_pedido;
+import com.principal.TPIWeb.Servicios.Detalle_de_pedidoServicio;
 
 @RestController
-@RequestMapping("/api/usuarios")
-public class UsuarioController {
-
+@RequestMapping("/api/detalle_de_pedidos")
+public class Detalle_de_pedidoController {
     @Autowired
-    private UsuarioServicio servicio;
+    private Detalle_de_pedidoServicio servicio;
 
     @GetMapping
-    public List<Persona> listarUsuarios() {
-        return servicio.listarUsuarios();
+    public List<Detalle_de_pedido> listarDetalle_de_pedidos() {
+        return servicio.listarDetalle_de_pedidos();
+    }
+
+    @GetMapping("/{id}")
+    public Detalle_de_pedido obtenerDetalle_de_pedidoPorId(@PathVariable int id) {
+        return servicio.obtenerDetalle_de_pedidoPorId(id);
     }
     
-    @GetMapping("/{id}")
-    public Persona obtenerUsuarioPorId(@PathVariable int id) {
-        return servicio.obtenerUsuarioPorId(id);
-    }   
-
     @PostMapping
-    public ResponseEntity<Persona> agregarUsuario(@RequestBody Persona usuario) {
+    public ResponseEntity<Detalle_de_pedido> agregarDetalle_de_pedido(@RequestBody Detalle_de_pedido detalle_de_pedido) {
         try {
             // Guardar el artículo en la base de datos
-            Persona UsuarioGuardado = servicio.agregarUsuario(usuario);
+            Detalle_de_pedido Detalle_de_pedidoGuardado = servicio.agregarDetalle_de_pedido(detalle_de_pedido);
 
             // Devolver el artículo guardado con estado 201 (Created)
-            return ResponseEntity.status(HttpStatus.CREATED).body(UsuarioGuardado);
+            return ResponseEntity.status(HttpStatus.CREATED).body(Detalle_de_pedidoGuardado);
         } catch (Exception e) {
             // Manejar errores
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

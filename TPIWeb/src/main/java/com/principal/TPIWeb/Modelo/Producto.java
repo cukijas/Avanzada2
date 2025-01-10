@@ -32,19 +32,25 @@ public class Producto implements Serializable {
     @OneToMany
     private List<Articulo> articulos;
 
+    @OneToMany
+    private List<Detalle_de_pedido> detalle_de_pedido;
+
     public Producto() {
     }
 
-    public Producto(List<Articulo> articulos, String categoria, String descripcion, int id, String imagen, String nombre_producto, float precio, int stock) {
+    public Producto(List<Articulo> articulos, String categoria, String descripcion, List<Detalle_de_pedido> detalle_de_pedido, int id, String imagen, String nombre_producto, float precio, int stock) {
         this.articulos = articulos;
         this.categoria = categoria;
         this.descripcion = descripcion;
+        this.detalle_de_pedido = detalle_de_pedido;
         this.id = id;
         this.imagen = imagen;
         this.nombre_producto = nombre_producto;
         this.precio = precio;
         this.stock = stock;
     }
+
+    
 
     public int getId() {
         return id;
@@ -124,6 +130,14 @@ public class Producto implements Serializable {
         sb.append(", articulos=").append(articulos);
         sb.append('}');
         return sb.toString();
+    }
+
+    public List<Detalle_de_pedido> getDetalle_de_pedido() {
+        return detalle_de_pedido;
+    }
+
+    public void setDetalle_de_pedido(List<Detalle_de_pedido> detalle_de_pedido) {
+        this.detalle_de_pedido = detalle_de_pedido;
     }
     
 
