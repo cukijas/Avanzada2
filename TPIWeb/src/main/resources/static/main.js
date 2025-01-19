@@ -238,6 +238,30 @@ async function fetchPedidos() {
   }
 }
 
+async function fetchDetallesPedido() {
+  try {
+    const response = await fetch(apiDetUrl);
+    if (!response.ok) {
+      throw new Error(`Error HTTP: ${response.status}`);
+    }
+    const responseData = await response.json();
+    const detalles = Array.isArray(responseData)
+      ? responseData
+      : responseData.datos;
+
+    if (!Array.isArray(detalles)) {
+      throw new Error(
+        "La respuesta no contiene un arreglo de detalles de pedido."
+      );
+    }
+
+    return detalles;
+  } catch (error) {
+    console.error("Error al obtener los detalles de pedido:", error);
+    return null;
+  }
+}
+
 //comprueba que el usuario exista y que la contraseña sea correcta
 async function iniciarSesion() {
   try {
@@ -576,32 +600,12 @@ function verPedidos() {
 }
 
 function cargarPedidos(pedidos) {
-  const pedidosej = [
-    {
-      id: 1,
-      producto: "Teclado Mecánico",
-      cantidad: 2,
-      precio: 50,
-      estado: "Completado",
-    },
-    {
-      id: 2,
-      producto: 'Monitor 24"',
-      cantidad: 1,
-      precio: 150,
-      estado: "Pendiente",
-    },
-    {
-      id: 3,
-      producto: "Silla Gamer",
-      cantidad: 1,
-      precio: 200,
-      estado: "Cancelado",
-    },
-  ];
-
   // Selecciona el <tbody> de la tabla
   const tbody = document.querySelector("table tbody");
+  if (!tbody) {
+    console.error("No se encontró el elemento <tbody> en el DOM.");
+    return;
+  }
 
   // Limpia el contenido previo del <tbody>
   tbody.innerHTML = "";
@@ -610,7 +614,7 @@ function cargarPedidos(pedidos) {
   pedidos.forEach((pedido) => {
     const fila = document.createElement("tr");
     fila.innerHTML = `
-      <td>${pedido.total}</td>
+      <td>$${pedido.total}</td>
       <td>${pedido.fecha}</td>
       <td>
         <span class="badge bg-${
@@ -624,7 +628,35 @@ function cargarPedidos(pedidos) {
         </span>
       </td>
     `;
+    fila.addEventListener("click", () => {
+      console.log("Pedido seleccionado:", pedido);
+      mostrarDetallePedido(pedido.id);
+    });
     tbody.appendChild(fila);
+  });
+}
+
+function mostrarDetallePedido(id_pedido) {
+  fetchDetallesPedido().then((detalles) => {
+    if (detalles) {
+      const detallesPedido = detalles.filter(
+        (detalle) => detalle.pedido.id === id_pedido
+      );
+      console.log("Detalles del pedido:", detallesPedido);
+      const contenedor = document.querySelector("#tabla-detalle tbody");
+      contenedor.innerHTML = ""; // Clear previous content
+      detallesPedido.forEach((detalle) => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+        <td>$${detalle.precio_de_envio}</td>
+        <td>${detalle.cantidad_de_Articulo}</td>
+        <td>$${detalle.total_por_Articulo}</td>
+        `;
+        contenedor.appendChild(fila);
+      });
+    } else {
+      console.error("No se pudo obtener la lista de detalles de pedido.");
+    }
   });
 }
 //funcion del boton ver carrito alternadamente
@@ -892,7 +924,6 @@ async function verificarArticulo(id_producto, id_carrito) {
   }
 }
 
-//actualiza la cantidad del articulo en la base de datos
 function actualizarCantidadArticulo(id, nuevaCantidad) {
   const articulo = {
     cantidad_Articulo: nuevaCantidad,
@@ -971,13 +1002,62 @@ function comprar() {
 
     document.getElementById("PaginaPrincipal").classList.remove("visible");
     document.getElementById("PaginaCompra").classList.add("visible");
-    
+    listarArticulos().then(() => {
+      console.log("Artículos listados correctamente.");
+    });
+  }
+}
+
+async function listarArticulos() {
+  try {
+    // Espera a que se obtengan los artículos
+    const articulos = await fetchArticulos();
+
+    // Selecciona el <tbody> de la tabla
+    const tbody = document.querySelector("#articulos-seleccionados");
+    if (!tbody) {
+      console.error("No se encontró el elemento <tbody> en el DOM.");
+      return;
+    }
+
+    // Limpia el contenido previo del <tbody>
+    tbody.innerHTML = "";
+
+    // Recorre los artículos y genera las filas dinámicamente
+    articulos.forEach((articulo) => {
+      if (
+        articulo.carrito.id === JSON.parse(localStorage.getItem("carrito")).id
+      ) {
+        const subTotal = articulo.producto
+          ? articulo.producto.precio * articulo.cantidad_Articulo
+          : "N/A";
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+        <td>${
+          articulo.producto
+            ? articulo.producto.nombre_producto
+            : "Producto no disponible"
+        }</td>
+        <td>${articulo.cantidad_Articulo}</td>
+        <td>${articulo.producto ? `$${articulo.producto.precio}` : "N/A"}</td>
+        <td>${subTotal !== "N/A" ? `$${subTotal}` : "N/A"}</td>
+      `;
+
+        // Agrega clases condicionales para resaltar casos específicos
+        if (!articulo.producto) {
+          fila.classList.add("text-danger"); // Resalta en rojo si el producto no está disponible
+        }
+        tbody.appendChild(fila);
+        console.log("Artículo listado:", articulo);
+      }
+    });
+  } catch (error) {
+    console.error("Error al listar los artículos:", error);
   }
 }
 
 function finalizarCompra() {
   const usuario = JSON.parse(localStorage.getItem("usuario"));
-  const carrito = JSON.parse(localStorage.getItem("carrito"));
   const total = localStorage.getItem("total");
 
   const fechaActual = obtenerFechaActual();
@@ -1008,6 +1088,7 @@ function finalizarCompra() {
       encontrarArticulos().then((articulos) => {
         articulos.forEach((articulo) => {
           generarDetalle(articulo, data.id);
+          eliminarArticulo(articulo.id_articulo);
         });
       });
       alert("Compra realizada con éxito.");
@@ -1032,11 +1113,14 @@ function obtenerFechaActual() {
 }
 
 function generarDetalle(articulo, id_pedido) {
-  const total = articulo.cantidad_Articulo * articulo.producto.precio;
+  const precio_envio = 10.00;
+  const total = articulo.cantidad_Articulo * articulo.producto.precio + precio_envio;
+  console.log("Total por artículo:", total);
+
   const detalle = {
-    cantidad_de_articulo: articulo.cantidad_Articulo,
-    precio_de_envio: 10.0,
-    total_por_articulo: total,
+    cantidad_de_Articulo: articulo.cantidad_Articulo,
+    precio_de_envio: precio_envio,
+    total_por_Articulo: total,
     producto: { id: articulo.producto.id },
     pedido: { id: id_pedido },
   };

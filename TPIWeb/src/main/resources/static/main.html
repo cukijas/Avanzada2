@@ -73,7 +73,7 @@
           <input
             type="search"
             id="txtBusqueda"
-            placeholder="Busque aqui el nombre del producto"
+            placeholder="Busque aquí el nombre del producto"
           />
           <button id="btnBuscarP">Buscar</button>
           <button id="btnPedidos" onclick="verPedidos()">Mis Pedidos</button>
@@ -133,13 +133,14 @@
           las cartas de todos los productos disponibles!-->
         </div>
       </main>
+      </div>
     </div>
-    <div class="Pagina" id="PaginaPedidos">
+      <div class="Pagina" id="PaginaPedidos">
       <div id="Pedidos">
-        <h1>Mis Pedidos</h1>
-        <div class="contenedor-pedidos">
-          <table class="table table-striped table-hover">
-            <thead class="tabla-pedidos">
+        <h1 class="titulo-pagina" >Mis Pedidos</h1>
+        <div id="contenedor-pedidos">
+          <table id="tabla-pedidos" class="table table-striped table-hover">
+            <thead>
               <tr>
                 <th>Total</th>
                 <th>Fecha</th>
@@ -151,15 +152,33 @@
             </tbody>
           </table>
         </div>
-        <div class="detalle">hola</div>
+        <div class="detalle">
+          <h1 class="titulo-pagina">Detalle del Pedido</h1>
+          <div id="contenedor-detalle">
+          <table id="tabla-detalle" class="table table-striped table-hover">
+            <thead>
+              <tr>
+                <th>Precio de Envio</th>
+                <th>Cantidad</th>
+                <th>Total de Articulo</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Las filas se agregarán dinámicamente aquí -->
+            </tbody>
+          </table>
+          </div>
+        </div>
         <div class="Pie">
+
           <button id="btnVolver" onclick="mostrarPrincipal()">Volver</button>
         </div>
       </div>
     </div>
     <div class="Pagina" id="PaginaCompra">
-      <table class="table table-striped table-hover">
-        <thead class="tabla-articulos">
+      <h1 class="titulo-pagina">Confirmar Compra</h1>
+      <table id="tabla-articulos" class="table table-striped table-hover">
+        <thead>
           <tr>
             <th>Nombre</th>
             <th>Cantidad</th>
@@ -167,7 +186,7 @@
             <th>Subtotal</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody id="articulos-seleccionados">
           <!-- Las filas se agregarán dinámicamente aquí -->
         </tbody>
       </table>

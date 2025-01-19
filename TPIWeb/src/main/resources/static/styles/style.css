@@ -294,7 +294,7 @@ body {
   border-bottom-color: var(--color-secundario);
 }
 
-#cuadro-busqueda button {
+#btnBuscarP {
   padding: 1em 2em;
   margin-left: 1em;
   border-radius: 5px;
@@ -337,13 +337,14 @@ input[type="search"]::-webkit-search-cancel-button {
 #btnPedidos {
   position: absolute;
   top: 2em;
-  right: 350px;
+  right: 380px;
+  border: 2px solid var(--color-secundario);
   background-color: transparent;
   color: var(--color-secundario);
-  padding: 10px;
-  border-radius: 2px;
   cursor: pointer;
-  transition: transform 0.3s ease, background-color 0.3s ease;
+  padding: 1em 1em;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
 /* boton de ver carrito con el icono */
@@ -725,6 +726,13 @@ img {
 }
 
 /*seccion: detalles de la compra*/
+#contenedor-total {
+  display: flex;
+  position: relative;
+  gap: 1em;
+  margin-left: 1em;
+}
+
 .detalle
 {
   display: block;
@@ -733,3 +741,50 @@ img {
   justify-content: center;
   margin-top: 1em;
 }
+
+.titulo-pagina
+{
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+#PaginaCompra table
+{
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1em;
+}
+
+.tabla-articulos
+{
+  border-top-color: var(--color-secundario);
+}
+
+/*seccion: pedidos*/
+#contenedor-pedidos
+{
+  max-height: 210px;
+  margin: 2rem;
+  overflow-y: auto;
+}
+#contenedor-detalle
+{
+  max-height: 210px;
+  margin: 2rem;
+  overflow-y: auto;
+}
+#btnVolver
+{
+  background-color: transparent;
+  border: 2px solid var(--color-secundario);
+  color: var(--color-texto);
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
