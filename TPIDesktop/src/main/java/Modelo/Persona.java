@@ -1,14 +1,14 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Persona implements Serializable {
@@ -20,15 +20,19 @@ public class Persona implements Serializable {
     private String Correo;
     private String Contra;
 
+    @OneToMany
+    private List<Pedido> pedidos;
+
     public Persona() {
     }
 
-    public Persona(int id, String Nombre, String Direccion, String Correo, String Contra) {
-        this.id = id;
-        this.Nombre = Nombre;
-        this.Direccion = Direccion;
-        this.Correo = Correo;
+    public Persona(String Contra, String Correo, String Direccion, String Nombre, int id, List<Pedido> pedidos) {
         this.Contra = Contra;
+        this.Correo = Correo;
+        this.Direccion = Direccion;
+        this.Nombre = Nombre;
+        this.id = id;
+        this.pedidos = pedidos;
     }
 
     public int getId() {
@@ -71,4 +75,13 @@ public class Persona implements Serializable {
         this.Contra = Contra;
     }
 
+    public List<Pedido> getPedidos() {
+        return pedidos;
+    }
+
+    public void setPedidos(List<Pedido> pedidos) {
+        this.pedidos = pedidos;
+    }
+
+   
 }

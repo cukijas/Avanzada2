@@ -5,16 +5,17 @@
 package Persistencia;
 
 import Modelo.Pedido;
-import Persistencia.exceptions.NonexistentEntityException;
 import java.io.Serializable;
+import javax.persistence.Query;
+import javax.persistence.EntityNotFoundException;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Root;
+import Modelo.Persona;
+import Persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Query;
-import javax.persistence.EntityNotFoundException;
 import javax.persistence.Persistence;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
 /**
  *
@@ -39,7 +40,16 @@ public class PedidoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Persona usuario = pedido.getUsuario();
+            if (usuario != null) {
+                usuario = em.getReference(usuario.getClass(), usuario.getId());
+                pedido.setUsuario(usuario);
+            }
             em.persist(pedido);
+            if (usuario != null) {
+                usuario.getPedidos().add(pedido);
+                usuario = em.merge(usuario);
+            }
             em.getTransaction().commit();
         } finally {
             if (em != null) {
@@ -53,7 +63,22 @@ public class PedidoJpaController implements Serializable {
         try {
             em = getEntityManager();
             em.getTransaction().begin();
+            Pedido persistentPedido = em.find(Pedido.class, pedido.getId());
+            Persona usuarioOld = persistentPedido.getUsuario();
+            Persona usuarioNew = pedido.getUsuario();
+            if (usuarioNew != null) {
+                usuarioNew = em.getReference(usuarioNew.getClass(), usuarioNew.getId());
+                pedido.setUsuario(usuarioNew);
+            }
             pedido = em.merge(pedido);
+            if (usuarioOld != null && !usuarioOld.equals(usuarioNew)) {
+                usuarioOld.getPedidos().remove(pedido);
+                usuarioOld = em.merge(usuarioOld);
+            }
+            if (usuarioNew != null && !usuarioNew.equals(usuarioOld)) {
+                usuarioNew.getPedidos().add(pedido);
+                usuarioNew = em.merge(usuarioNew);
+            }
             em.getTransaction().commit();
         } catch (Exception ex) {
             String msg = ex.getLocalizedMessage();
@@ -82,6 +107,11 @@ public class PedidoJpaController implements Serializable {
                 pedido.getId();
             } catch (EntityNotFoundException enfe) {
                 throw new NonexistentEntityException("The pedido with id " + id + " no longer exists.", enfe);
+            }
+            Persona usuario = pedido.getUsuario();
+            if (usuario != null) {
+                usuario.getPedidos().remove(pedido);
+                usuario = em.merge(usuario);
             }
             em.remove(pedido);
             em.getTransaction().commit();

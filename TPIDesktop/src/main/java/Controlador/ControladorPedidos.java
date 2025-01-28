@@ -23,9 +23,9 @@ public class ControladorPedidos {
     }
 
     public void EscribirPedido(float Total, String Estado, String Fecha) {
-        ped.setFecha_Pedido(Fecha);
-        ped.setEstado_Pedido(Estado);
-        ped.setTotal_pedido(Total);
+        ped.setFecha(Fecha);
+        ped.setEstado(Estado);
+        ped.setTotal(Total);
         CtrlPer.EscribirPedido(ped);
     }
 
@@ -38,9 +38,9 @@ public class ControladorPedidos {
     }
 
     public void EditarPedido(Pedido ped, String Estado, String Fecha, float Total) {
-        ped.setFecha_Pedido(Fecha);
-        ped.setEstado_Pedido(Estado);
-        ped.setTotal_pedido(Total);
+        ped.setFecha(Fecha);
+        ped.setEstado(Estado);
+        ped.setTotal(Total);
         CtrlPer.EditarPedido(ped);
     }
 }

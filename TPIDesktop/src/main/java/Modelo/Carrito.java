@@ -4,61 +4,34 @@
  */
 package Modelo;
 
+import Modelo.Persona;
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 
 @Entity
 public class Carrito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
-    private int Cantidad_Producto;
-    private float Detalle_envio;
-    private float PrecioXarticulo;
-    private float resumenCarrito;
+    @OneToMany
+    private List<Articulo> articulos;
+
+    @OneToOne
+    private Persona usuario;
 
     public Carrito() {
     }
 
-    public Carrito(int Cantidad_Producto, float Detalle_envio, float PrecioXarticulo) {
-        this.Cantidad_Producto = Cantidad_Producto;
-        this.Detalle_envio = Detalle_envio;
-        this.PrecioXarticulo = PrecioXarticulo;
-    }
-
-    public int getCantidad_Producto() {
-        return Cantidad_Producto;
-    }
-
-    public void setCantidad_Producto(int Cantidad_Producto) {
-        this.Cantidad_Producto = Cantidad_Producto;
-    }
-
-    public float getDetalle_envio() {
-        return Detalle_envio;
-    }
-
-    public void setDetalle_envio(float Detalle_envio) {
-        this.Detalle_envio = Detalle_envio;
-    }
-
-    public float getPrecioXarticulo() {
-        return PrecioXarticulo;
-    }
-
-    public void setPrecioXarticulo(float PrecioXarticulo) {
-        this.PrecioXarticulo = PrecioXarticulo;
-    }
-
-    public float getResumenCarrito() {
-        return resumenCarrito;
-    }
-
-    public void setResumenCarrito(float resumenCarrito) {
-        this.resumenCarrito = resumenCarrito;
+    public Carrito(int id, List<Articulo> articulos, Persona usuario) {
+        this.id = id;
+        this.articulos = articulos;
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -68,5 +41,33 @@ public class Carrito implements Serializable {
     public void setId(int id) {
         this.id = id;
     }
+
+    public List<Articulo> getArticulos() {
+        return articulos;
+    }
+
+    public void setArticulos(List<Articulo> articulos) {
+        this.articulos = articulos;
+    }
+
+    public Persona getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Persona usuario) {
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Carrito{");
+        sb.append("id=").append(id);
+        sb.append(", articulos=").append(articulos);
+        sb.append(", usuario=").append(usuario);
+        sb.append('}');
+        return sb.toString();
+    }
+
     
 }

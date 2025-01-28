@@ -427,7 +427,7 @@ public class VListarPedidos extends javax.swing.JFrame {
         //asigna a la tabla todos los productos de la lista
         if (LPeds != null) {
             for (Pedido ped : LPeds) {
-                Object[] objetos = {ped.getId(), ped.getEstado_Pedido(), ped.getFecha_Pedido(), ped.getTotal_pedido()};
+                Object[] objetos = {ped.getId(), ped.getEstado(), ped.getFecha(), ped.getTotal()};
                 ModeloTabla.addRow(objetos);
             }
         }

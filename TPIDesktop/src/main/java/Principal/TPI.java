@@ -10,11 +10,11 @@ Integrantes del grupo:
 -Romero, Micaela Denisse
 -Toledo,Alejandro Emiliano*/
 public class TPI {
-    /* 
+    
     public static void main(String[] args) {
         //abre la ventana principal
         VentanaAdministrador admin = new VentanaAdministrador();
         admin.setVisible(true);
         admin.setLocationRelativeTo(null);
-    }*/
+    }
 }

@@ -5,21 +5,44 @@
 package Modelo;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Entity;
+
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Pedido implements Serializable {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE) 
     private int id;
-    private String Estado_Pedido; 
-    private String Fecha_Pedido;
-    private float Total_pedido;
+    private String Estado;
+    private String Fecha;
+    private float Total;
 
+    @OneToMany
+    private List<Detalle_de_pedido> Detalle;
+
+    @ManyToOne
+    @JoinColumn(name = "usuario_id", nullable = false)
+    private Persona usuario;
+
+    
     public Pedido() {
+    }
+
+    public Pedido(List<Detalle_de_pedido> Detalle, String Estado, String Fecha, float Total, int id, Persona usuario) {
+        this.Detalle = Detalle;
+        this.Estado = Estado;
+        this.Fecha = Fecha;
+        this.Total = Total;
+        this.id = id;
+        this.usuario = usuario;
     }
 
     public int getId() {
@@ -30,35 +53,63 @@ public class Pedido implements Serializable {
         this.id = id;
     }
 
-    public String getEstado_Pedido() {
-        return Estado_Pedido;
+    public String getEstado() {
+        return Estado;
     }
 
-    public void setEstado_Pedido(String Estado_Pedido) {
-        this.Estado_Pedido = Estado_Pedido;
+    public void setEstado(String Estado) {
+        this.Estado = Estado;
     }
 
-    public String getFecha_Pedido() {
-        return Fecha_Pedido;
+    public String getFecha() {
+        return Fecha;
     }
 
-    public void setFecha_Pedido(String Fecha_Pedido) {
-        this.Fecha_Pedido = Fecha_Pedido;
+    public void setFecha(String Fecha) {
+        this.Fecha = Fecha;
     }
 
-    public float getTotal_pedido() {
-        return Total_pedido;
+    public float getTotal() {
+        return Total;
     }
 
-    public void setTotal_pedido(float Total_pedido) {
-        this.Total_pedido = Total_pedido;
+    public void setTotal(float Total) {
+        this.Total = Total;
     }
 
-    public Pedido(int id, String Estado_Pedido, String Fecha_Pedido, float Total_pedido) {
-        this.id = id;
-        this.Estado_Pedido = Estado_Pedido;
-        this.Fecha_Pedido = Fecha_Pedido;
-        this.Total_pedido = Total_pedido;
+    public List<Detalle_de_pedido> getDetalle() {
+        return Detalle;
     }
-    
+
+    public void setDetalle(List<Detalle_de_pedido> Detalle) {
+        this.Detalle = Detalle;
+    }
+
+    public Persona getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(Persona usuario) {
+        this.usuario = usuario;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Pedido{");
+        sb.append("id=").append(id);
+        sb.append(", Estado=").append(Estado);
+        sb.append(", Fecha=").append(Fecha);
+        sb.append(", Total=").append(Total);
+        sb.append(", Detalle=").append(Detalle);
+        sb.append(", usuario=").append(usuario);
+        sb.append('}');
+        return sb.toString();
+    }
+
+
+
 }
+    
+   
+    

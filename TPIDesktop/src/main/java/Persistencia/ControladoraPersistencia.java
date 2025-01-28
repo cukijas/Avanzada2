@@ -3,6 +3,7 @@ package Persistencia;
 import Modelo.Pedido;
 import Modelo.Persona;
 import Modelo.Producto;
+import Persistencia.exceptions.IllegalOrphanException;
 import Persistencia.exceptions.NonexistentEntityException;
 import java.util.List;
 import java.util.logging.Level;
@@ -26,8 +27,12 @@ public class ControladoraPersistencia {
 
     public void EliminarProducto(int CodigoProducto) {
         try {
-            ProdJPA.destroy(CodigoProducto);
-        } catch (NonexistentEntityException ex) {
+            try {
+                ProdJPA.destroy(CodigoProducto);
+            } catch (NonexistentEntityException ex) {
+                Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        } catch (IllegalOrphanException ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -55,7 +60,11 @@ public class ControladoraPersistencia {
 
     public void EliminarUsuario(int id) {
         try {
-            UsrJPA.destroy(id);
+            try {
+                UsrJPA.destroy(id);
+            } catch (IllegalOrphanException ex) {
+                Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
+            }
         } catch (NonexistentEntityException ex) {
             Logger.getLogger(ControladoraPersistencia.class.getName()).log(Level.SEVERE, null, ex);
         }

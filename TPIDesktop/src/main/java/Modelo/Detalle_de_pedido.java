@@ -4,33 +4,48 @@
  */
 package Modelo;
 
-/**
- *
- * @author emito
- */
-public class Detalle_de_pedido {
+import java.io.Serializable;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 
-    private int ID_de_detalle;
+
+@Entity
+public class Detalle_de_pedido implements Serializable {
+    
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    private int id;
     private float Precio_de_envio;
     private int Cantidad_de_Articulo;
     private float Total_por_Articulo;
+    
+    @ManyToOne
+    private Producto producto;
+
+    @ManyToOne
+    private Pedido pedido;
 
     public Detalle_de_pedido() {
     }
 
-    public Detalle_de_pedido(int ID_de_detalle, float Precio_de_envio, int Cantidad_de_Articulo, float Total_por_Articulo) {
-        this.ID_de_detalle = ID_de_detalle;
-        this.Precio_de_envio = Precio_de_envio;
+    public Detalle_de_pedido(int Cantidad_de_Articulo, float Precio_de_envio, float Total_por_Articulo, int id, Pedido pedido, Producto producto) {
         this.Cantidad_de_Articulo = Cantidad_de_Articulo;
+        this.Precio_de_envio = Precio_de_envio;
         this.Total_por_Articulo = Total_por_Articulo;
+        this.id = id;
+        this.pedido = pedido;
+        this.producto = producto;
     }
 
-    public int getID_de_detalle() {
-        return ID_de_detalle;
+    public int getId() {
+        return id;
     }
 
-    public void setID_de_detalle(int ID_de_detalle) {
-        this.ID_de_detalle = ID_de_detalle;
+    public void setId(int id) {
+        this.id = id;
     }
 
     public float getPrecio_de_envio() {
@@ -55,6 +70,22 @@ public class Detalle_de_pedido {
 
     public void setTotal_por_Articulo(float Total_por_Articulo) {
         this.Total_por_Articulo = Total_por_Articulo;
+    }
+
+    public Producto getProducto() {
+        return producto;
+    }
+
+    public void setProducto(Producto producto) {
+        this.producto = producto;
+    }
+
+    public Pedido getPedido() {
+        return pedido;
+    }
+
+    public void setPedido(Pedido pedido) {
+        this.pedido = pedido;
     }
 
 }
